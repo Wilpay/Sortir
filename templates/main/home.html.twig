@@ -6,4 +6,50 @@
     <p class="lead">
         Bienvenue sur Sortie.com !
     </p>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-6 mb-3">
+                <div class="form-group row pr-3">
+                    <label for="site" class="col-12 col-sm-4">Site :</label>
+                    <select class="custom-select col-12 col-sm-8" id="site">
+                        <option value="1">SAINT HERBLAIN</option>
+                        <option value="2">...</option>
+                    </select>
+                </div>
+                <div class="form-group row pr-3">
+                    <label for="search" class="col-12 col-sm-4">Le nom de la sortie contient :</label>
+                    <input type="text" class="form-control col-12 col-sm-8" id="search">
+                </div>
+                <div class="row px-3">
+                    <span class="pr-3">Entre</span>
+                    <div class="form-group m-0 col p-0">
+                        <input type="date" class="form-control" id="debut">
+                    </div>
+                    <span class="px-3">et</span>
+                    <div class="form-group m-0 col p-0">
+                        <input type="date" class="form-control" id="fin">
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-md-6">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="remember">
+                    <label class="custom-control-label" for="remember">Sorties dont je suis l'organisateur(trice)</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="remember">
+                    <label class="custom-control-label" for="remember">Sorties auxquelles je suis insrit(e)</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="remember">
+                    <label class="custom-control-label" for="remember">Sorties auxquelles je ne suis pas insrit(e)</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" id="remember">
+                    <label class="custom-control-label" for="remember">Sorties passées</label>
+                </div>
+                <a class="btn btn-block btn-secondary mt-3">Recherche</a>
+            </div>
+        </div>
+    </div>
 {% endblock %}

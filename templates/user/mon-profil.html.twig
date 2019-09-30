@@ -5,34 +5,55 @@
     <hr class="my-3">
     <form class="container">
         <div class="form-group row pr-3">
-            <label for="login" class="col-4">Pseudo :</label>
-            <input type="text" class="form-control col-8" id="login">
+            <label for="pseudo" class="col-4">Pseudo :</label>
+            <input type="text" class="form-control col-8" id="pseudo">
         </div>
         <div class="form-group row pr-3">
-            <label for="mdp" class="col-4">Prénom :</label>
-            <input type="password" class="form-control col-8" id="mdp">
+            <label for="prenom" class="col-4">Prénom :</label>
+            <input type="password" class="form-control col-8" id="prenom">
         </div>
         <div class="form-group row pr-3">
-            <label for="mdp" class="col-4">Nom :</label>
-            <input type="password" class="form-control col-8" id="mdp">
+            <label for="nom" class="col-4">Nom :</label>
+            <input type="password" class="form-control col-8" id="nom">
         </div>
         <div class="form-group row pr-3">
-            <label for="mdp" class="col-4">Téléphone :</label>
-            <input type="password" class="form-control col-8" id="mdp">
+            <label for="telephone" class="col-4">Téléphone :</label>
+            <input type="password" class="form-control col-8" id="telephone">
         </div>
         <div class="form-group row pr-3">
-            <label for="mdp" class="col-4">Email :</label>
-            <input type="password" class="form-control col-8" id="mdp">
+            <label for="email" class="col-4">Email :</label>
+            <input type="password" class="form-control col-8" id="email">
         </div>
         <div class="form-group row pr-3">
             <label for="mdp" class="col-4">Mot de passe :</label>
             <input type="password" class="form-control col-8" id="mdp">
         </div>
         <div class="form-group row pr-3">
-            <label for="mdp" class="col-4">Confirmation :</label>
-            <input type="password" class="form-control col-8" id="mdp">
+            <label for="confirm" class="col-4">Confirmation :</label>
+            <input type="password" class="form-control col-8" id="confirm">
         </div>
-        <button type="submit" class="btn btn-block btn-success">Enregister</button>
-        <button type="submit" class="btn btn-block btn-danger">Annuler</button>
+        <div class="form-group row pr-3">
+            <label for="ville" class="col-4">Ville de rattachement :</label>
+            <select class="custom-select col-8" id="ville">
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+        <div class="form-group row pr-3">
+            <label for="mdp" class="col-4">Ma photo :</label>
+            <div class="custom-file col-8">
+                <input type="file" class="custom-file-input" id="inputGroupFile01">
+                <label class="custom-file-label" for="inputGroupFile01">Télécharger vers le serveur</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-6 pb-3">
+                <button type="submit" class="btn btn-block btn-success">Enregister</button>
+            </div>
+            <div class="col-12 col-sm-6">
+                <button type="submit" class="btn btn-block btn-danger">Annuler</button>
+            </div>
+        </div>
     </form>
 {% endblock %}
