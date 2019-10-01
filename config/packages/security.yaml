@@ -5,7 +5,7 @@ security:
         app_user_provider:
             entity:
                 class: App\Entity\Participant
-                property: username
+                property: pseudo
     encoders:
         # Pour l'encodage du mot de passe
         App\Entity\Participant:
