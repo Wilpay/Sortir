@@ -3,35 +3,33 @@
 {% block body %}
     <h1 class="display-4">ACCUEIL</h1>
     <hr class="my-3">
-    <p class="lead">
-        Bienvenue sur Sortie.com !
-    </p>
     <div class="container-fluid">
+        <h4 class="mb-3">Filtrer les sorties</h4>
         <div class="row">
-            <div class="col-12 col-md-6 mb-3">
+            <div class="col-12 col-sm-12 col-md-6 mb-3">
                 <div class="form-group row pr-3">
-                    <label for="site" class="col-12 col-sm-4">Site :</label>
+                    <label for="site" class="col-12 col-sm-4 m-auto">Site :</label>
                     <select class="custom-select col-12 col-sm-8" id="site">
                         <option value="1">SAINT HERBLAIN</option>
                         <option value="2">...</option>
                     </select>
                 </div>
                 <div class="form-group row pr-3">
-                    <label for="search" class="col-12 col-sm-4">Le nom de la sortie contient :</label>
+                    <label for="search" class="col-12 col-sm-4 m-auto">Recherche nom :</label>
                     <input type="text" class="form-control col-12 col-sm-8" id="search">
                 </div>
                 <div class="row px-3">
-                    <span class="pr-3">Entre</span>
+                    <span class="pr-3 m-auto">Entre</span>
                     <div class="form-group m-0 col p-0">
                         <input type="date" class="form-control" id="debut">
                     </div>
-                    <span class="px-3">et</span>
+                    <span class="px-3 m-auto">et</span>
                     <div class="form-group m-0 col p-0">
                         <input type="date" class="form-control" id="fin">
                     </div>
                 </div>
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-sm-12 col-md-6">
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" class="custom-control-input" id="remember">
                     <label class="custom-control-label" for="remember">Sorties dont je suis l'organisateur(trice)</label>
@@ -51,5 +49,75 @@
                 <a class="btn btn-block btn-secondary mt-3">Recherche</a>
             </div>
         </div>
+    </div>
+    <hr>
+    <div class="container-fluid">
+        <table class="table table-sm">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nom de la sortie</th>
+                <th scope="col">Date de la sortie</th>
+                <th scope="col">Clôture</th>
+                <th scope="col">Inscrits / Places</th>
+                <th scope="col">Etat</th>
+                <th scope="col">Inscrit</th>
+                <th scope="col">Organisateur</th>
+                <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">Philo</th>
+                    <td>19/07/2018 23:45</td>
+                    <td>19/07/2018</td>
+                    <td>8/8</td>
+                    <td>En cours</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td>Spinoz A.</td>
+                    <td><i class="far fa-eye pr-3"></i></td>
+                </tr>
+                <tr>
+                    <th scope="row">Perles</th>
+                    <td>21/07/2018 20:00</td>
+                    <td>18/07/2018</td>
+                    <td>2/12</td>
+                    <td>Fermé</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td>Jojo56</td>
+                    <td><i class="far fa-eye pr-3"></i><i class="fas fa-sign-out-alt pr-3"></i></td>
+                </tr>
+                <tr>
+                    <th scope="row">Jardinage</th>
+                    <td>02/08/2018 18:30</td>
+                    <td>28/07/2018</td>
+                    <td>3/5</td>
+                    <td>Ouvert</td>
+                    <td><i class="fas fa-check"></i></td>
+                    <td>Rémi S.</td>
+                    <td><i class="far fa-eye pr-3"></i><i class="fas fa-sign-in-alt pr-3"></i></td>
+                </tr>
+                <tr>
+                    <th scope="row">Cinéma</th>
+                    <td>04/08/2018 21:00</td>
+                    <td>04/08/2018</td>
+                    <td>0/10</td>
+                    <td>En création</td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td>Quentin B.</td>
+                    <td><i class="fas fa-edit pr-3"></i><i class="fas fa-download pr-3"></i></td>
+                </tr>
+                <tr>
+                    <th scope="row">Pâte à sel</th>
+                    <td>03/08/2018 19:30</td>
+                    <td>27/07/2018</td>
+                    <td>0/5</td>
+                    <td>Ouvert</td>
+                    <td><i class="fas fa-times"></i></td>
+                    <td>Quentin B.</td>
+                    <td><i class="far fa-eye pr-3"></i><i class="fas fa-window-close pr-3"></i></td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-block btn-success">Créer une sortie</button>
     </div>
 {% endblock %}
