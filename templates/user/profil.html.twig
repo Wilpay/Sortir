@@ -9,11 +9,11 @@
                 Pseudo
             </div>
             <div class="card-body">
-                <p class="card-text"><span class="h6">Prénom: </span>Quentin</p>
-                <p class="card-text"><span class="h6">Nom: </span>Baudry</p>
-                <p class="card-text"><span class="h6">Téléphone: </span>0123456789</p>
-                <p class="card-text"><span class="h6">Email: </span>quentin.baudry@campus-eni.fr</p>
-                <p class="card-text"><span class="h6">Ville de rattachement: </span>Vallet</p>
+                <p class="card-text"><span class="h6">Prénom: </span>{{ participant.prenom }}</p>
+                <p class="card-text"><span class="h6">Nom: </span>{{ participant.nom }}</p>
+                <p class="card-text"><span class="h6">Téléphone: </span>{{ participant.telephone }}</p>
+                <p class="card-text"><span class="h6">Email: </span>{{ participant.mail }}</p>
+                <p class="card-text"><span class="h6">Ville de rattachement: </span>{{ participant.site.nom }}</p>
                 <a href="#" class="btn btn-block btn-danger">Retour</a>
             </div>
         </div>

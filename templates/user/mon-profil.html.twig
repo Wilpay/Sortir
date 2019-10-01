@@ -3,42 +3,39 @@
 {% block body %}
     <h1 class="display-4">MON PROFIL</h1>
     <hr class="my-3">
-    <form class="container">
+    <div class="container">
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        {{ form_start(form) }}
         <div class="form-group row pr-3">
             <label for="pseudo" class="col-4 m-auto">Pseudo :</label>
-            <input type="text" class="form-control col-8" id="pseudo">
+            {{ form_widget(form.pseudo, {'attr': {'class': 'form-control col-8'}}) }}
         </div>
         <div class="form-group row pr-3">
             <label for="prenom" class="col-4 m-auto">Prénom :</label>
-            <input type="password" class="form-control col-8" id="prenom">
+            {{ form_widget(form.prenom, {'attr': {'class': 'form-control col-8'}}) }}
         </div>
         <div class="form-group row pr-3">
             <label for="nom" class="col-4 m-auto">Nom :</label>
-            <input type="password" class="form-control col-8" id="nom">
+            {{ form_widget(form.nom, {'attr': {'class': 'form-control col-8'}}) }}
         </div>
         <div class="form-group row pr-3">
             <label for="telephone" class="col-4 m-auto">Téléphone :</label>
-            <input type="password" class="form-control col-8" id="telephone">
+            {{ form_widget(form.telephone, {'attr': {'class': 'form-control col-8'}}) }}
         </div>
         <div class="form-group row pr-3">
             <label for="email" class="col-4 m-auto">Email :</label>
-            <input type="password" class="form-control col-8" id="email">
-        </div>
-        <div class="form-group row pr-3">
-            <label for="mdp" class="col-4 m-auto">Mot de passe :</label>
-            <input type="password" class="form-control col-8" id="mdp">
-        </div>
-        <div class="form-group row pr-3">
-            <label for="confirm" class="col-4 m-auto">Confirmation :</label>
-            <input type="password" class="form-control col-8" id="confirm">
+            {{ form_widget(form.mail, {'attr': {'class': 'form-control col-8'}}) }}
         </div>
         <div class="form-group row pr-3">
             <label for="ville" class="col-4 m-auto">Ville de rattachement :</label>
-            <select class="custom-select col-8" id="ville">
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-            </select>
+            {{ form_widget(form.site, {'attr': {'class': 'form-control col-8'}}) }}
         </div>
         <div class="form-group row pr-3">
             <label for="mdp" class="col-4 m-auto">Ma photo :</label>
@@ -47,13 +44,18 @@
                 <label class="custom-file-label" for="inputGroupFile01">Télécharger vers le serveur</label>
             </div>
         </div>
+        <div class="form-group row pr-3">
+            <label for="mdp" class="col-4 m-auto">Mot de passe :</label>
+            {{ form_widget(form.passwordPlain, {'attr': {'class': 'form-control col-8'}}) }}
+        </div>
         <div class="row">
             <div class="col-12 col-sm-6 pb-3">
                 <button type="submit" class="btn btn-block btn-success">Enregister</button>
             </div>
             <div class="col-12 col-sm-6">
-                <button type="submit" class="btn btn-block btn-danger">Annuler</button>
+                <a href="{{ path('home') }}" class="btn btn-block btn-danger">Annuler</a>
             </div>
         </div>
-    </form>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
