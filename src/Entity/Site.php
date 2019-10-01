@@ -19,6 +19,22 @@ class Site
     private $nom;
 
     /**
+     * @var \App\Entity\Sortie
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", inversedBy="siteOrganise")
+     * @ORM\JoinColumn(name="idSortie", referencedColumnName="idSite")
+     */
+    private $siteOrganisateur;
+
+    /**
+     * @var \App\Entity\Participant
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Participant", inversedBy="rattache")
+     * @ORM\JoinColumn(name="idparticipant", referencedColumnName="idSite")
+     */
+    private $estrattache;
+
+    /**
      * @return mixed
      */
     public function getIdSite()
@@ -50,5 +66,37 @@ class Site
         $this->nom = $nom;
     }
 
-    
+    /**
+     * @return Sortie
+     */
+    public function getSiteOrganisateur(): Sortie
+    {
+        return $this->siteOrganisateur;
+    }
+
+    /**
+     * @param Sortie $siteOrganisateur
+     */
+    public function setSiteOrganisateur(Sortie $siteOrganisateur)
+    {
+        $this->siteOrganisateur = $siteOrganisateur;
+    }
+
+    /**
+     * @return Participant
+     */
+    public function getEstrattache(): Participant
+    {
+        return $this->estrattache;
+    }
+
+    /**
+     * @param Participant $estrattache
+     */
+    public function setEstrattache(Participant $estrattache)
+    {
+        $this->estrattache = $estrattache;
+    }
+
+
 }
