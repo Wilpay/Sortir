@@ -34,6 +34,10 @@
             {{ form_widget(form.mail, {'attr': {'class': 'form-control col-8'}}) }}
         </div>
         <div class="form-group row pr-3">
+            <label for="site" class="col-4 m-auto">Site de rattachement :</label>
+            {{ form_widget(form.site, {'attr': {'class': 'form-control col-8'}}) }}
+        </div>
+        <div class="form-group row pr-3">
             <label for="mdp" class="col-4 m-auto">Mot de passe :</label>
             {{ form_widget(form.passwordPlain, {'attr': {'class': 'form-control col-8'}}) }}
         </div>

@@ -40,7 +40,7 @@ class UserController extends Controller
             $em->persist($user);
             $em->flush();
 
-            $this->addFlash('success', 'Utilisateur ajouté');
+            $this->addFlash('success', 'Participant inscrit');
             return $this->redirectToRoute('connexion');
         }
 
@@ -71,18 +71,47 @@ class UserController extends Controller
     public function deconnexion(){}
 
     /**
-     * @Route("/monProfil", name="monProfil")
+     * @Route("/profil", name="profil")
      */
-    public function monProfil()
+    public function monProfil(
+        Request $request,
+        EntityManagerInterface $em,
+        UserPasswordEncoderInterface $encoder
+    )
     {
-        return $this->render("user/mon-profil.html.twig");
+        $user = $this->getUser();
+
+        $form = $this->createForm(ParticipantType::class, $user);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+
+            //Gérer le mot de passe : encodage
+            $password = $encoder->encodePassword($user, $user->getPasswordPlain());
+            $user->setPassword($password);
+
+            $user->setActif(0);
+
+            $em->persist($user);
+            $em->flush();
+
+            $this->addFlash('success', 'Participant modifié');
+            return $this->redirectToRoute('home');
+        }
+
+        return $this->render("user/mon-profil.html.twig", [
+            'form' => $form->createView()
+        ]);
     }
 
     /**
-     * @Route("/profil", name="profil")
+     * @Route("/profil/{id}", name="profil_user")
      */
-    public function profil()
+    public function profil(EntityManagerInterface $em, $id)
     {
-        return $this->render("user/profil.html.twig");
+        $participant = $em->getRepository(Participant::class)->find($id);
+
+        return $this->render("user/profil.html.twig", [
+            'participant' => $participant,
+        ]);
     }
 }
