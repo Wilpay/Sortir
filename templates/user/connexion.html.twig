@@ -3,7 +3,21 @@
 {% block body %}
     <h1 class="display-4">CONNEXION</h1>
     <hr class="my-3">
-    <form class="container">
+    <form class="container" method="post" action="{{ path('connexion') }}">
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error.message }}
+            </div>
+        {% endif %}
+
         <div class="form-group">
             <label for="login">Identifiant :</label>
             <input type="text" class="form-control" id="login">
@@ -17,6 +31,7 @@
             <label class="custom-control-label" for="remember">Se souvenir de moi</label>
         </div>
         <a class="btn btn-link" href="#">Mot de passe oublié ?</a>
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
         <button type="submit" class="btn btn-block btn-primary mt-3">Connexion</button>
     </form>
 {% endblock %}

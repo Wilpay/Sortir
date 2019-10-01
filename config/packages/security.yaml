@@ -1,13 +1,37 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        in_memory: { memory: null }
+        # in_memory: { memory: null }
+        app_user_provider:
+            entity:
+                class: App\Entity\Participant
+                property: username
+    encoders:
+        # Pour l'encodage du mot de passe
+        App\Entity\Participant:
+            algorithm: bcrypt
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            anonymous: true
+            # anonymous: true
+            anonymous: ~
+            pattern: ^/
+            provider: app_user_provider
+            # Pour le login
+            form_login:
+                # Nom de la route
+                login_path: connexion
+                check_path: connexion
+            logout_on_user_change: true
+            logout:
+                path: deconnexion
+                target: home
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 604800 # 1 week in seconds
+                path: /
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
