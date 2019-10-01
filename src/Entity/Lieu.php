@@ -5,19 +5,19 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
-class Lieux
+class Lieu
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private $no_lieu;
+    private $idLieu;
 
     /**
      * @ORM\Column (type="string", length=30)
      */
-    private $nom_lieu;
+    private $nom;
 
     /**
      * @ORM\Column (type="string", length=30)
@@ -35,35 +35,51 @@ class Lieux
     private  $longitude;
 
     /**
+     * @var \App\Entity\Ville
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="LieuVilles")
+     * @ORM\JoinColumn(name="idVille", referencedColumnName="idLieu")
+     */
+    private $Ville;
+
+    /**
+     * @var \App\Entity\Sortie
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Sortie", inversedBy="LieuSorties")
+     * @ORM\JoinColumn(name="idSortie", referencedColumnName="idLieu")
+     */
+    private $Sortie;
+
+    /**
      * @return mixed
      */
-    public function getNoLieu()
+    public function getIdLieu()
     {
-        return $this->no_lieu;
+        return $this->idLieu;
     }
 
     /**
-     * @param mixed $no_lieu
+     * @param mixed $idLieu
      */
-    public function setNoLieu($no_lieu)
+    public function setIdLieu($idLieu)
     {
-        $this->no_lieu = $no_lieu;
+        $this->idLieu = $idLieu;
     }
 
     /**
      * @return mixed
      */
-    public function getNomLieu()
+    public function getNom()
     {
-        return $this->nom_lieu;
+        return $this->nom;
     }
 
     /**
-     * @param mixed $nom_lieu
+     * @param mixed $nom
      */
-    public function setNomLieu($nom_lieu)
+    public function setNom($nom)
     {
-        $this->nom_lieu = $nom_lieu;
+        $this->nom = $nom;
     }
 
     /**
@@ -113,6 +129,39 @@ class Lieux
     {
         $this->longitude = $longitude;
     }
+
+    /**
+     * @return Ville
+     */
+    public function getVille(): Ville
+    {
+        return $this->Ville;
+    }
+
+    /**
+     * @param Ville $Ville
+     */
+    public function setVille(Ville $Ville)
+    {
+        $this->Ville = $Ville;
+    }
+
+    /**
+     * @return Sortie
+     */
+    public function getSortie(): Sortie
+    {
+        return $this->Sortie;
+    }
+
+    /**
+     * @param Sortie $Sortie
+     */
+    public function setSortie(Sortie $Sortie)
+    {
+        $this->Sortie = $Sortie;
+    }
+
 
 
 

@@ -2,7 +2,7 @@
 
 
 namespace App\DataFixtures;
-use App\Entity\Villes;
+use App\Entity\Ville;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -18,13 +18,13 @@ class VillesFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         // Génère une première ville
-        $ville1 = new Villes();
+        $ville1 = new Ville();
         $ville1->setNomVille("Nantes");
         $ville1->setCodePostal("44400");
         $manager->persist($ville1);
 
         //Génère une seconde ville
-        $ville2 = new Villes();
+        $ville2 = new Ville();
         $ville2->setNomVille("Vallet");
         $ville2->setCodePostal("44330");
         $manager->persist($ville1);

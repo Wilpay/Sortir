@@ -4,7 +4,7 @@
 namespace App\DataFixtures;
 
 
-use App\Entity\Lieux;
+use App\Entity\Lieu;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -19,7 +19,7 @@ class LieuxFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         // Génère un premier Lieu
-        $lieux1 = new Lieux();
+        $lieux1 = new Lieu();
         $lieux1->setNomLieu("Lieu 1");
         $lieux1->setRue("Rue de la paix");
         $lieux1->setLatitude(115);
@@ -27,7 +27,7 @@ class LieuxFixtures extends Fixture
         $manager->persist($lieux1);
 
         //Génère un second Lieu
-        $lieux2 = new Lieux();
+        $lieux2 = new Lieu();
         $lieux2->setNomLieu("Lieu 2");
         $lieux2->setRue("Avenue des Champs Elysées");
         $lieux2->setLatitude(1115);
