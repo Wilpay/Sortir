@@ -1,0 +1,20 @@
+{% extends('base.html.twig') %}
+{% block title %}{{ parent() }} | Sortie{% endblock %}
+{% block body %}
+    <h1 class="display-4">Créer une Sortie</h1>
+    <hr class="my-3">
+    <div class="container">
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit">GO!</button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

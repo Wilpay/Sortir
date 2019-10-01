@@ -2,9 +2,14 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Integer;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SortieRepository")
@@ -20,41 +25,73 @@ class Sortie
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @var string
+     * @Assert\NotBlank(message="Veuillez entrer un nom")
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Le nom de la sortie ne peut pas dépasser {{ limit }} caractères"
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="datetime")
+     *
+     * @var datetime
+     * @Assert\NotBlank(message="Veuillez entrer une date")
      */
     private $dateHeureDebut;
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @var Integer
+     * @Assert\NotBlank(message="Veuillez entrer une durée")
+     * )
      */
     private $duree;
 
     /**
      * @ORM\Column(type="datetime")
+     * @var datetime
+     * @Assert\NotBlank(message="Veuillez entrer une date")
+     *
      */
     private $dateLimiteInscription;
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @var Integer
+     * @Assert\NotBlank(message="Veuillez entrer le nombre max de participants")
      */
     private $nbInscriptionsMax;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\NotBlank(message="Veuillez entrer une description")
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Le nom de la sortie ne peut pas dépasser {{ limit }} caractères"
+     * )
      */
     private $infosSortie;
 
     /**
      * @ORM\Column(type="integer")
+     *
+     * @var Integer
+     * @Assert\NotBlank(message="Veuillez entrer l'état")
      */
     private $etat;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Lieu", inversedBy="sortie")
+     *
+     * @var Lieu
+     * @Assert\NotBlank(message="Veuillez Sélectionner le lieu")
      */
     private $lieu;
 
@@ -65,6 +102,8 @@ class Sortie
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Participant", inversedBy="organisateur")
+     *
+     * @var Participant
      */
     private $organisateur;
 
