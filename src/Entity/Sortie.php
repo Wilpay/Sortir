@@ -65,6 +65,22 @@ class Sortie
      */
     private $Etats;
 
+    /**
+     * @var \App\Entity\Participant
+     *
+     * @ORM\OneToMany(targetEntity="App\Entity\Participant", inversedBy="estOrganise")
+     * @ORM\JoinColumn(name="idparticipant", referencedColumnName="idSortie")
+     */
+    private $Organise;
+
+    /**
+     * @var \App\Entity\Participant
+     *
+     * @ORM\ManyToMany(targetEntity="App\Entity\Participant", inversedBy="inscrit")
+     * @ORM\JoinColumn(name="idparticipant", referencedColumnName="idSortie")
+     */
+    private $inscrit;
+
 
 
 
