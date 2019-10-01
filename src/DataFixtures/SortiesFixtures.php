@@ -21,7 +21,7 @@ class SortiesFixtures extends Fixture
         // Génère une Sortie
         $sortie1 = new Sortie();
         $sortie1->setNom("BUC");
-        $sortie1->setDatedebut(date());
+        $sortie1->setDatedebut(date);
         $sortie1->setDuree();
         $sortie1->setDatecloture();
         $sortie1->setNbinscriptionsmax();
