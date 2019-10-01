@@ -31,6 +31,11 @@ class Participant
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $pseudo;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $telephone;
 
     /**
@@ -84,6 +89,22 @@ class Participant
     public function getNom(): ?string
     {
         return $this->nom;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPseudo()
+    {
+        return $this->pseudo;
+    }
+
+    /**
+     * @param mixed $pseudo
+     */
+    public function setPseudo($pseudo): void
+    {
+        $this->pseudo = $pseudo;
     }
 
     public function setNom(string $nom): self
