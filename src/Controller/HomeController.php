@@ -16,37 +16,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class HomeController extends Controller
 {
     /**
-     * @Route("/", name="home")
-     */
-    public function home(EntityManagerInterface $em)
-    {
-        /*
-        $sortie = $em->getRepository(Sortie::class)->findAll();
-        foreach ($sortie2 as $sort)
-        {
-            if($sort->getDateHeureDebut() > new \DateTime('now'))
-            {
-                $etat = $sort->getEtat();
-
-
-                $sort->setEtat();
-            }
-
-
-
-
-            $em->persist($sort);
-            $em->flush();
-        }
-*/
-        $sortie = $em->getRepository(Sortie::class)->findAll();
-        return $this->render("main/home.html.twig", [
-            'sorties' => $sortie,
-        ]);
-
-    }
-
-    /**
      * @Route("/inscrire/{id}", name="inscrire")
      */
     public function Inscription(EntityManagerInterface $em, $id)
