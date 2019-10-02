@@ -14,7 +14,8 @@
                 <p class="card-text"><span class="h6">Téléphone: </span>{{ participant.telephone }}</p>
                 <p class="card-text"><span class="h6">Email: </span>{{ participant.mail }}</p>
                 <p class="card-text"><span class="h6">Ville de rattachement: </span>{{ participant.site.nom }}</p>
-                <a href="{{ path('home') }}" class="btn btn-block btn-danger">Retour</a>
+
+                <input type="button" value="Retour" class="btn btn-block btn-danger" onclick="history.back(-1)" />
             </div>
         </div>
     </div>
