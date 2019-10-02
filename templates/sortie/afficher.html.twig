@@ -1,0 +1,39 @@
+{% extends('base.html.twig') %}
+{% block title %}{{ parent() }} | Sortie{% endblock %}
+{% block body %}
+    <h1 class="display-4">SORTIE</h1>
+    <hr class="my-3">
+    <div class="container">
+        <div class="card">
+            <div class="card-header h3">
+                {{ sortie.nom }}
+            </div>
+            <div class="card-body row">
+                <div class="col-12 col-sm-6">
+                    <p class="card-text"><span class="h6">Nom de la sortie: </span>{{ sortie.nom }}</p>
+                    <p class="card-text"><span class="h6">Date et heure de la sortie: </span>{{ sortie.dateHeureDebut|date('Y-m-d H:i:s') }}</p>
+                    <p class="card-text"><span class="h6">Date limite d'incription': </span>{{ sortie.dateLimiteInscription|date('Y-m-d H:i:s') }}</p>
+                    <p class="card-text"><span class="h6">Nombre de place: </span>{{ sortie.inscrit.count }}/{{ sortie.nbInscriptionsMax }}</p>
+                    <p class="card-text"><span class="h6">Durée: </span>{{ sortie.duree }} minutes</p>
+                    <p class="card-text"><span class="h6">Description et infos: </span>{{ sortie.infosSortie }}</p>
+                    <p class="card-text"><span class="h6">Ville organisatrice: </span>{{ sortie.organisateur.site.nom }}</p>
+                    <p class="card-text"><span class="h6">Lieu: </span>{{ sortie.lieu.nom }}</p>
+                    <p class="card-text"><span class="h6">Rue: </span>{{ sortie.lieu.rue }}</p>
+                    <p class="card-text"><span class="h6">Code postal: </span>{{ sortie.lieu.ville.codePostal }}</p>
+                    <p class="card-text"><span class="h6">Latitude: </span>{{ sortie.lieu.latitude }}</p>
+                    <p class="card-text"><span class="h6">Longitude: </span>{{ sortie.lieu.longitude }}</p>
+                </div>
+                <div class="col-12 col-sm-6">
+                    <h4>Liste des participants:</h4>
+                    <div class="list-group">
+                        {% for participant in sortie.inscrit %}
+                            <a href="{{ path('profil_user', {id:participant.id}) }}" class="list-group-item list-group-item-action">{{ participant.pseudo }} - {{ participant.prenom }} {{ participant.nom }}</a>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <a href="{{ path('home') }}" class="btn btn-block btn-danger">Retour</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

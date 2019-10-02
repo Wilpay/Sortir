@@ -35,4 +35,15 @@ class SortieController extends Controller
         return $this->render("sortie/creer.html.twig", ["form" => $form->createView()]);
     }
 
+    /**
+     * @Route("/sortie/{id}", name="sortie")
+     */
+    public function sortie(EntityManagerInterface $em, $id)
+    {
+        $sortie = $em->getRepository(Sortie::class)->find($id);
+
+        return $this->render("sortie/afficher.html.twig", [
+            'sortie' => $sortie,
+        ]);
+    }
 }
