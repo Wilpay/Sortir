@@ -79,13 +79,6 @@ class Sortie
      */
     private $infosSortie;
 
-    /**
-     * @ORM\Column(type="integer")
-     *
-     * @var Integer
-     * @Assert\NotBlank(message="Veuillez entrer l'état")
-     */
-    private $etat;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Lieu", inversedBy="sortie")
@@ -115,7 +108,7 @@ class Sortie
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Etat", inversedBy="sorties")
      */
-    private $etats;
+    private $etat;
 
     public function __construct()
     {
@@ -199,17 +192,7 @@ class Sortie
         return $this;
     }
 
-    public function getEtat(): ?int
-    {
-        return $this->etat;
-    }
 
-    public function setEtat(int $etat): self
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
 
     public function getLieu(): ?Lieu
     {
@@ -273,14 +256,14 @@ class Sortie
         return $this;
     }
 
-    public function getEtats(): ?Etat
+    public function getEtat(): ?Etat
     {
-        return $this->etats;
+        return $this->etat;
     }
 
-    public function setEtats(?Etat $etats): self
+    public function setEtat(?Etat $etat): self
     {
-        $this->etats = $etats;
+        $this->etat = $etat;
 
         return $this;
     }
