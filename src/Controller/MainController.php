@@ -16,9 +16,11 @@ class MainController extends Controller
     public function home(EntityManagerInterface $em)
     {
         $sorties = $em->getRepository(Sortie::class)->findAll();
-        foreach ($sorties as $sortie)
+        /*foreach ($sorties as $sortie)
         {
-            $date = new DateTime();
+            $date = new DateTime('now');
+
+
             if($sortie->getDateLimiteInscription() > $date)
             {
                 $etat = $em->getRepository(Etat::class)->findByLibelle('Clôturée');
@@ -27,7 +29,7 @@ class MainController extends Controller
                 $em->persist($sortie);
                 $em->flush();
             }
-        }
+        }*/
 
         return $this->render("main/home.html.twig", [
             'sorties' => $sorties,

@@ -15,8 +15,6 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class HomeController extends Controller
 {
-
-
     /**
      * @Route("/inscrire/{id}", name="inscrire")
      */
