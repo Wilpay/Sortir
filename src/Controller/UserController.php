@@ -95,7 +95,7 @@ class UserController extends Controller
             $em->flush();
 
             $this->addFlash('success', 'Participant modifié');
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('profil');
         }
 
         return $this->render("user/mon-profil.html.twig", [

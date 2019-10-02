@@ -47,7 +47,7 @@ class Participant implements UserInterface
 
     /**
      * @Assert\NotBlank(message="Votre numéro de téléphone ne doit pas être vide")
-     * @Assert\Regex(pattern="^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$", message="Téléphone non valide!")
+     * @Assert\Regex(pattern="/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/i", message="Téléphone non valide!")
      *
      * @ORM\Column(type="string", length=255)
      */
