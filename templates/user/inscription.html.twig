@@ -13,35 +13,17 @@
         {% endfor %}
 
         {{ form_start(form) }}
-        <div class="form-group row pr-3">
-            <label for="pseudo" class="col-4 m-auto">Pseudo :</label>
-            {{ form_widget(form.pseudo, {'attr': {'class': 'form-control col-8'}}) }}
-        </div>
-        <div class="form-group row pr-3">
-            <label for="prenom" class="col-4 m-auto">Prénom :</label>
-            {{ form_widget(form.prenom, {'attr': {'class': 'form-control col-8'}}) }}
-        </div>
-        <div class="form-group row pr-3">
-            <label for="nom" class="col-4 m-auto">Nom :</label>
-            {{ form_widget(form.nom, {'attr': {'class': 'form-control col-8'}}) }}
-        </div>
-        <div class="form-group row pr-3">
-            <label for="telephone" class="col-4 m-auto">Téléphone :</label>
-            {{ form_widget(form.telephone, {'attr': {'class': 'form-control col-8'}}) }}
-        </div>
-        <div class="form-group row pr-3">
-            <label for="email" class="col-4 m-auto">Email :</label>
-            {{ form_widget(form.mail, {'attr': {'class': 'form-control col-8'}}) }}
-        </div>
-        <div class="form-group row pr-3">
-            <label for="site" class="col-4 m-auto">Site de rattachement :</label>
-            {{ form_widget(form.site, {'attr': {'class': 'form-control col-8'}}) }}
-        </div>
-        <div class="form-group row pr-3">
-            <label for="mdp" class="col-4 m-auto">Mot de passe :</label>
-            {{ form_widget(form.passwordPlain, {'attr': {'class': 'form-control col-8'}}) }}
-        </div>
-        <button type="submit" class="btn btn-block btn-success">Inscrire</button>
+            {{ form_errors(form) }}
+
+            {{ form_row(form.pseudo) }}
+            {{ form_row(form.prenom) }}
+            {{ form_row(form.nom) }}
+            {{ form_row(form.telephone) }}
+            {{ form_row(form.mail) }}
+            {{ form_row(form.site) }}
+            {{ form_row(form.passwordPlain) }}
+
+            {{ form_row(form.submit, { 'label': 'Inscrire' }) }}
         {{ form_end(form) }}
     </div>
 {% endblock %}
