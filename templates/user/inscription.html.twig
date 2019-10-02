@@ -12,36 +12,59 @@
             </div>
         {% endfor %}
 
+
         {{ form_start(form) }}
-        <div class="form-group row pr-3">
-            <label for="pseudo" class="col-4 m-auto">Pseudo :</label>
-            {{ form_widget(form.pseudo, {'attr': {'class': 'form-control col-8'}}) }}
-        </div>
-        <div class="form-group row pr-3">
-            <label for="prenom" class="col-4 m-auto">Prénom :</label>
-            {{ form_widget(form.prenom, {'attr': {'class': 'form-control col-8'}}) }}
-        </div>
-        <div class="form-group row pr-3">
-            <label for="nom" class="col-4 m-auto">Nom :</label>
-            {{ form_widget(form.nom, {'attr': {'class': 'form-control col-8'}}) }}
-        </div>
-        <div class="form-group row pr-3">
-            <label for="telephone" class="col-4 m-auto">Téléphone :</label>
-            {{ form_widget(form.telephone, {'attr': {'class': 'form-control col-8'}}) }}
-        </div>
-        <div class="form-group row pr-3">
-            <label for="email" class="col-4 m-auto">Email :</label>
-            {{ form_widget(form.mail, {'attr': {'class': 'form-control col-8'}}) }}
-        </div>
-        <div class="form-group row pr-3">
-            <label for="site" class="col-4 m-auto">Site de rattachement :</label>
-            {{ form_widget(form.site, {'attr': {'class': 'form-control col-8'}}) }}
-        </div>
-        <div class="form-group row pr-3">
-            <label for="mdp" class="col-4 m-auto">Mot de passe :</label>
-            {{ form_widget(form.passwordPlain, {'attr': {'class': 'form-control col-8'}}) }}
-        </div>
-        <button type="submit" class="btn btn-block btn-success">Inscrire</button>
+            {{ form_errors(form) }}
+            <div class="row mb-2">
+                <div class="col-4">Pseudo :</div>
+                <div class="col-8">
+                    {{ form_widget(form.pseudo) }}
+                    {{ form_errors(form.pseudo) }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-4">Prénom :</div>
+                <div class="col-8">
+                    {{ form_widget(form.prenom) }}
+                    {{ form_errors(form.prenom) }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-4">Nom :</div>
+                <div class="col-8">
+                    {{ form_widget(form.nom) }}
+                    {{ form_errors(form.nom) }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-4">Téléphone :</div>
+                <div class="col-8">
+                    {{ form_widget(form.telephone) }}
+                    {{ form_errors(form.telephone) }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-4">Mail :</div>
+                <div class="col-8">
+                    {{ form_widget(form.mail) }}
+                    {{ form_errors(form.mail) }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-4">Site :</div>
+                <div class="col-8">
+                    {{ form_widget(form.site) }}
+                    {{ form_errors(form.site) }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-4">Mot de passe :</div>
+                <div class="col-8">
+                    {{ form_widget(form.passwordPlain) }}
+                    {{ form_errors(form.passwordPlain) }}
+                </div>
+            </div>
+            {{ form_widget(form.submit, {'attr': {'class': 'btn btn-block btn-success mt-3'}}, {'label': 'Inscrire'}) }}
         {{ form_end(form) }}
     </div>
 {% endblock %}
