@@ -79,12 +79,11 @@ class Sortie
      */
     private $infosSortie;
 
-
+    //* @Assert\NotBlank(message="Veuillez Sélectionner le lieu")
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Lieu", inversedBy="sortie")
      *
      * @var Lieu
-     * @Assert\NotBlank(message="Veuillez Sélectionner le lieu")
      */
     private $lieu;
 

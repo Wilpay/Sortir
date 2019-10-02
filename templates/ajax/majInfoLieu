@@ -1,0 +1,20 @@
+
+<div class="row mb-2">
+    <div class="col-4">Rue  :</div>
+    <div class="col-8">
+        <label id="rue">{{ lieu.rue }}</label>
+    </div>
+</div>
+<div class="row mb-2">
+    <div class="col-4">Latitude  :</div>
+    <div class="col-8">
+        <label id="Latitude">{{ lieu.latitude }}</label>
+    </div>
+</div>
+<div class="row mb-2">
+    <div class="col-4">Longitude  :</div>
+    <div class="col-8">
+        <label id="longitude">{{ lieu.longitude }}</label>
+    </div>
+</div>
+</div>
