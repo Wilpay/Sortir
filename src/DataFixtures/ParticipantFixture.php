@@ -18,6 +18,7 @@ class ParticipantFixture extends Fixture
     }
     public const PARTICIPANT_REFERENCE1 = 'participant-ref1';
     public const PARTICIPANT_REFERENCE2 = 'participant-ref2';
+    public const PARTICIPANT_REFERENCE3 = 'participant-ref3';
     /**
      * Load data fixtures with the passed EntityManager
      *
@@ -52,12 +53,26 @@ class ParticipantFixture extends Fixture
         $site = $this->getReference(SiteFixture::SITE_REFERENCE4);
         $participant2->setSite($site);
 
+        $participant3 = new Participant();
+        $participant3->setNom('LELODET');
+        $participant3->setPrenom('Bastien');
+        $participant3->setPseudo('blelodet');
+        $participant3->setTelephone('0123456789');
+        $participant3->setMail('bastien@gmail.com');
+        $participant3->setRoles(['ROLE_ADMIN']);
+        $participant3->setActif(false);
+        $password = $this->encoder->encodePassword($participant3, '123');
+        $participant3->setPassword($password);
+        $site = $this->getReference(SiteFixture::SITE_REFERENCE3);
+        $participant3->setSite($site);
+
         $manager->persist($participant1);
         $manager->persist($participant2);
-
+        $manager->persist($participant3);
         $manager->flush();
 
         $this->addReference(self::PARTICIPANT_REFERENCE1, $participant1);
         $this->addReference(self::PARTICIPANT_REFERENCE2, $participant2);
+        $this->addReference(self::PARTICIPANT_REFERENCE3, $participant3);
     }
 }

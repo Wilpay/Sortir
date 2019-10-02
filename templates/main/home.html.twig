@@ -71,12 +71,51 @@
                     <th scope="row">{{ sortie.nom }}</th>
                     <td>{{ sortie.dateHeureDebut|date('Y-m-d H:i:s') }}</td>
                     <td>{{ sortie.dateLimiteInscription|date('Y-m-d H:i:s') }}</td>
-                    <td>{{ sortie.nbInscriptionsMax }}</td>
+                    <td>{{ sortie.inscrit.count }} / {{ sortie.nbInscriptionsMax }}</td>
                     <td>{{ sortie.etat.libelle }}</td>
-                    <td><i class="fas fa-check"></i></td>
+                    <td>
+                        {% if app.user %}
+
+                            {% if app.user == sortie.inscrit.contains(app.user) %}
+                                <i class="fas fa-check"></i>
+                            {% else %}
+
+                            {% endif %}
+
+                        {% else %}
+
+
+                        {% endif %}
+
+                    </td>
+
                     <td><a href="{{ path('profil_user', {id:sortie.organisateur.id}) }}">{{ sortie.organisateur.nom }}</td>
-                    <td><i class="far fa-eye pr-3"></i></td>
+                    <td>
+                        {% if app.user %}
+
+                            {% if app.user != sortie.inscrit.contains(app.user)  and sortie.etat.libelle == 'Ouverte' %}
+                                <i class="far fa-eye pr-3"></i>
+                                <a href="{{ path('inscrire', {id:sortie.id}) }}" ><i class="fas fa-plus"></i></a>
+                            {% elseif app.user == sortie.inscrit.contains(app.user) and sortie.etat.libelle == 'Ouverte' %}
+                                <i class="far fa-eye pr-3"></i>
+                                <a href="{{ path('desinscrire', {id:sortie.id}) }}" ><i class="fas fa-user-minus"></i></a>
+                            {% elseif app.user == sortie.organisateur and sortie.etat.libelle == 'Créée' %}
+                                <i class="fas fa-tools"></i>
+                                <a href="{{ path('desinscrire', {id:sortie.id}) }}" ><i class="fas fa-upload"></i></a>
+                            {% elseif app.user == sortie.organisateur and sortie.etat.libelle == 'Ouverte' %}
+                                <i class="fas fa-tools"></i>
+                                <a href="{{ path('desinscrire', {id:sortie.id}) }}" ><i class="fas fa-trash-alt"></i></a>
+                            {% endif %}
+
+                        {% else %}
+
+
+                        {% endif %}
+                    </td>
                 </tr>
+
+
+
 
             {% endfor %}
 <!--

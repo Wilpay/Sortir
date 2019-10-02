@@ -20,6 +20,8 @@ class SortieFixture extends Fixture
      */
     public function load(ObjectManager $manager)
     {
+
+
         $sortie1 = new Sortie();
         $sortie1->setNom('BUC');
         $sortie1->setDateHeureDebut(new \DateTime('now'));
@@ -35,6 +37,12 @@ class SortieFixture extends Fixture
         $sortie1->setSiteorganisateur($site);
         $organisateur = $this->getReference(ParticipantFixture::PARTICIPANT_REFERENCE1);
         $sortie1->setOrganisateur($organisateur);
+
+        $participant2 = $this->getReference(ParticipantFixture::PARTICIPANT_REFERENCE2);
+        $participant3 = $this->getReference(ParticipantFixture::PARTICIPANT_REFERENCE3);
+      //  $sortie1->addInscrit($participant1);
+        $sortie1->addInscrit($participant2);
+        $sortie1->addInscrit($participant3);
 
         $sortie2 = new Sortie();
         $sortie2->setNom('Parc Astérix');
