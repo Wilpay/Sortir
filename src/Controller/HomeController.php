@@ -15,36 +15,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class HomeController extends Controller
 {
-    /**
-     * @Route("/", name="home")
-     */
-    public function home(EntityManagerInterface $em)
-    {
-        /*
-        $sortie = $em->getRepository(Sortie::class)->findAll();
-        foreach ($sortie2 as $sort)
-        {
-            if($sort->getDateHeureDebut() > new \DateTime('now'))
-            {
-                $etat = $sort->getEtat();
 
-
-                $sort->setEtat();
-            }
-
-
-
-
-            $em->persist($sort);
-            $em->flush();
-        }
-*/
-        $sortie = $em->getRepository(Sortie::class)->findAll();
-        return $this->render("main/home.html.twig", [
-            'sorties' => $sortie,
-        ]);
-
-    }
 
     /**
      * @Route("/inscrire/{id}", name="inscrire")
@@ -72,6 +43,40 @@ class HomeController extends Controller
 
 
         $sortie->removeInscrit($participant);
+        $em->persist($sortie);
+        $em->flush();
+        return $this->redirectToRoute('home');
+
+    }
+
+    /**
+     * @Route("/publier/{id}", name="publier")
+     */
+    public function Publier(EntityManagerInterface $em, $id)
+    {
+        $sortie = $em->getRepository(Sortie::class)->find($id);
+        $etat = $em->getRepository(Etat::class)->findByLibelle('Ouverte');
+        
+        $sortie->setEtat($etat);
+
+
+        
+        $em->persist($sortie);
+        $em->flush();
+        return $this->redirectToRoute('home');
+
+    }
+
+    /**
+     * @Route("/annuler/{id}", name="annuler")
+     */
+    public function Annuler(EntityManagerInterface $em, $id)
+    {
+        $sortie = $em->getRepository(Sortie::class)->find($id);
+        $etat = $em->getRepository(Etat::class)->findByLibelle('Annulée');
+
+        $sortie->setEtat($etat);
+
         $em->persist($sortie);
         $em->flush();
         return $this->redirectToRoute('home');
