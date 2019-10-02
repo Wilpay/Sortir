@@ -72,7 +72,7 @@
                     <td>{{ sortie.dateHeureDebut|date('Y-m-d H:i:s') }}</td>
                     <td>{{ sortie.dateLimiteInscription|date('Y-m-d H:i:s') }}</td>
                     <td>{{ sortie.nbInscriptionsMax }}</td>
-                    <td>{{ sortie.etats.libelle }}</td>
+                    <td>{{ sortie.etat.libelle }}</td>
                     <td><i class="fas fa-check"></i></td>
                     <td><a href="{{ path('profil_user', {id:sortie.organisateur.id}) }}">{{ sortie.organisateur.nom }}</td>
                     <td><i class="far fa-eye pr-3"></i></td>
