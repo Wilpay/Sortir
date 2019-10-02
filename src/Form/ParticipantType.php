@@ -23,7 +23,7 @@ class ParticipantType extends AbstractType
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class)
             ->add('pseudo', TextType::class)
-            ->add('telephone', NumberType::class)
+            ->add('telephone', TextType::class)
             ->add('mail', EmailType::class)
             ->add('site', EntityType::class, array(
                 'class' => Site::class,

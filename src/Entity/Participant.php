@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
@@ -24,31 +25,45 @@ class Participant implements UserInterface
     private $id;
 
     /**
+     * @Assert\NotBlank(message="Votre nom ne doit pas être vide!")
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $nom;
 
     /**
+     * @Assert\NotBlank(message="Votre prénom ne doit pas être vide!")
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $prenom;
 
     /**
+     * @Assert\NotBlank(message="Votre pseudo ne doit pas être vide!")
+     *
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $pseudo;
 
     /**
+     * @Assert\NotBlank(message="Votre numéro de téléphone ne doit pas être vide")
+     * @Assert\Regex(pattern="/^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/i", message="Téléphone non valide!")
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $telephone;
 
     /**
+     * @Assert\NotBlank(message="Votre email ne doit pas être vide!")
+     * @Assert\Email(message="Mail non valide!")
+     *
      * @ORM\Column(type="string", length=255, unique=true)
      */
     private $mail;
 
     /**
+     * @Assert\NotBlank(message="Votre mot de passe ne doit pas être vide!")
+     *
      * @ORM\Column(type="string", length=255)
      */
     private $password;
