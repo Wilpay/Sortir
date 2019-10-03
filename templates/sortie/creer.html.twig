@@ -16,6 +16,8 @@
 
         {{ form_start(form) }}
         {{ form_errors(form) }}
+
+        <input type="hidden" id="typeSub" name="typeSub" value="Créée"/>
         <div class="row">
             <div class="col-sm-6">
                 <div class="row mb-2">
@@ -83,12 +85,11 @@
                 <div id="lieu"></div>
             </div>
         </div>
-        {{ form_widget(form.etat, { 'attr': {'hidden': 'hidden'} }) }}
         <div class="row">
             <div class="col-sm-4">
             <button type="submit" class="btn btn-block btn-success">Enregistrer</button>
             </div><div class="col-sm-4">
-            <button class="btn btn-block btn-info">Publier la sortie</button>
+            <button class="btn btn-block btn-info" id="publi">Publier la sortie</button>
             </div><div class="col-sm-4">
             <a href="{{ path('home') }}" class="btn btn-block btn-danger">Annuler</a>
             </div>

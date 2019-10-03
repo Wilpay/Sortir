@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Lieu;
 use App\Entity\Sortie;
 use App\Entity\Ville;
@@ -30,6 +31,10 @@ class SortieController extends Controller
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $libelleEtat = $request->request->get('typeSub');
+            $etats=$em->getRepository(Etat::class)->findBy(["libelle"=>$libelleEtat]);
+            $etat=$etats[0];
+            $sortie->setEtat($etat);
             $idLieu = $request->request->get('lieu');
             $lieu = $em->getRepository(Lieu::class)->find($idLieu);
             $sortie->setLieu($lieu);

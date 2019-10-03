@@ -3,6 +3,9 @@ $(document).ready(function(){
         console.log($(this).val());
         getLieux($(this).val());
     })
+    $("#publi").click(function () {
+        $("#typeSub").val("Ouverte");
+    });
     getLieux($("#ville").val());
 });
 

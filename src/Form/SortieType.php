@@ -66,7 +66,7 @@ class SortieType extends AbstractType
             //))
              //->add('organisateur', EntityType::class, ["label_format" => "Etat",'class' => Ville::class,'choice_label' => 'libelle'])
 
-            ->add('etat', EntityType::class, ["label_format" => "Etat",'class' => Etat::class,'choice_label' => 'libelle'])
+            //->add('etat', EntityType::class, ["label_format" => "Etat",'class' => Etat::class,'choice_label' => 'libelle'])
         ;
 
     }
