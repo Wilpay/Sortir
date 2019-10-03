@@ -37,7 +37,7 @@ class EtatFixture extends Fixture
         $etat4->setLibelle('Activité en cours');
 
         $etat5 = new Etat();
-        $etat5->setLibelle('passée');
+        $etat5->setLibelle('Passée');
 
         $etat6 = new Etat();
         $etat6->setLibelle('Annulée');

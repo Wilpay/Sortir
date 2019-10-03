@@ -95,11 +95,21 @@ class Participant implements UserInterface
      */
     private $site;
 
+
+
+
+
+
     public function __construct()
     {
         $this->sorties = new ArrayCollection();
         $this->organisateur = new ArrayCollection();
     }
+
+
+
+  
+
 
     public function getId(): ?int
     {
@@ -341,4 +351,6 @@ class Participant implements UserInterface
     {
         // TODO: Implement eraseCredentials() method.
     }
+
+
 }

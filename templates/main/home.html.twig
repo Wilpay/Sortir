@@ -67,6 +67,7 @@
             </thead>
             <tbody>
             {% for sortie in sorties %}
+
                 <tr>
                     <th scope="row">{{ sortie.nom }}</th>
                     <td>{{ sortie.dateHeureDebut|date('Y-m-d H:i:s') }}</td>
@@ -94,7 +95,7 @@
 
                         {% if app.user %}
 
-                            {% if app.user != sortie.inscrit.contains(app.user)  and sortie.etat.libelle == 'Ouverte' %}
+                            {% if app.user != sortie.inscrit.contains(app.user)  and sortie.etat.libelle == 'Ouverte' and app.user != sortie.organisateur %}
                                 <a href="{{ path('sortie', {id:sortie.id}) }}"><i class="far fa-eye pr-3"></i></a>
                                 {% if sortie.inscrit.count == sortie.nbInscriptionsMax %}
 
@@ -126,6 +127,7 @@
                         {% endif %}
                     </td>
                 </tr>
+
 
 
 

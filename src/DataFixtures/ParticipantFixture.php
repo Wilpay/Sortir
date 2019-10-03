@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 
 
 use App\Entity\Participant;
+use App\Entity\Profil;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -69,6 +70,19 @@ class ParticipantFixture extends Fixture
         $manager->persist($participant1);
         $manager->persist($participant2);
         $manager->persist($participant3);
+
+
+        $photo1 = new Profil();
+        $photo1->setParticipant($participant1);
+        $photo2 = new Profil();
+        $photo2->setParticipant($participant2);
+        $photo3 = new Profil();
+        $photo3->setParticipant($participant3);
+
+        $manager->persist($photo1);
+        $manager->persist($photo2);
+        $manager->persist($photo3);
+
         $manager->flush();
 
         $this->addReference(self::PARTICIPANT_REFERENCE1, $participant1);
