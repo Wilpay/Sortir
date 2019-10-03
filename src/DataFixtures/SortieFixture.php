@@ -26,7 +26,7 @@ class SortieFixture extends Fixture
         $sortie1->setNom('BUC');
         $sortie1->setDateHeureDebut(new \DateTime('now'));
         $sortie1->setDuree(3);
-        $sortie1->setDateLimiteInscription(new \DateTime('now'));
+        $sortie1->setDateLimiteInscription(new \DateTime('2020-01-01T15:03:01.012345Z'));
         $sortie1->setNbInscriptionsMax(15);
         $sortie1->setInfosSortie('Boire un coup dans un bar');
         $etat = $this->getReference(EtatFixture::ETAT_REFERENCE1);
@@ -48,7 +48,7 @@ class SortieFixture extends Fixture
         $sortie2->setNom('Parc Astérix');
         $sortie2->setDateHeureDebut(new \DateTime('now'));
         $sortie2->setDuree(48);
-        $sortie2->setDateLimiteInscription(new \DateTime('now'));
+        $sortie2->setDateLimiteInscription(new \DateTime('2019-10-03T15:03:01.012345Z'));
         $sortie2->setNbInscriptionsMax(50);
         $sortie2->setInfosSortie('Parc d\'attraction');
         $etat = $this->getReference(EtatFixture::ETAT_REFERENCE5);
@@ -64,7 +64,7 @@ class SortieFixture extends Fixture
         $sortie3->setNom('24h du mans');
         $sortie3->setDateHeureDebut(new \DateTime('now'));
         $sortie3->setDuree(72);
-        $sortie3->setDateLimiteInscription(new \DateTime('now'));
+        $sortie3->setDateLimiteInscription(new \DateTime('2019-10-02T15:03:01.012345Z'));
         $sortie3->setNbInscriptionsMax(100);
         $sortie3->setInfosSortie('Course de moto avec hôtel');
         $etat = $this->getReference(EtatFixture::ETAT_REFERENCE6);

@@ -3,6 +3,10 @@
 {% block body %}
     <h1 class="display-4">MON PROFIL</h1>
     <hr class="my-3">
+    {% if not utilisateur.image is empty %}
+        <img src="{{ asset('Files/' ~ utilisateur.image)  }}" class="rounded float-left" alt="..." width="200" height="200">
+
+    {% endif %}
     <div class="container">
         {% for label, messages in app.flashes %}
             <div class="alert alert-{{ label }}" role="alert">
@@ -11,6 +15,9 @@
                 {% endfor %}
             </div>
         {% endfor %}
+
+
+
 
         {{ form_start(form) }}
         {{ form_errors(form) }}
@@ -63,6 +70,7 @@
                 {{ form_errors(form.passwordPlain) }}
             </div>
         </div>
+
         <div class="row mt-3">
             <div class="col-12 col-sm-6 pb-3">
                 {{ form_widget(form.submit, {'attr': {'class': 'btn btn-block btn-success'}}, {'label': 'Enregister'}) }}
@@ -73,5 +81,34 @@
         </div>
 
         {{ form_end(form) }}
+        <hr>
+        {{  form_start(formPhoto) }}
+        {{ form_errors(formPhoto) }}
+
+        <div class="row mb-2">
+            <div class="col-12 col-md-4">Photo :</div>
+            <div class="col-12 col-md-8">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        {{ form_widget(formPhoto.submit, {'attr': {'class': 'btn btn-outline-secondary'}}, {'label': 'Enregister'}) }}
+                    </div>
+                    <div class="custom-file">
+                        {{ form_widget(formPhoto.file, {'attr': {'class': 'custom-file-label'}}) }}
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="row mt-3">
+            <div class="col-12 col-sm-6 pb-3">
+
+            </div>
+        </div>
+        {{ form_end(formPhoto) }}
+
+
+
     </div>
 {% endblock %}
