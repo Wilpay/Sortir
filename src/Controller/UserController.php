@@ -145,7 +145,7 @@ class UserController extends Controller
     {
         $participant = $em->getRepository(Participant::class)->find($id);
         $profil = $em->getRepository(Profil::class)->find($participant->getId());
-        
+
         return $this->render("user/profil.html.twig", [
             'participant' => $participant,
             'utilisateur' => $profil,

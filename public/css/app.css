@@ -17,3 +17,8 @@
 .custom-file-label2::after {
     opacity: 0!important;
 }
+
+.input-group>.custom-file:not(:last-child) .custom-file-label2, .input-group>.custom-file:not(:last-child) .custom-file-label2::after {
+    border-top-right-radius: 0!important;
+    border-bottom-right-radius: 0!important;
+}
