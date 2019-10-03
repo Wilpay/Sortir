@@ -27,7 +27,8 @@ class ProfilType extends AbstractType
             ->add('file', FileType::class, array(
                 'label' => 'Photo de profil',
                 'required' => false))
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, array(
+                'label' => 'Valider'))
 
         ;
     }

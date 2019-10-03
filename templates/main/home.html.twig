@@ -67,7 +67,6 @@
             </thead>
             <tbody>
             {% for sortie in sorties %}
-
                 <tr>
                     <th scope="row">{{ sortie.nom }}</th>
                     <td>{{ sortie.dateHeureDebut|date('Y-m-d H:i:s') }}</td>
@@ -76,104 +75,41 @@
                     <td>{{ sortie.etat.libelle }}</td>
                     <td>
                         {% if app.user %}
-
                             {% if app.user == sortie.inscrit.contains(app.user) %}
                                 <i class="fas fa-check"></i>
-                            {% else %}
-
                             {% endif %}
-
-                        {% else %}
-
-
                         {% endif %}
-
                     </td>
-
                     <td><a href="{{ path('profil_user', {id:sortie.organisateur.id}) }}">{{ sortie.organisateur.nom }}</td>
                     <td>
-
                         {% if app.user %}
-
                             {% if app.user != sortie.inscrit.contains(app.user)  and sortie.etat.libelle == 'Ouverte' and app.user != sortie.organisateur %}
                                 <a href="{{ path('sortie', {id:sortie.id}) }}"><i class="far fa-eye pr-3"></i></a>
                                 {% if sortie.inscrit.count == sortie.nbInscriptionsMax %}
 
                                 {% else %}
-                                    <a href="{{ path('inscrire', {id:sortie.id}) }}" ><i class="fas fa-plus"></i></a>
+                                    <a href="{{ path('inscrire', {id:sortie.id}) }}" ><i class="fas fa-plus pr-3"></i></a>
                                 {% endif %}
                             {% elseif app.user == sortie.inscrit.contains(app.user) and sortie.etat.libelle == 'Ouverte' %}
                                 <a href="{{ path('sortie', {id:sortie.id}) }}"><i class="far fa-eye pr-3"></i></a>
-                                <a href="{{ path('desinscrire', {id:sortie.id}) }}" ><i class="fas fa-user-minus"></i></a>
+                                <a href="{{ path('desinscrire', {id:sortie.id}) }}" ><i class="fas fa-user-minus pr-3"></i></a>
                             {% elseif app.user != sortie.inscrit.contains(app.user) and sortie.etat.libelle == 'Clôturée' %}
                                 <a href="{{ path('sortie', {id:sortie.id}) }}"><i class="far fa-eye pr-3"></i></a>
-
                             {% elseif app.user == sortie.organisateur and sortie.etat.libelle == 'Créée' %}
-                                <i class="fas fa-tools"></i>
-                                <a href="{{ path('publier', {id:sortie.id}) }}" ><i class="fas fa-upload"></i></a>
+                                <i class="fas fa-tools pr-3"></i>
+                                <a href="{{ path('publier', {id:sortie.id}) }}" ><i class="fas fa-upload pr-3"></i></a>
                             {% elseif app.user == sortie.organisateur and sortie.etat.libelle == 'Ouverte' %}
                                 <a href="{{ path('sortie', {id:sortie.id}) }}"><i class="far fa-eye pr-3"></i></a>
-                                <a href="{{ path('annuler', {id:sortie.id}) }}" ><i class="fas fa-trash-alt"></i></a>
+                                <a href="{{ path('annuler', {id:sortie.id}) }}" ><i class="fas fa-trash-alt pr-3"></i></a>
                             {% elseif app.user != sortie.inscrit.contains(app.user) and sortie.inscrit.count == sortie.nbInscriptionsMax %}
                                 <a href="{{ path('sortie', {id:sortie.id}) }}"><i class="far fa-eye pr-3"></i></a>
                             {% elseif app.user != sortie.inscrit.contains(app.user) and sortie.etat.libelle == 'Clôturée' %}
                                 <a href="{{ path('sortie', {id:sortie.id}) }}"><i class="far fa-eye pr-3"></i></a>
-
                             {% endif %}
-
-                        {% else %}
-
-
                         {% endif %}
                     </td>
                 </tr>
-
-
-
-
-
             {% endfor %}
-<!--
-                <tr>
-                    <th scope="row">Perles</th>
-                    <td>21/07/2018 20:00</td>
-                    <td>18/07/2018</td>
-                    <td>2/12</td>
-                    <td>Fermé</td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td>Jojo56</td>
-                    <td><i class="far fa-eye pr-3"></i><i class="fas fa-sign-out-alt pr-3"></i></td>
-                </tr>
-                <tr>
-                    <th scope="row">Jardinage</th>
-                    <td>02/08/2018 18:30</td>
-                    <td>28/07/2018</td>
-                    <td>3/5</td>
-                    <td>Ouvert</td>
-                    <td><i class="fas fa-check"></i></td>
-                    <td>Rémi S.</td>
-                    <td><i class="far fa-eye pr-3"></i><i class="fas fa-sign-in-alt pr-3"></i></td>
-                </tr>
-                <tr>
-                    <th scope="row">Cinéma</th>
-                    <td>04/08/2018 21:00</td>
-                    <td>04/08/2018</td>
-                    <td>0/10</td>
-                    <td>En création</td>
-                    <td><i class="fas fa-times"></i></td>
-                    <td>Quentin B.</td>
-                    <td><i class="fas fa-edit pr-3"></i><i class="fas fa-download pr-3"></i></td>
-                </tr>
-                <tr>
-                    <th scope="row">Pâte à sel</th>
-                    <td>03/08/2018 19:30</td>
-                    <td>27/07/2018</td>
-                    <td>0/5</td>
-                    <td>Ouvert</td>
-                    <td><i class="fas fa-times"></i></td>
-                    <td>Quentin B.</td>
-                    <td><i class="far fa-eye pr-3"></i><i class="fas fa-window-close pr-3"></i></td>
-                </tr>-->
             </tbody>
         </table>
         {% if app.user %}
