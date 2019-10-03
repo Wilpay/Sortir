@@ -16,20 +16,35 @@ class MainController extends Controller
     public function home(EntityManagerInterface $em)
     {
         $sorties = $em->getRepository(Sortie::class)->findAll();
-        /*foreach ($sorties as $sortie)
+
+        $ouverte = $em->getRepository(Etat::class)->findByLibelle('Ouverte');
+        $cloturee = $em->getRepository(Etat::class)->findByLibelle('Clôturée');
+        $encours = $em->getRepository(Etat::class)->findByLibelle('Activité en cours');
+        $passee = $em->getRepository(Etat::class)->findByLibelle('Passée');
+
+        foreach ($sorties as $sortie)
         {
-            $date = new DateTime('now');
+            $date = date_timestamp_get(date_create())+3600*2;
+            $datefin = $sortie->getDateHeureDebut()->getTimestamp() + $sortie->getDuree()*60;
 
-
-            if($sortie->getDateLimiteInscription() > $date)
+            if($sortie->getDateLimiteInscription()->getTimestamp() < $date && $sortie->getEtat() == $ouverte)
             {
-                $etat = $em->getRepository(Etat::class)->findByLibelle('Clôturée');
-                $sortie->setEtat($etat);
-
-                $em->persist($sortie);
-                $em->flush();
+                $sortie->setEtat($cloturee);
             }
-        }*/
+
+            if($sortie->getDateHeureDebut()->getTimestamp() <= $date && $date <= $datefin && $sortie->getEtat() == $cloturee)
+            {
+                $sortie->setEtat($encours);
+            }
+
+            if($datefin <= $date && ($sortie->getEtat() == $encours || $sortie->getEtat() == $cloturee || $sortie->getEtat() == $ouverte))
+            {
+                $sortie->setEtat($passee);
+            }
+
+            $em->persist($sortie);
+            $em->flush();
+        }
 
         return $this->render("main/home.html.twig", [
             'sorties' => $sorties,
