@@ -171,6 +171,21 @@ class UserController extends Controller
     }
 
     /**
+     * @Route("/motdepasseoubli/", name="motdepasseoubli")
+     */
+    public function Motdepasseoubli(EntityManagerInterface $em, $id)
+    {
+
+
+
+        return $this->render('user/inscription.html.twig', [
+            'form' => $form->createView(),
+            'utilisateur' => $user,
+
+
+        ]);
+    }
+    /**
      * @return string
      */
     private function generateUniqueFileName()
