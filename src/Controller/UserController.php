@@ -144,7 +144,7 @@ class UserController extends Controller
     public function profil(EntityManagerInterface $em, $id)
     {
         $participant = $em->getRepository(Participant::class)->find($id);
-        $profil = $em->getRepository(Profil::class)->find($participant->getId());
+        $profil = $em->getRepository(Profil::class)->findByLibelle($participant);
 
         return $this->render("user/profil.html.twig", [
             'participant' => $participant,
@@ -152,6 +152,21 @@ class UserController extends Controller
         ]);
     }
 
+    /**
+     * @Route("/motdepasseoubli/", name="motdepasseoubli")
+     */
+    public function Motdepasseoubli(EntityManagerInterface $em, $id)
+    {
+
+
+
+        return $this->render('user/inscription.html.twig', [
+            'form' => $form->createView(),
+            'utilisateur' => $user,
+
+
+        ]);
+    }
     /**
      * @return string
      */

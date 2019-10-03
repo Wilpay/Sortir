@@ -3,6 +3,8 @@ namespace App\Controller;
 
 use App\Entity\Etat;
 use App\Entity\Site;
+use App\Entity\Participant;
+use App\Entity\Profil;
 use App\Entity\Sortie;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -45,6 +47,7 @@ class MainController extends Controller
             {
                 $sortie->setEtat($passee);
             }
+
 
             $em->persist($sortie);
             $em->flush();

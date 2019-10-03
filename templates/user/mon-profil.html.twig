@@ -13,11 +13,13 @@
         {% endfor %}
 
         <div class="row">
-            {% if not utilisateur.image is empty %}
-                <div class="col-12 col-lg-3 pb-3">
-                    <img src="{{ asset('Files/' ~ utilisateur.image)  }}" class="img-thumbnail mx-auto d-block" alt="..." width="250" height="250">
-                </div>
-            {% endif %}
+            <div class="col-12 col-lg-3 pb-3">
+                {% if not utilisateur.image is empty %}
+                    <img src="{{ asset('Files/' ~ utilisateur.image)  }}" class="img-thumbnail mx-auto d-block" height="250" width="250">
+                {% else %}
+                    <img src="{{ asset('img/avatar.png')  }}" class="img-thumbnail mx-auto d-block" height="250" width="250">
+                {% endif %}
+            </div>
 
             <div class="col-12 col-lg-9">
                 {{ form_start(formPhoto) }}
@@ -31,7 +33,7 @@
                                 <label class="custom-file-label2" for="customFile">Choisir une image</label>
                             </div>
                             <div class="input-group-append">
-                                {{ form_widget(formPhoto.submit, {'attr': {'class': 'btn btn-success', 'label': 'Enregister'}}) }}
+                                {{ form_widget(formPhoto.submit, {'attr': {'class': 'btn btn-secondary'}}) }}
                             </div>
                         </div>
                     </div>
@@ -82,16 +84,23 @@
                         {{ form_errors(form.site) }}
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-2">
                     <div class="col-12 col-md-4">Mot de passe :</div>
                     <div class="col-12 col-md-8">
-                        {{ form_widget(form.passwordPlain) }}
-                        {{ form_errors(form.passwordPlain) }}
+                        {{ form_widget(form.passwordPlain.first) }}
+                        {{ form_errors(form.passwordPlain.first) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-md-4">Confirmation :</div>
+                    <div class="col-12 col-md-8">
+                        {{ form_widget(form.passwordPlain.second) }}
+                        {{ form_errors(form.passwordPlain.second) }}
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row mt-3">
+        <div class="row mt-5">
             <div class="col-12 col-sm-6 pb-3">
                 {{ form_widget(form.submit, {'attr': {'class': 'btn btn-block btn-success'}}, {'label': 'Enregister'}) }}
             </div>
