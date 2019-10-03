@@ -1,0 +1,19 @@
+<div class="row mb-2">
+    <div class="col-4">Code Postal :</div>
+    <div class="col-8">
+        <label id="cp">{{ cp }}</label>
+    </div>
+</div>
+<div class="row mb-2">
+
+
+    <div class="col-4">Lieu  :</div>
+    <div class="col-8">
+        <select id="sortie_lieu" name="lieu" class="form-control">
+            {% for lieu in lieux %}
+                <option value="{{ lieu.id }}">{{ lieu.nom }}</option>
+            {% endfor %}
+        </select>
+    </div>
+</div>
+<div id="infoLieu"></div>
