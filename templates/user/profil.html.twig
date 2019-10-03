@@ -10,13 +10,22 @@
 
             </div>
             <div class="card-body">
-
-                <p class="card-text"><span class="h6">Prénom: </span>{{ participant.prenom }}</p>
-                <p class="card-text"><span class="h6">Nom: </span>{{ participant.nom }}</p>
-                <p class="card-text"><span class="h6">Téléphone: </span>{{ participant.telephone }}</p>
-                <p class="card-text"><span class="h6">Email: </span>{{ participant.mail }}</p>
-                <p class="card-text"><span class="h6">Ville de rattachement: </span>{{ participant.site.nom }}</p>
-
+                <div class="row mb-5">
+                    <div class="col-12 col-lg-3">
+                        {% if not utilisateur.image is empty %}
+                            <img src="{{ asset('Files/' ~ utilisateur.image)  }}" class="img-thumbnail mx-auto d-block" height="250" width="250">
+                        {% else %}
+                            <img src="{{ asset('img/avatar.png')  }}" class="img-thumbnail mx-auto d-block" height="250" width="250">
+                        {% endif %}
+                    </div>
+                    <div class="col-12 col-lg-9">
+                        <p class="card-text"><span class="h6">Prénom: </span>{{ participant.prenom }}</p>
+                        <p class="card-text"><span class="h6">Nom: </span>{{ participant.nom }}</p>
+                        <p class="card-text"><span class="h6">Téléphone: </span>{{ participant.telephone }}</p>
+                        <p class="card-text"><span class="h6">Email: </span>{{ participant.mail }}</p>
+                        <p class="card-text"><span class="h6">Ville de rattachement: </span>{{ participant.site.nom }}</p>
+                    </div>
+                </div>
                 <input type="button" value="Retour" class="btn btn-block btn-danger" onclick="history.back(-1)" />
             </div>
         </div>

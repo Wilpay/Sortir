@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -35,10 +36,12 @@ class ParticipantType extends AbstractType
                 },
                 'choice_label' => 'nom'
             ))
-            ->add('passwordPlain', PasswordType::class)
-
+            ->add('passwordPlain', RepeatedType::class, array(
+                'type' => PasswordType::class,
+                'invalid_message' => 'Vos mots de passe ne correspondent pas!'
+            ))
             ->add('submit', SubmitType::class, array(
-                'label' => 'Inscrire'))
+                'label' => 'Valider'))
 
         ;
     }

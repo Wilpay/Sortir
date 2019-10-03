@@ -56,14 +56,23 @@
                     {{ form_errors(form.site) }}
                 </div>
             </div>
+
             <div class="row mb-2">
                 <div class="col-12 col-md-4">Mot de passe :</div>
                 <div class="col-12 col-md-8">
-                    {{ form_widget(form.passwordPlain) }}
-                    {{ form_errors(form.passwordPlain) }}
+                    {{ form_widget(form.passwordPlain.first) }}
+                    {{ form_errors(form.passwordPlain.first) }}
                 </div>
             </div>
-            {{ form_widget(form.submit, {'attr': {'class': 'btn btn-block btn-success mt-3'}}, {'label': 'Inscrire'}) }}
+            <div class="row">
+                <div class="col-12 col-md-4">Confirmation :</div>
+                <div class="col-12 col-md-8">
+                    {{ form_widget(form.passwordPlain.second) }}
+                    {{ form_errors(form.passwordPlain.second) }}
+                </div>
+            </div>
+
+            {{ form_widget(form.submit, {'attr': {'class': 'btn btn-block btn-success mt-5'}}, {'label': 'Inscrire'}) }}
         {{ form_end(form) }}
     </div>
 {% endblock %}
