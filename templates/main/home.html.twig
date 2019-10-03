@@ -1,55 +1,59 @@
 {% extends('base.html.twig') %}
 {% block title %}{{ parent() }} | Home{% endblock %}
 {% block body %}
+    <script src="{{ asset("js/home.js") }}"></script>
     <h1 class="display-4">ACCUEIL</h1>
     <hr class="my-3">
     <div class="container-fluid">
-        <h4 class="mb-3">Filtrer les sorties</h4>
-        <div class="row">
-            <div class="col-12 col-sm-12 col-md-6 mb-3">
-                <div class="form-group row pr-3">
-                    <label for="site" class="col-12 col-sm-4 m-auto">Site :</label>
-                    <select class="custom-select col-12 col-sm-8" id="site">
-                        <option value="1">SAINT HERBLAIN</option>
-                        <option value="2">...</option>
-                    </select>
-                </div>
-                <div class="form-group row pr-3">
-                    <label for="search" class="col-12 col-sm-4 m-auto">Recherche nom :</label>
-                    <input type="text" class="form-control col-12 col-sm-8" id="search">
-                </div>
-                <div class="row px-3">
-                    <span class="pr-3 m-auto">Entre</span>
-                    <div class="form-group m-0 col p-0">
-                        <input type="date" class="form-control" id="debut">
+        <form id="form">
+            <h4 class="mb-3">Filtrer les sorties</h4>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 mb-3">
+                    <div class="form-group row pr-3">
+                        <label for="site" class="col-12 col-sm-4 m-auto">Site :</label>
+                        <select class="custom-select col-12 col-sm-8" id="site">
+                            <option value="1">SAINT HERBLAIN</option>
+                            <option value="2">...</option>
+                        </select>
                     </div>
-                    <span class="px-3 m-auto">et</span>
-                    <div class="form-group m-0 col p-0">
-                        <input type="date" class="form-control" id="fin">
+                    <div class="form-group row pr-3">
+                        <label for="search" class="col-12 col-sm-4 m-auto">Recherche nom :</label>
+                        <input type="text" class="form-control col-12 col-sm-8" id="search">
                     </div>
+                    <div class="row px-3">
+                        <span class="pr-3 m-auto">Entre</span>
+                        <div class="form-group m-0 col p-0">
+                            <input type="date" class="form-control" id="debut">
+                        </div>
+                        <span class="px-3 m-auto">et</span>
+                        <div class="form-group m-0 col p-0">
+                            <input type="date" class="form-control" id="fin">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="orga">
+                        <label class="custom-control-label" for="orga">Sorties dont je suis l'organisateur(trice)</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="inscrit">
+                        <label class="custom-control-label" for="inscrit">Sorties auxquelles je suis insrit(e)</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="noninscrit">
+                        <label class="custom-control-label" for="noninscrit">Sorties auxquelles je ne suis pas insrit(e)</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="passees">
+                        <label class="custom-control-label" for="passees">Sorties passées</label>
+                    </div>
+                    <a class="btn btn-block btn-secondary mt-3">Recherche</a>
                 </div>
             </div>
-            <div class="col-12 col-sm-12 col-md-6">
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="remember">
-                    <label class="custom-control-label" for="remember">Sorties dont je suis l'organisateur(trice)</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="remember">
-                    <label class="custom-control-label" for="remember">Sorties auxquelles je suis insrit(e)</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="remember">
-                    <label class="custom-control-label" for="remember">Sorties auxquelles je ne suis pas insrit(e)</label>
-                </div>
-                <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input" id="remember">
-                    <label class="custom-control-label" for="remember">Sorties passées</label>
-                </div>
-                <a class="btn btn-block btn-secondary mt-3">Recherche</a>
-            </div>
-        </div>
+        </form>
     </div>
+
     <hr>
     <div class="container-fluid">
         <table class="table table-sm">
