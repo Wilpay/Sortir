@@ -32,6 +32,7 @@ class UserController extends Controller
             //Gérer le mot de passe : encodage
             $password = $encoder->encodePassword($user, $user->getPasswordPlain());
             $user->setPassword($password);
+            
             //Gérer le role
             $user->setRoles(['ROLE_USER']);
 
