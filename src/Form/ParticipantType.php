@@ -37,10 +37,8 @@ class ParticipantType extends AbstractType
             ))
             ->add('passwordPlain', PasswordType::class)
 
-            ->add('submit', SubmitType::class)
-
-
-
+            ->add('submit', SubmitType::class, array(
+                'label' => 'Inscrire'))
 
         ;
     }

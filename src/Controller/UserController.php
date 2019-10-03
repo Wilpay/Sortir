@@ -32,15 +32,12 @@ class UserController extends Controller
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
 
-
-
             //Gérer le mot de passe : encodage
             $password = $encoder->encodePassword($user, $user->getPasswordPlain());
             $user->setPassword($password);
+            
             //Gérer le role
             $user->setRoles(['ROLE_USER']);
-
-            $user->setActif(0);
 
             $em->persist($user);
             $em->flush();
@@ -97,29 +94,20 @@ class UserController extends Controller
         $formPhoto->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
 
-
-
-
             //Gérer le mot de passe : encodage
             $password = $encoder->encodePassword($user, $user->getPasswordPlain());
             $user->setPassword($password);
 
-            $user->setActif(0);
-
-
             $em->persist($user);
-
             $em->flush();
-
 
             $this->addFlash('success', 'Participant modifié');
             return $this->redirectToRoute('profil');
         }
         else if($formPhoto->isSubmitted() && $formPhoto->isValid()){
-
-
             if (null !==  $formPhoto['file']->getData()) {
                 $file = $formPhoto['file']->getData();
+
                 // Efface le fichier et le nom déjà existant
                 if (null !== $profil->getImage()) {
                     $oldFile = $this->getParameter('download_dir') . '/' . $profil->getImage();
@@ -127,23 +115,18 @@ class UserController extends Controller
                         unlink($oldFile);
                     }
                 }
+
                 $filename = $this->generateUniqueFileName() . '.' . $file->guessExtension();
                 $profil->setImage($filename);
                 $file->move(
                     $this->getParameter('download_dir'),
                     $filename
                 );
-
             }
 
             //Gérer le mot de passe : encodage
-
-
-
             $em->persist($profil);
-
             $em->flush();
-
 
             $this->addFlash('success', 'Participant modifié');
             return $this->redirectToRoute('profil');
@@ -152,8 +135,6 @@ class UserController extends Controller
             'form' => $form->createView(),
             'formPhoto' => $formPhoto->createView(),
             'utilisateur' => $profil,
-
-
         ]);
     }
 
@@ -164,6 +145,7 @@ class UserController extends Controller
     {
         $participant = $em->getRepository(Participant::class)->find($id);
         $profil = $em->getRepository(Profil::class)->find($participant->getId());
+
         return $this->render("user/profil.html.twig", [
             'participant' => $participant,
             'utilisateur' => $profil,
