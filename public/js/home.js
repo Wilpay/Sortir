@@ -1,12 +1,12 @@
 $(document).ready(function(){
-    refreshSorties();
+    //refreshSorties();
     $("#site").change(function(){
         refreshSorties();
     });
-    $("input").change(function(){
+    $("input").keyup(function(){
         refreshSorties();
     });
-    $("#search").keyup(function(){
+    $("input").change(function(){
         refreshSorties();
     });
 });
@@ -15,17 +15,23 @@ function refreshSorties(){
 
     var formData = {};
     formData['site']= $("#site").val();
-    $(form).find("input[id]").each(function (index, node) {
+    $(form).find("input[id]").not(":input[type=checkbox]").each(function (index, node) {
         formData[node.id] = node.value;
     });
-    console.log(formData);
+    formData["orga"]=$("#orga").is(":checked");
+
+    formData["inscrit"]=$("#inscrit").is(":checked");
+
+    formData["noninscrit"]=$("#noninscrit").is(":checked");
+
+    formData["passees"]=$("#passees").is(":checked");
 
     $.ajax({
         type: 'POST',
         url: "refreshSorties",
         data: formData,
         complete: function(data) {
-
+            $("#table").html(data.responseText)
         }
     });
 }
