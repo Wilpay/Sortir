@@ -8,7 +8,7 @@ ATTENTION : Le wamp doit être vert.<br>
 5 - Faire cd Wamp64/www/Sortir pour la version 64bit ou Wamp32/www/Sortir pour la version 32bit <br>
 6 - Lancer la commande : php bin/console doctrine:database:create (Création de la base de données) <br>
 7 - Lancer la commande : php bin/console doctrine:schema:update --force (Création des tables) <br>
-8 - Lancer la commande : php bin/console doctrine:fixtures:load (Chargement des données) <br>
+8 - Lancer la commande : php bin/console doctrine:fixtures:load => Faire yes(Chargement des données) <br>
 9 - Lancer la commande : php bin/console server:run (Démarrage du serveur) <br>
 10 - Dans la console vous devez voir l'adresse ip à laquel vous connectez par exemple 127.0.0.1:8000 <br>
 11 - Connectez-vous : 3 identifiant disponible 
