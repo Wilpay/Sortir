@@ -153,7 +153,10 @@ class MainController extends Controller
                 $sortie->setEtat($passee);
             }
 
-
+            if($datefin > new DateTime('now +30 days', new DateTimeZone('Europe/Paris')))
+            {
+                $sortie->setEtat($archive);
+            }
             $em->persist($sortie);
             $em->flush();
         }
