@@ -6,13 +6,22 @@ $(document).ready(function(){
     $("#publi").click(function () {
         $("#typeSub").val("Ouverte");
     });
+    if($("#idVille").val()!=0){
+
+        $("#ville").val($("#idVille").val());
+    }
+    $("#ville").val()
     getLieux($("#ville").val());
+    if($("#idLieu").val()!=0){
+
+        $("#sortie_lieu").val($("#idLieu").val());
+    }
 });
 
 function getLieux($idVille){
     $.ajax({
         type: 'POST',
-        url: "majLieux",
+        url: $("#urlLieu").val(),
         data: "&idVille="+$idVille,
         complete: function(data) {
             console.log(data.responseText);
@@ -25,7 +34,7 @@ function getLieux($idVille){
 function getInfosLieux($idLieu){
     $.ajax({
         type: 'POST',
-        url: "majInfoLieu",
+        url: $("#urlInfoLieu").val(),
         data: "&idLieu="+$idLieu,
         complete: function(data) {
             console.log(data.responseText);
