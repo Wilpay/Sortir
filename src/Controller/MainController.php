@@ -57,11 +57,19 @@ class MainController extends Controller
             $paramRequette["etat"] = $idPasse[0]->getId();
             $param = true;
         }
+
+        if($this->isGranted('ROLE_ADMIN')){
+            dump('ADMIN');
+        } else {
+            dump('USER');
+        }
+
         if($param){
             $sorties = $em->getRepository(Sortie::class)->findBy($paramRequette);
         }else{
             $sorties = $em->getRepository(Sortie::class)->findAll();
         }
+
         if(!empty($recherche)){
             foreach ($sorties as $srt){
                 if (stripos($srt->getNom(), $recherche) !== false) {

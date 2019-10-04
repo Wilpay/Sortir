@@ -17,6 +17,7 @@ class EtatFixture extends Fixture
     public const ETAT_REFERENCE4 = 'etat-ref4';
     public const ETAT_REFERENCE5 = 'etat-ref5';
     public const ETAT_REFERENCE6 = 'etat-ref6';
+    public const ETAT_REFERENCE7 = 'etat-ref7';
     /**
      * Load data fixtures with the passed EntityManager
      *
@@ -42,12 +43,16 @@ class EtatFixture extends Fixture
         $etat6 = new Etat();
         $etat6->setLibelle('Annulée');
 
+        $etat7 = new Etat();
+        $etat7->setLibelle('Archivée');
+
         $manager->persist($etat1);
         $manager->persist($etat2);
         $manager->persist($etat3);
         $manager->persist($etat4);
         $manager->persist($etat5);
         $manager->persist($etat6);
+        $manager->persist($etat7);
 
         $manager->flush();
 
@@ -57,5 +62,6 @@ class EtatFixture extends Fixture
         $this->addReference(self::ETAT_REFERENCE4, $etat4);
         $this->addReference(self::ETAT_REFERENCE5, $etat5);
         $this->addReference(self::ETAT_REFERENCE6, $etat6);
+        $this->addReference(self::ETAT_REFERENCE7, $etat7);
     }
 }

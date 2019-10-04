@@ -125,7 +125,21 @@ class SortieFixture extends Fixture
         $organisateur = $this->getReference(ParticipantFixture::PARTICIPANT_REFERENCE2);
         $sortie6->setOrganisateur($organisateur);
 
-
+        $sortie7 = new Sortie();
+        $sortie7->setNom('Sortie Archivée');
+        $sortie7->setDateHeureDebut(new DateTime('now -9 days', new DateTimeZone('Europe/Paris')));
+        $sortie7->setDuree(56);
+        $sortie7->setDateLimiteInscription(new DateTime('now -19 days', new DateTimeZone('Europe/Paris')));
+        $sortie7->setNbInscriptionsMax(100);
+        $sortie7->setInfosSortie('Au zenith de Nantes');
+        $etat = $this->getReference(EtatFixture::ETAT_REFERENCE7);
+        $sortie7->setEtat($etat);
+        $lieu = $this->getReference(LieuFixture::LIEU_REFERENCE2);
+        $sortie7->setLieu($lieu);
+        $site = $this->getReference(SiteFixture::SITE_REFERENCE2);
+        $sortie7->setSiteorganisateur($site);
+        $organisateur = $this->getReference(ParticipantFixture::PARTICIPANT_REFERENCE1);
+        $sortie7->setOrganisateur($organisateur);
 
 
         $manager->persist($sortie1);
@@ -134,6 +148,7 @@ class SortieFixture extends Fixture
         $manager->persist($sortie4);
         $manager->persist($sortie5);
         $manager->persist($sortie6);
+        $manager->persist($sortie7);
 
         $manager->flush();
     }
