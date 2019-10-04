@@ -166,7 +166,7 @@ class UserController extends Controller
         $test = $request->request->get('mail');
 
         $message =  (new \Swift_Message('Hello Email'))
-            ->setFrom('willytenaud@gmail.com')  //nom de l'expéditeur et normalement le mail saisie
+            ->setFrom('sortietp@gmail.com')  //nom de l'expéditeur et normalement le mail saisie
             ->setReplyTo($test)  // répondre à la personne qui envoie avec le mail saisie car sans le cela si on fait répondre y a rien
             ->setTo($test) //mail qui reçoit le message
             ->setBody("<h1>test,<br/> Envoyé par : $test</h1>", 'text/html');
