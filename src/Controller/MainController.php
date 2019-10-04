@@ -87,7 +87,7 @@ class MainController extends Controller
         $sortiesTriees=[];
         if(!empty($fin)){
             foreach ($sorties as $srt){
-                if ($srt->getDateHeureDebut()->getTimestamp() >= strtotime($fin)) {
+                if ($srt->getDateHeureDebut()->getTimestamp() <= strtotime($fin)) {
                     array_push($sortiesTriees, $srt);
                 }
             }

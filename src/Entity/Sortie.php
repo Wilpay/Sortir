@@ -40,7 +40,12 @@ class Sortie
      *
      * @var datetime
      * @Assert\NotBlank(message="Veuillez entrer une date")
+     * @Assert\GreaterThanOrEqual(
+     *      value = "now",
+     *      message = "Veuillez entrer une date future"
+     * )
      */
+
     private $dateHeureDebut;
 
     /**
@@ -49,6 +54,9 @@ class Sortie
      * @var Integer
      * @Assert\NotBlank(message="Veuillez entrer une durée")
      * )
+     * @Assert\Range(
+     *      min = 120,
+     *      minMessage = "Veuillez entrer une valeur positive")
      */
     private $duree;
 
@@ -56,7 +64,13 @@ class Sortie
      * @ORM\Column(type="datetime")
      * @var datetime
      * @Assert\NotBlank(message="Veuillez entrer une date")
-     *
+     * @Assert\Expression(
+     *     "this.getDateHeureDebut() < this.getDateLimiteInscription()",
+     *     message="Les inscriptions ne peuvent pas etre cloturées après le début de l'événement")
+     * @Assert\GreaterThanOrEqual(
+     *      value = "now",
+     *      message = "Veuillez entrer une date future"
+     * )
      */
     private $dateLimiteInscription;
 
@@ -65,6 +79,10 @@ class Sortie
      *
      * @var Integer
      * @Assert\NotBlank(message="Veuillez entrer le nombre max de participants")
+     * @Assert\Range(
+     *      min = 120,
+     *      minMessage = "Veuillez entrer une valeur positive"
+     * )
      */
     private $nbInscriptionsMax;
 
