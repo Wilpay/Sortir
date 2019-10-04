@@ -121,6 +121,34 @@ class MainController extends Controller
             }
             $sorties=$sortiesTriees;
         }
+        $sortiesTriees=[];
+        if($inscrit=="true" && $nonInscrit=="false"){
+            foreach ($sorties as $srt){
+                foreach ($srt->getInscrit() as $inscrit){
+                    if ($inscrit->getId() == $this->getUser()->getId()) {
+                        array_push($sortiesTriees, $srt);
+                        break;
+                    }
+                }
+            }
+            $sorties=$sortiesTriees;
+        }
+        $sortiesTriees=[];
+        if($inscrit=="false" && $nonInscrit=="true"){
+            foreach ($sorties as $srt){
+                $isInscrit=false;
+                foreach ($srt->getInscrit() as $inscrit){
+                    if ($inscrit->getId() == $this->getUser()->getId()) {
+                        $isInscrit = true;
+                        break;
+                    }
+                }
+                if($isInscrit == false){
+                    array_push($sortiesTriees, $srt);
+                }
+            }
+            $sorties=$sortiesTriees;
+        }
         return $this->render("ajax/listeSorties", ['sorties' => $sorties]);
     }
 }
