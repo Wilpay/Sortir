@@ -125,6 +125,7 @@ class MainController extends Controller
         $cloturee = $em->getRepository(Etat::class)->findByLibelle('Clôturée');
         $encours = $em->getRepository(Etat::class)->findByLibelle('Activité en cours');
         $passee = $em->getRepository(Etat::class)->findByLibelle('Passée');
+        $archive = $em->getRepository(Etat::class)->findByLibelle('Archivée');
 
         foreach ($sorties as $sortie)
         {

@@ -127,6 +127,7 @@ class SortieFixture extends Fixture
 
 
 
+
         $manager->persist($sortie1);
         $manager->persist($sortie2);
         $manager->persist($sortie3);
