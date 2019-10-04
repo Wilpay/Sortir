@@ -138,6 +138,7 @@ class MainController extends Controller
         {
             $date = date_timestamp_get(date_create())+3600*2;
             $datefin = $sortie->getDateHeureDebut()->getTimestamp() + $sortie->getDuree()*60;
+            $datearchive = $datefin + 2592000;
 
             if($sortie->getDateLimiteInscription()->getTimestamp() < $date && $sortie->getEtat() == $ouverte)
             {
@@ -154,10 +155,11 @@ class MainController extends Controller
                 $sortie->setEtat($passee);
             }
 
-            if($datefin > new DateTime('now +30 days', new DateTimeZone('Europe/Paris')))
+            if($datearchive <= $date)
             {
                 $sortie->setEtat($archive);
             }
+
             $em->persist($sortie);
             $em->flush();
         }
