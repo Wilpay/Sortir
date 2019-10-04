@@ -34,7 +34,7 @@ class ParticipantFixture extends Fixture
         $participant1->setPseudo('qbaudry');
         $participant1->setTelephone('0123456789');
         $participant1->setMail('quentin@gmail.com');
-        $participant1->setRoles(['ROLE_USER']);
+        $participant1->setRoles(['ROLE_ADMIN']);
         $participant1->setActif(true);
         $password = $this->encoder->encodePassword($participant1, '123');
         $participant1->setPassword($password);
@@ -47,7 +47,7 @@ class ParticipantFixture extends Fixture
         $participant2->setPseudo('wtenaud');
         $participant2->setTelephone('0123456789');
         $participant2->setMail('willy@gmail.com');
-        $participant2->setRoles(['ROLE_ADMIN']);
+        $participant2->setRoles(['ROLE_USER']);
         $participant2->setActif(false);
         $password = $this->encoder->encodePassword($participant2, '123');
         $participant2->setPassword($password);

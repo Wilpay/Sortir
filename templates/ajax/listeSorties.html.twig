@@ -15,8 +15,8 @@
     {% for sortie in sorties %}
         <tr>
             <th scope="row">{{ sortie.nom }}</th>
-            <td>{{ sortie.dateHeureDebut|date('Y-m-d H:i:s') }}</td>
-            <td>{{ sortie.dateLimiteInscription|date('Y-m-d H:i:s') }}</td>
+            <td>{{ sortie.dateHeureDebut|date('d/m/Y à H:i:s') }}</td>
+            <td>{{ sortie.dateLimiteInscription|date('d/m/Y') }}</td>
             <td>{{ sortie.inscrit.count }} / {{ sortie.nbInscriptionsMax }}</td>
             <td>{{ sortie.etat.libelle }}</td>
             <td class="text-center">
@@ -34,7 +34,7 @@
                 {% if app.user %}
                     {% if sortie.etat.libelle == 'Ouverte' and app.user != sortie.organisateur and app.user != sortie.inscrit.contains(app.user) and sortie.inscrit.count < sortie.nbInscriptionsMax %}
                         <a href="{{ path('inscrire', {id:sortie.id}) }}" class="btn btn-sm btn-outline-success action">
-                            <i class="fas fa-plus"></i>
+                            <i class="fas fa-user-plus"></i>
                         </a>
                     {% endif %}
                     {% if sortie.etat.libelle == 'Ouverte' and app.user != sortie.organisateur and app.user == sortie.inscrit.contains(app.user) %}
@@ -46,7 +46,7 @@
                         <a href="{{ path('publier', {id:sortie.id}) }}" class="btn btn-sm btn-outline-primary action">
                             <i class="fas fa-upload"></i>
                         </a>
-                        <a href="#" class="btn btn-sm btn-outline-warning action">
+                        <a href="{{ path('creer', {id:sortie.id}) }}" class="btn btn-sm btn-outline-warning action">
                             <i class="fas fa-tools"></i>
                         </a>
                     {% endif %}

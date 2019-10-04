@@ -310,10 +310,13 @@ class Participant implements UserInterface
      */
     public function getRoles()
     {
+        //return $this->roles;
+
         $roles[] = 'ROLE_USER';
         $roles = $this->roles;
 
         return array_unique($roles);
+
     }
     public function setRoles(array $roles){
         $this->roles = $roles;

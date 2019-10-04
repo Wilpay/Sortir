@@ -4,6 +4,12 @@
     <script src="{{ asset("js/creerSorti.js") }}"></script>
     <h1 class="display-4">Créer une Sortie</h1>
     <hr class="my-3">
+    <input type="hidden" id="urlLieu" value="{{ path("majLieux") }}">
+    <input type="hidden" id="urlInfoLieu" value="{{ path("majInfoLieu") }}">
+
+    <input type="hidden" id="idLieu" value="{{ idLieu }}">
+    <input type="hidden" id="idVille" value="{{ idVille }}">
+
     <div class="container">
         {% for label, messages in app.flashes %}
             <div class="alert alert-{{ label }}" role="alert">
