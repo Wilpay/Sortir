@@ -1,7 +1,7 @@
 # Sortir.com
 
 1 - Installer un serveur (exemple wamp pour le serveur Apache). <br>
-2 - Déplacer le répertoire dans Wamp64/www ou Wamp32/www situé dans le disque dur à la racine en fonction de votre version.<br>
+2 - Déplacer le répertoire 'Sortir' dans Wamp64/www ou Wamp32/www situé dans le disque dur à la racine en fonction de votre version.<br>
 ATTENTION : Le wamp doit être vert.<br>
 3 - Lancer l'invite de commande en mode administrateur (Pour Windows raccourci : Win + X puis appyez sur la touche A )<br>
 4 - Faire la commande cd .. jusqu'à ce que vous voyez seulement la lettre de votre lecteur. (exemple C:\>) <br>
