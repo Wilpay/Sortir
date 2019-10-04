@@ -34,7 +34,7 @@
                 {% if app.user %}
                     {% if sortie.etat.libelle == 'Ouverte' and app.user != sortie.organisateur and app.user != sortie.inscrit.contains(app.user) and sortie.inscrit.count < sortie.nbInscriptionsMax %}
                         <a href="{{ path('inscrire', {id:sortie.id}) }}" class="btn btn-sm btn-outline-success action">
-                            <i class="fas fa-plus"></i>
+                            <i class="fas fa-user-plus"></i>
                         </a>
                     {% endif %}
                     {% if sortie.etat.libelle == 'Ouverte' and app.user != sortie.organisateur and app.user == sortie.inscrit.contains(app.user) %}
