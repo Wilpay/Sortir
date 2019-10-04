@@ -7,6 +7,9 @@ namespace App\DataFixtures;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Repository\EtatRepository;
+use DateInterval;
+use DateTime;
+use DateTimeZone;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -20,13 +23,11 @@ class SortieFixture extends Fixture
      */
     public function load(ObjectManager $manager)
     {
-
-
         $sortie1 = new Sortie();
         $sortie1->setNom('BUC');
-        $sortie1->setDateHeureDebut(new \DateTime('2020-02-01T15:03:01.012345Z'));
+        $sortie1->setDateHeureDebut(new DateTime('now +3 days', new DateTimeZone('Europe/Paris')));
         $sortie1->setDuree(3);
-        $sortie1->setDateLimiteInscription(new \DateTime('2020-01-01T15:03:01.012345Z'));
+        $sortie1->setDateLimiteInscription(new DateTime('now +1 day', new DateTimeZone('Europe/Paris')));
         $sortie1->setNbInscriptionsMax(15);
         $sortie1->setInfosSortie('Boire un coup dans un bar');
         $etat = $this->getReference(EtatFixture::ETAT_REFERENCE1);
@@ -46,9 +47,9 @@ class SortieFixture extends Fixture
 
         $sortie2 = new Sortie();
         $sortie2->setNom('Parc Astérix');
-        $sortie2->setDateHeureDebut(new \DateTime('2019-12-05T15:03:01.012345Z'));
+        $sortie2->setDateHeureDebut(new DateTime('now +13 days', new DateTimeZone('Europe/Paris')));
         $sortie2->setDuree(48);
-        $sortie2->setDateLimiteInscription(new \DateTime('2019-10-03T15:03:01.012345Z'));
+        $sortie2->setDateLimiteInscription(new DateTime('now +5 days', new DateTimeZone('Europe/Paris')));
         $sortie2->setNbInscriptionsMax(50);
         $sortie2->setInfosSortie('Parc d\'attraction');
         $etat = $this->getReference(EtatFixture::ETAT_REFERENCE2);
@@ -62,9 +63,9 @@ class SortieFixture extends Fixture
 
         $sortie3 = new Sortie();
         $sortie3->setNom('24h du mans');
-        $sortie3->setDateHeureDebut(new \DateTime('2019-10-30T15:03:01.012345Z'));
+        $sortie3->setDateHeureDebut(new DateTime('now +5 days', new DateTimeZone('Europe/Paris')));
         $sortie3->setDuree(72);
-        $sortie3->setDateLimiteInscription(new \DateTime('2019-10-02T15:03:01.012345Z'));
+        $sortie3->setDateLimiteInscription(new DateTime('now -2 days', new DateTimeZone('Europe/Paris')));
         $sortie3->setNbInscriptionsMax(100);
         $sortie3->setInfosSortie('Course de moto avec hôtel');
         $etat = $this->getReference(EtatFixture::ETAT_REFERENCE3);
@@ -77,10 +78,10 @@ class SortieFixture extends Fixture
         $sortie3->setOrganisateur($organisateur);
 
         $sortie4 = new Sortie();
-        $sortie4->setNom('Gagner à l\euro Millions');
-        $sortie4->setDateHeureDebut(new \DateTime('2019-10-04T21:30:00.012345Z'));
-        $sortie4->setDuree(1);
-        $sortie4->setDateLimiteInscription(new \DateTime('2019-10-04T10:00:00.012345Z'));
+        $sortie4->setNom('Gagner à l\'euro Millions');
+        $sortie4->setDateHeureDebut(new DateTime('now', new DateTimeZone('Europe/Paris')));
+        $sortie4->setDuree(30);
+        $sortie4->setDateLimiteInscription(new DateTime('now -4 days', new DateTimeZone('Europe/Paris')));
         $sortie4->setNbInscriptionsMax(100000);
         $sortie4->setInfosSortie('190 millions €');
         $etat = $this->getReference(EtatFixture::ETAT_REFERENCE4);
@@ -89,14 +90,14 @@ class SortieFixture extends Fixture
         $sortie4->setLieu($lieu);
         $site = $this->getReference(SiteFixture::SITE_REFERENCE3);
         $sortie4->setSiteorganisateur($site);
-        $organisateur = $this->getReference(ParticipantFixture::PARTICIPANT_REFERENCE2);
+        $organisateur = $this->getReference(ParticipantFixture::PARTICIPANT_REFERENCE3);
         $sortie4->setOrganisateur($organisateur);
 
         $sortie5 = new Sortie();
         $sortie5->setNom('Voyage Dubai');
-        $sortie5->setDateHeureDebut(new \DateTime('2019-10-04T09:30:01.012345Z'));
+        $sortie5->setDateHeureDebut(new DateTime('now -5 days', new DateTimeZone('Europe/Paris')));
         $sortie5->setDuree(480);
-        $sortie5->setDateLimiteInscription(new \DateTime('2019-10-02T15:03:01.012345Z'));
+        $sortie5->setDateLimiteInscription(new DateTime('now -7 days', new DateTimeZone('Europe/Paris')));
         $sortie5->setNbInscriptionsMax(100);
         $sortie5->setInfosSortie('Course de moto avec hôtel');
         $etat = $this->getReference(EtatFixture::ETAT_REFERENCE5);
@@ -109,12 +110,12 @@ class SortieFixture extends Fixture
         $sortie5->setOrganisateur($organisateur);
 
         $sortie6 = new Sortie();
-        $sortie6->setNom('24h du mans');
-        $sortie6->setDateHeureDebut(new \DateTime('2019-10-30T15:03:01.012345Z'));
+        $sortie6->setNom('Concert');
+        $sortie6->setDateHeureDebut(new DateTime('now +8 days', new DateTimeZone('Europe/Paris')));
         $sortie6->setDuree(72);
-        $sortie6->setDateLimiteInscription(new \DateTime('2019-10-02T15:03:01.012345Z'));
+        $sortie6->setDateLimiteInscription(new DateTime('now +1 days', new DateTimeZone('Europe/Paris')));
         $sortie6->setNbInscriptionsMax(100);
-        $sortie6->setInfosSortie('Course de moto avec hôtel');
+        $sortie6->setInfosSortie('Au zenith de Nantes');
         $etat = $this->getReference(EtatFixture::ETAT_REFERENCE6);
         $sortie6->setEtat($etat);
         $lieu = $this->getReference(LieuFixture::LIEU_REFERENCE2);

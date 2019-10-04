@@ -27,7 +27,6 @@ class MainController extends Controller
     }
 
     /**
-     * Route("/refreshSorties", name="refreshSorties")
      * @Route("/refreshSorties", name="refreshSorties")
      */
     public function refreshSorties(Request $request, EntityManagerInterface $em){
