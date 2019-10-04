@@ -33,7 +33,7 @@ class MainController extends Controller
 
         $param = false;
         $sortiesTriees=[];
-        $paramRequette =[];
+        $paramRequette=[];
 
         $site=$request->request->get("site");
         $recherche = $request->request->get("search");
@@ -47,27 +47,30 @@ class MainController extends Controller
 
         if($site!=0){
             $paramRequette["siteorganisateur"] = $site;
-            $param = true;
         }
         if($orga=="true"){
             $paramRequette["organisateur"] = $this->getUser()->getId();
-            $param = true;
         }
         if($passe=="true"){
             $paramRequette["etat"] = $idPasse[0]->getId();
-            $param = true;
         }
 
         if($this->isGranted('ROLE_ADMIN')){
-            dump('ADMIN');
+            var_dump('ADMIN');
+            if($paramRequette != []){
+                $sorties = $em->getRepository(Sortie::class)->findBy($paramRequette);
+            }else{
+                $sorties = $em->getRepository(Sortie::class)->findAll();
+            }
         } else {
-            dump('USER');
-        }
-
-        if($param){
-            $sorties = $em->getRepository(Sortie::class)->findBy($paramRequette);
-        }else{
-            $sorties = $em->getRepository(Sortie::class)->findAll();
+            var_dump('USER');
+            // Affiche sorties en retirant celle archivée et
+            // En retirant celle dont l'état est 'Créée' par un organisateur différent de l'user connecté ($this->getUser()
+            if($paramRequette != []){
+                $sorties = $em->getRepository(Sortie::class)->findBy($paramRequette);
+            }else{
+                $sorties = $em->getRepository(Sortie::class)->findAll();
+            }
         }
 
         if(!empty($recherche)){
@@ -81,7 +84,7 @@ class MainController extends Controller
         $sortiesTriees=[];
         if(!empty($debut)){
             foreach ($sorties as $srt){
-                if ($srt->getDateHeureDebut()->getTimestamp() >=  strtotime($debut)) {
+                if ($srt->getDateHeureDebut()->getTimestamp() >= strtotime($debut)) {
                     array_push($sortiesTriees, $srt);
                 }
             }

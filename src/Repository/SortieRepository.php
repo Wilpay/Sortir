@@ -19,6 +19,16 @@ class SortieRepository extends ServiceEntityRepository
         parent::__construct($registry, Sortie::class);
     }
 
+    public function findWithout($value)
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.etat != :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
     // /**
     //  * @return Sortie[] Returns an array of Sortie objects
     //  */
