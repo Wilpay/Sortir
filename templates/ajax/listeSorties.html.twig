@@ -1,0 +1,63 @@
+<table class="table table-sm mb-5">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Nom de la sortie</th>
+        <th scope="col">Date de la sortie</th>
+        <th scope="col">Clôture</th>
+        <th scope="col">Inscrits / Places</th>
+        <th scope="col">Etat</th>
+        <th scope="col" class="text-center">Inscrit</th>
+        <th scope="col">Organisateur</th>
+        <th scope="col" class="text-right">Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for sortie in sorties %}
+        <tr>
+            <th scope="row">{{ sortie.nom }}</th>
+            <td>{{ sortie.dateHeureDebut|date('Y-m-d H:i:s') }}</td>
+            <td>{{ sortie.dateLimiteInscription|date('Y-m-d H:i:s') }}</td>
+            <td>{{ sortie.inscrit.count }} / {{ sortie.nbInscriptionsMax }}</td>
+            <td>{{ sortie.etat.libelle }}</td>
+            <td class="text-center">
+                {% if app.user and app.user == sortie.inscrit.contains(app.user) %}
+                    <i class="fas fa-check text-success"></i>
+                {% endif %}
+            </td>
+            <td><a href="{{ path('profil_user', {id:sortie.organisateur.id}) }}">{{ sortie.organisateur.nom }}</td>
+            <td class="text-right">
+                {% if sortie.etat.libelle != 'Créée' %}
+                    <a href="{{ path('sortie', {id:sortie.id}) }}" class="btn btn-sm btn-outline-secondary action">
+                        <i class="far fa-eye"></i>
+                    </a>
+                {% endif %}
+                {% if app.user %}
+                    {% if sortie.etat.libelle == 'Ouverte' and app.user != sortie.organisateur and app.user != sortie.inscrit.contains(app.user) and sortie.inscrit.count < sortie.nbInscriptionsMax %}
+                        <a href="{{ path('inscrire', {id:sortie.id}) }}" class="btn btn-sm btn-outline-success action">
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    {% endif %}
+                    {% if sortie.etat.libelle == 'Ouverte' and app.user != sortie.organisateur and app.user == sortie.inscrit.contains(app.user) %}
+                        <a href="{{ path('desinscrire', {id:sortie.id}) }}" class="btn btn-sm btn-outline-danger action">
+                            <i class="fas fa-user-minus"></i>
+                        </a>
+                    {% endif %}
+                    {% if sortie.etat.libelle == 'Créée' and app.user == sortie.organisateur %}
+                        <a href="{{ path('publier', {id:sortie.id}) }}" class="btn btn-sm btn-outline-primary action">
+                            <i class="fas fa-upload"></i>
+                        </a>
+                        <a href="#" class="btn btn-sm btn-outline-warning action">
+                            <i class="fas fa-tools"></i>
+                        </a>
+                    {% endif %}
+                    {% if (sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée') and app.user == sortie.organisateur %}
+                        <a href="{{ path('annuler', {id:sortie.id}) }}" class="btn btn-sm btn-outline-danger action">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    {% endif %}
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

@@ -57,15 +57,21 @@ class UserController extends Controller
     /**
      * @Route("/connexion", name="connexion")
      */
-    public function connexion(AuthenticationUtils $authenticationUtils)
+    public function connexion(Request $request, AuthenticationUtils $authenticationUtils)
     {
         $errors = $authenticationUtils->getLastAuthenticationError();
         $lastname = $authenticationUtils->getLastUsername();
-
+        $form = $this->createForm(ParticipantType::class);
+        $form->handleRequest($request);
         dump($this->getUser());
+
+
+
+
 
         return $this->render("user/connexion.html.twig", [
             'lastusername' => $lastname,
+            'form' => $form->createView(),
             'error' => $errors
         ]);
     }
@@ -153,19 +159,27 @@ class UserController extends Controller
     }
 
     /**
-     * @Route("/motdepasseoubli/", name="motdepasseoubli")
+     * @Route("/motdepasseoubli", name="motdepasseoubli")
      */
-    public function Motdepasseoubli(EntityManagerInterface $em, $id)
+    public function Motdepasseoubli(EntityManagerInterface $em,\Swift_Mailer $mailer,Request $request)
     {
+        $test = $request->request->get('mail');
+
+        $message =  (new \Swift_Message('Hello Email'))
+            ->setFrom('willytenaud@gmail.com')  //nom de l'expéditeur et normalement le mail saisie
+            ->setReplyTo($test)  // répondre à la personne qui envoie avec le mail saisie car sans le cela si on fait répondre y a rien
+            ->setTo($test) //mail qui reçoit le message
+            ->setBody("<h1>test,<br/> Envoyé par : $test</h1>", 'text/html');
+
+
+        $this->get('mailer')->send($message);
 
 
 
-        return $this->render('user/inscription.html.twig', [
-            'form' => $form->createView(),
-            'utilisateur' => $user,
+        $this->addFlash('success', 'Email Envoyé');
+        return $this->redirectToRoute('connexion');
 
 
-        ]);
     }
     /**
      * @return string

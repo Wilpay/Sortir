@@ -29,11 +29,14 @@
                     <div class="col-12 my-3">
                         <p class="card-text">
                             <span class="h4">Liste des participants: </span>
-                        <div class="list-group list-group-flush">
-                            {% for participant in sortie.inscrit %}
-                                <a href="{{ path('profil_user', {id:participant.id}) }}" class="list-group-item list-group-item-action">{{ participant.pseudo }} - {{ participant.prenom }} {{ participant.nom }}</a>
-                            {% endfor %}
-                        </div>
+                            <div class="list-group list-group-flush">
+                                {% if sortie.inscrit is empty %}
+                                    <a class="list-group-item list-group-item-action">Aucun participant</a>
+                                {%  endif %}
+                                {% for participant in sortie.inscrit %}
+                                    <a href="{{ path('profil_user', {id:participant.id}) }}" class="list-group-item list-group-item-action">{{ participant.pseudo }} - {{ participant.prenom }} {{ participant.nom }}</a>
+                                {% endfor %}
+                            </div>
                         </p>
                     </div>
                 </div>

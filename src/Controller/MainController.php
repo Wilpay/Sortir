@@ -150,6 +150,6 @@ class MainController extends Controller
             $em->persist($sortie);
             $em->flush();
         }
-        return $this->render("ajax/listeSorties", ['sorties' => $sorties]);
+        return $this->render("ajax/listeSorties.html.twig", ['sorties' => $sorties]);
     }
 }
