@@ -6,6 +6,7 @@ use App\Entity\Site;
 use App\Entity\Participant;
 use App\Entity\Profil;
 use App\Entity\Sortie;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
