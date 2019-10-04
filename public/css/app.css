@@ -1,3 +1,12 @@
+html body {
+    height: 100%;
+    background-color: #e9ecef;
+}
+
+.action {
+    width: 38px;
+}
+
 .custom-file-label2 {
     position: absolute;
     top: 0;

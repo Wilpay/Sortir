@@ -15,12 +15,13 @@
         {% if error %}
             <div class="alert alert-danger" role="alert">
                 {{ error.message }}
+                {{ error.messageKey|trans(error.messageData, 'security') }}
             </div>
         {% endif %}
 
         <div class="form-group">
             <label for="login">Identifiant :</label>
-            <input type="text" class="form-control" id="login" name="_username">
+            <input type="text" class="form-control" id="login" name="_username" value="{{ lastusername }}">
         </div>
         <div class="form-group">
             <label for="mdp">Mot de passe :</label>
@@ -32,7 +33,7 @@
         </div>
         <a class="btn btn-link" href="#" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Mot de passe oublié ?</a>
         <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}" >
-        <button type="submit" class="btn btn-block btn-primary mt-3">Connexion</button>
+        <button type="submit" class="btn btn-block btn-primary mt-5">Connexion</button>
     </form>
 
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
