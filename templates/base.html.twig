@@ -18,7 +18,7 @@
     <body>
         {% block menu %}
             <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-                <a class="navbar-brand font-weight-bold" href="{{ path('home') }}">
+                <a class="navbar-brand font-weight-bold pr-2" href="{{ path('home') }}">
                     <i class="fas fa-map-marked-alt pr-2"></i>
                     Sortie.com
                 </a>
@@ -28,7 +28,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     {% if app.user %}
-                        <i class="fas fa-user pl-3 pr-2"></i> {{ app.user.pseudo }}
+                        <i class="fas fa-user pr-2"></i> {{ app.user.pseudo }}
                     {% endif %}
                     <ul class="navbar-nav ml-auto">
                         {% if app.user %}
@@ -56,7 +56,7 @@
                 </div>
             </nav>
         {% endblock %}
-        <div class="jumbotron my-5">
+        <div class="jumbotron mt-5">
             {% block body %}{% endblock %}
         </div>
 

@@ -64,9 +64,9 @@
                 <th scope="col">Clôture</th>
                 <th scope="col">Inscrits / Places</th>
                 <th scope="col">Etat</th>
-                <th scope="col">Inscrit</th>
+                <th scope="col" class="text-center">Inscrit</th>
                 <th scope="col">Organisateur</th>
-                <th scope="col">Actions</th>
+                <th scope="col" class="text-right">Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -77,38 +77,62 @@
                     <td>{{ sortie.dateLimiteInscription|date('Y-m-d H:i:s') }}</td>
                     <td>{{ sortie.inscrit.count }} / {{ sortie.nbInscriptionsMax }}</td>
                     <td>{{ sortie.etat.libelle }}</td>
-                    <td>
+                    <td class="text-center">
                         {% if app.user %}
                             {% if app.user == sortie.inscrit.contains(app.user) %}
-                                <i class="fas fa-check"></i>
+                                <i class="fas fa-check text-success"></i>
+                            {% else %}
+
                             {% endif %}
                         {% endif %}
                     </td>
                     <td><a href="{{ path('profil_user', {id:sortie.organisateur.id}) }}">{{ sortie.organisateur.nom }}</td>
-                    <td>
+                    <td class="text-right">
                         {% if app.user %}
                             {% if app.user != sortie.inscrit.contains(app.user)  and sortie.etat.libelle == 'Ouverte' and app.user != sortie.organisateur %}
-                                <a href="{{ path('sortie', {id:sortie.id}) }}"><i class="far fa-eye pr-3"></i></a>
+                                <a href="{{ path('sortie', {id:sortie.id}) }}" class="btn btn-sm btn-outline-secondary action">
+                                    <i class="far fa-eye"></i>
+                                </a>
                                 {% if sortie.inscrit.count == sortie.nbInscriptionsMax %}
 
                                 {% else %}
-                                    <a href="{{ path('inscrire', {id:sortie.id}) }}" ><i class="fas fa-plus pr-3"></i></a>
+                                    <a href="{{ path('inscrire', {id:sortie.id}) }}" class="btn btn-sm btn-outline-success action">
+                                        <i class="fas fa-plus"></i>
+                                    </a>
                                 {% endif %}
                             {% elseif app.user == sortie.inscrit.contains(app.user) and sortie.etat.libelle == 'Ouverte' %}
-                                <a href="{{ path('sortie', {id:sortie.id}) }}"><i class="far fa-eye pr-3"></i></a>
-                                <a href="{{ path('desinscrire', {id:sortie.id}) }}" ><i class="fas fa-user-minus pr-3"></i></a>
+                                <a href="{{ path('sortie', {id:sortie.id}) }}" class="btn btn-sm btn-outline-secondary action">
+                                    <i class="far fa-eye"></i>
+                                </a>
+                                <a href="{{ path('desinscrire', {id:sortie.id}) }}" class="btn btn-sm btn-outline-danger action">
+                                    <i class="fas fa-user-minus"></i>
+                                </a>
                             {% elseif app.user != sortie.inscrit.contains(app.user) and sortie.etat.libelle == 'Clôturée' %}
-                                <a href="{{ path('sortie', {id:sortie.id}) }}"><i class="far fa-eye pr-3"></i></a>
+                                <a href="{{ path('sortie', {id:sortie.id}) }}" class="btn btn-sm btn-outline-secondary action">
+                                    <i class="far fa-eye"></i>
+                                </a>
                             {% elseif app.user == sortie.organisateur and sortie.etat.libelle == 'Créée' %}
-                                <i class="fas fa-tools pr-3"></i>
-                                <a href="{{ path('publier', {id:sortie.id}) }}" ><i class="fas fa-upload pr-3"></i></a>
+                                <a href="" class="btn btn-sm btn-outline-warning action">
+                                    <i class="fas fa-tools"></i>
+                                </a>
+                                <a href="{{ path('publier', {id:sortie.id}) }}" class="btn btn-sm btn-outline-primary action">
+                                    <i class="fas fa-upload"></i>
+                                </a>
                             {% elseif app.user == sortie.organisateur and sortie.etat.libelle == 'Ouverte' %}
-                                <a href="{{ path('sortie', {id:sortie.id}) }}"><i class="far fa-eye pr-3"></i></a>
-                                <a href="{{ path('annuler', {id:sortie.id}) }}" ><i class="fas fa-trash-alt pr-3"></i></a>
+                                <a href="{{ path('sortie', {id:sortie.id}) }}" class="btn btn-sm btn-outline-secondary action">
+                                    <i class="far fa-eye"></i>
+                                </a>
+                                <a href="{{ path('annuler', {id:sortie.id}) }}" class="btn btn-sm btn-outline-danger action">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
                             {% elseif app.user != sortie.inscrit.contains(app.user) and sortie.inscrit.count == sortie.nbInscriptionsMax %}
-                                <a href="{{ path('sortie', {id:sortie.id}) }}"><i class="far fa-eye pr-3"></i></a>
+                                <a href="{{ path('sortie', {id:sortie.id}) }}" class="btn btn-sm btn-outline-secondary action">
+                                    <i class="far fa-eye"></i>
+                                </a>
                             {% elseif app.user != sortie.inscrit.contains(app.user) and sortie.etat.libelle == 'Clôturée' %}
-                                <a href="{{ path('sortie', {id:sortie.id}) }}"><i class="far fa-eye pr-3"></i></a>
+                                <a href="{{ path('sortie', {id:sortie.id}) }}" class="btn btn-sm btn-outline-secondary action">
+                                    <i class="far fa-eye"></i>
+                                </a>
                             {% endif %}
                         {% endif %}
                     </td>
