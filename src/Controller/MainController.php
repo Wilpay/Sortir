@@ -149,6 +149,6 @@ class MainController extends Controller
             }
             $sorties=$sortiesTriees;
         }
-        return $this->render("ajax/listeSorties", ['sorties' => $sorties]);
+        return $this->render("ajax/listeSorties.html.twig", ['sorties' => $sorties]);
     }
 }

@@ -17,7 +17,6 @@ class SortieController extends Controller
 {
 
     /**
-     * Route("/creer", name="creer")
      * @Route("/creer", name="creer")
      */
     public function creer(Request $request,EntityManagerInterface $em)
@@ -49,7 +48,6 @@ class SortieController extends Controller
     }
 
     /**
-     * Route("/majLieux", name="majLieux")
      * @Route("/majLieux", name="majLieux")
      */
     public function majLieux(Request $request,EntityManagerInterface $em){
@@ -57,17 +55,16 @@ class SortieController extends Controller
         $idVille = $request->request->get('idVille');
         $ville= $em->getRepository(Ville::class)->find($idVille);
         $lieux = $em->getRepository(Lieu::class)->findBy(['ville'=>$idVille]);
-        return $this->render("ajax/listeLieux", ["lieux"=>$lieux,"cp"=>$ville->getCodePostal()]);
+        return $this->render("ajax/listeLieux.html.twig", ["lieux"=>$lieux,"cp"=>$ville->getCodePostal()]);
     }
 
     /**
-     * Route("/majInfoLieu", name="majInfoLieu")
      * @Route("/majInfoLieu", name="majInfoLieu")
      */
     public function majInfoLieu(Request $request,EntityManagerInterface $em){
         $idLieu = $request->request->get('idLieu');
         $lieu = $em->getRepository(Lieu::class)->find($idLieu);
-        return $this->render("ajax/majInfoLieu", ["lieu"=>$lieu]);
+        return $this->render("ajax/majInfoLieu.html.twig", ["lieu"=>$lieu]);
     }
 
 

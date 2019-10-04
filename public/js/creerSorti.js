@@ -25,7 +25,7 @@ function getLieux($idVille){
 function getInfosLieux($idLieu){
     $.ajax({
         type: 'POST',
-        url: "majInfoLieu",
+        url: "majInfoLieu.html.twig",
         data: "&idLieu="+$idLieu,
         complete: function(data) {
             console.log(data.responseText);
