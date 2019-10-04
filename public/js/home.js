@@ -15,7 +15,6 @@ $(document).ready(function(){
     refreshSorties();
 });
 function refreshSorties(){
-    console.log("refresh");
     var formData = {};
     formData['site']= $("#site").val();
     $(form).find("input[id]").not(":input[type=checkbox]").each(function (index, node) {
