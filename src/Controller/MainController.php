@@ -19,11 +19,7 @@ class MainController extends Controller
      */
     public function home(EntityManagerInterface $em)
     {
-
-
         $site = $em->getRepository(Site::class)->findAll();
-
-
 
         return $this->render("main/home.html.twig", [
             'sites' =>$site
@@ -150,6 +146,6 @@ class MainController extends Controller
             $em->persist($sortie);
             $em->flush();
         }
-        return $this->render("ajax/listeSorties", ['sorties' => $sorties]);
+        return $this->render("ajax/listeSorties.html.twig", ['sorties' => $sorties]);
     }
 }
