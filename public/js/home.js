@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    //refreshSorties();
+
     $("#site").change(function(){
         refreshSorties();
     });
@@ -9,10 +9,13 @@ $(document).ready(function(){
     $("input").change(function(){
         refreshSorties();
     });
+    $("#resetForm").click(function(){
+        resetForm();
+    });
+    refreshSorties();
 });
-
 function refreshSorties(){
-
+    console.log("refresh");
     var formData = {};
     formData['site']= $("#site").val();
     $(form).find("input[id]").not(":input[type=checkbox]").each(function (index, node) {
@@ -34,4 +37,12 @@ function refreshSorties(){
             $("#table").html(data.responseText)
         }
     });
+}
+function resetForm(){
+    $(':input','#form')
+        .not(':button, :submit, :reset, :hidden')
+        .val('')
+        .prop('checked', false)
+        .prop('selected', false);
+    $("#site").val(0);
 }
