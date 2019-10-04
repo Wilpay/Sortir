@@ -8,6 +8,7 @@ use App\Entity\Sortie;
 use App\Entity\Ville;
 use App\Form\SortieType;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,13 +18,22 @@ class SortieController extends Controller
 {
 
     /**
-     * @Route("/creer", name="creer")
+     * @Route("/creer/{id}", name="creer",requirements={"id": "\d+"})
      */
-    public function creer(Request $request,EntityManagerInterface $em)
+    public function creer(Request $request,EntityManagerInterface $em, $id)
     {
-        $sortie = new Sortie();
-        $sortie->setOrganisateur($this->getUser());
-        $sortie->setSiteOrganisateur($this->getUser()->getSite());
+        $idLieu = 0;
+        $idVille=0;
+        if($id == 0){
+
+            $sortie = new Sortie();
+            $sortie->setOrganisateur($this->getUser());
+            $sortie->setSiteOrganisateur($this->getUser()->getSite());
+        }else{
+            $sortie = $em->getRepository(Sortie::class)->find($id);
+            $idLieu = $sortie->getLieu()->getId();
+            $idVille= $sortie->getLieu()->getVille()->getId();
+        }
         $form = $this->createForm(SortieType::class, $sortie,["allow_extra_fields" => true]);
         $villeOrga =$this->getUser()->getSite();
         $villes = $em->getRepository(Ville::class)->findAll();
@@ -44,7 +54,7 @@ class SortieController extends Controller
             return $this->redirectToRoute("home");
         }
 
-        return $this->render("sortie/creer.html.twig", ["form" => $form->createView(),"villes"=>$villes,"villeOrga"=>$villeOrga]);
+        return $this->render("sortie/creer.html.twig", ["form" => $form->createView(),"villes"=>$villes,"villeOrga"=>$villeOrga,"idLieu"=>$idLieu,"idVille"=>$idVille]);
     }
 
     /**

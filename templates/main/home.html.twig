@@ -69,7 +69,7 @@
 
         </div>
         {% if app.user %}
-            <a href="{{ path('creer') }}" class="btn btn-block btn-success">Créer une sortie</a>
+            <a href="{{ path('creer',{"id":0}) }}" class="btn btn-block btn-success">Créer une sortie</a>
         {% endif %}
     </div>
 {% endblock %}
