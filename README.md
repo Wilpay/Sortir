@@ -34,17 +34,17 @@ Les fonctionnalitées présentes sont :
 <li>Annuler une sortie</li>
 <li>Trier les sorties</li>
 <li>Inscrire des utilisateurs</li>
+<li>Importer des utilisateurs par fichier .csv</li>
+<li>Mot de passe oublié avec email (Seulement en dev avec l'outil pour voir le mail)</li>
+ <li>Annuler une sortie en tant qu'administrateur</li>
 </ul>
 
 Prochainement : 
 
 <ul>
-<li>Importer des utilisateurs par fichier .csv</li>
-<li>Mot de passe oublié avec email</li>
 <li>Gérer les lieux</li>
 <li>Désactiver des utilisateurs</li>
 <li>Supprimer des utilisateurs</li>
-<li>Annuler une sortie en tant qu'administrateur</li>
 <li>Gérer les villes</li>
 <li>Gérer des groupes privés</li>
 </ul>
