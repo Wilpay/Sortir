@@ -1,12 +1,4 @@
 swiftmailer:
-  url: gmail://username:password@localhost?encryption=tls&auth_mode=oauth
-  #spool: { type: 'memory' }
-  transport: gmail
-  username: sortietp@gmail.com
-  password: sortietp123
-  host: localhost
-  port: 465
-  encryption: ssl
-  auth_mode: login
-  timeout: 500
+  spool: { type: 'memory' }
+
 

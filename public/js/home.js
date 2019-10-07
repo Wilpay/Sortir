@@ -45,3 +45,13 @@ function resetForm(){
         .prop('selected', false);
     $("#site").val(0);
 }
+
+function action(url) {
+    $.ajax({
+        type: 'POST',
+        url: url,
+        complete: function (data) {
+            refreshSorties();
+        }
+    });
+}

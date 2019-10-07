@@ -7,6 +7,7 @@ use App\Entity\Participant;
 use App\Entity\Profil;
 use App\Form\ParticipantType;
 use App\Form\ProfilType;
+use App\Form\UploadCsvType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +30,8 @@ class UserController extends Controller
         $user = new Participant();
 
         $form = $this->createForm(ParticipantType::class, $user);
+        $formCsv = $this->createForm(UploadCsvType::class);
+        $formCsv->handleRequest($request);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
 
@@ -47,9 +50,39 @@ class UserController extends Controller
             $this->addFlash('success', 'Participant inscrit');
             return $this->redirectToRoute('connexion');
         }
+        elseif ($formCsv->isSubmitted() && $formCsv->isValid())
+        {
+            $filename = $formCsv['file']->getData();
+            $line = array();
+            $row  = 0;
+            if (($file = fopen($filename, "r")) !== FALSE) {
+                while (($data = fgetcsv($file, 1000, ";")) !== FALSE) {
+                    $participant = new Participant();
+                    $participant->setNom($data['0']);
+                    $participant->setPrenom($data['1']);
+                    $participant->setPseudo($data['2']);
+                    $participant->setTelephone($data['3']);
+                    $participant->setMail($data['4']);
+                    $password = $encoder->encodePassword($participant, $data['5']);
+                    $participant->setPassword($password);
+                    $role = $data['6'];
+                    $participant->setRoles([''.$role.'']);
+                    $participant->setActif($data['7']);
+                    $em->persist($participant);
+
+                }
+                fclose($file);
+                $em->flush();
+            }
+
+
+
+
+        }
 
         return $this->render('user/inscription.html.twig', [
             'form' => $form->createView(),
+            'formCsv' => $formCsv->createView(),
             'utilisateur' => $user,
 
 
@@ -170,26 +203,42 @@ class UserController extends Controller
     /**
      * @Route("/motdepasseoubli", name="motdepasseoubli")
      */
-    public function Motdepasseoubli(EntityManagerInterface $em,\Swift_Mailer $mailer,Request $request)
+    public function Motdepasseoubli(EntityManagerInterface $em,\Swift_Mailer $mailer,Request $request, UserPasswordEncoderInterface $encoder)
     {
         $test = $request->request->get('mail');
 
-        $message =  (new \Swift_Message('Hello Email'))
-            ->setFrom('sortietp@gmail.com')  //nom de l'expéditeur et normalement le mail saisie
-            ->setReplyTo($test)  // répondre à la personne qui envoie avec le mail saisie car sans le cela si on fait répondre y a rien
-            ->setTo($test) //mail qui reçoit le message
-            ->setBody("<h1>test,<br/> Envoyé par : $test</h1>", 'text/html');
+        $participant = $em->getRepository(Participant::class)->findByMail($test);
+        if($participant != null)
+        {
+            $message =  (new \Swift_Message('Hello Email'))
+                ->setFrom('sortietp@gmail.com')  //nom de l'expéditeur et normalement le mail saisie
+                ->setReplyTo($test)  // répondre à la personne qui envoie avec le mail saisie car sans le cela si on fait répondre y a rien
+                ->setTo($test) //mail qui reçoit le message
+                ->setBody("<h1>Bonjour ". $participant->getNom()."</h1>,<br/> Votre Nouveau mot de passe temporaire est 123. <br/> Envoyé par : Sortir.com", 'text/html');
 
 
-        $this->get('mailer')->send($message);
+            $this->get('mailer')->send($message);
 
+            $password = $encoder->encodePassword($participant, '123');
+            $participant->setPassword($password);
 
+            $em->persist($participant);
+            $em->flush();
 
-        $this->addFlash('success', 'Email Envoyé');
-        return $this->redirectToRoute('connexion');
+            $this->addFlash('success', 'Email Envoyé');
+            return $this->redirectToRoute('connexion');
+        }
+        else
+            {
+                $this->addFlash('warning', 'Email invalide');
+                return $this->redirectToRoute('connexion');
+        }
+
 
 
     }
+
+
     /**
      * @return string
      */

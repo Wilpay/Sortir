@@ -19,6 +19,16 @@ class ParticipantRepository extends ServiceEntityRepository
         parent::__construct($registry, Participant::class);
     }
 
+    public function findByMail($value)
+    {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.mail = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
     // /**
     //  * @return Participant[] Returns an array of Participant objects
     //  */
