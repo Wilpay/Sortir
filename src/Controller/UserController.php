@@ -8,6 +8,7 @@ use App\Entity\Profil;
 use App\Form\ParticipantType;
 use App\Form\ProfilType;
 use App\Form\UploadCsvType;
+use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -90,7 +91,7 @@ class UserController extends Controller
     /**
      * @Route("/connexion", name="connexion")
      */
-    public function connexion(Request $request, AuthenticationUtils $authenticationUtils)
+    public function connexion(Request $request, AuthenticationUtils $authenticationUtils, EntityManagerInterface $em)
     {
         $errors = $authenticationUtils->getLastAuthenticationError();
         $lastname = $authenticationUtils->getLastUsername();
@@ -98,7 +99,15 @@ class UserController extends Controller
         $form->handleRequest($request);
         dump($this->getUser());
 
+        $test = $request->request->get('_username');
+        $utilisateur = $em->getRepository(Participant::class)->findByPseudo($test);
+        if($utilisateur->getActif() == 1)
+        {
 
+        }
+        else{
+
+        }
 
 
 
