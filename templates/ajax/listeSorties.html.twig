@@ -33,17 +33,17 @@
                 {% endif %}
                 {% if app.user %}
                     {% if sortie.etat.libelle == 'Ouverte' and app.user != sortie.organisateur and app.user != sortie.inscrit.contains(app.user) and sortie.inscrit.count < sortie.nbInscriptionsMax %}
-                        <a href="{{ path('inscrire', {id:sortie.id}) }}" class="btn btn-sm btn-outline-success action">
+                        <a href="{{ path('inscrire', {id:sortie.id}) }}" onclick="action(this.href);return false;" class="btn btn-sm btn-outline-success action">
                             <i class="fas fa-user-plus"></i>
                         </a>
                     {% endif %}
                     {% if sortie.etat.libelle == 'Ouverte' and app.user != sortie.organisateur and app.user == sortie.inscrit.contains(app.user) %}
-                        <a href="{{ path('desinscrire', {id:sortie.id}) }}" class="btn btn-sm btn-outline-danger action">
+                        <a href="{{ path('desinscrire', {id:sortie.id}) }}" onclick="action(this.href);return false;" class="btn btn-sm btn-outline-danger action">
                             <i class="fas fa-user-minus"></i>
                         </a>
                     {% endif %}
                     {% if sortie.etat.libelle == 'Créée' and app.user == sortie.organisateur %}
-                        <a href="{{ path('publier', {id:sortie.id}) }}" class="btn btn-sm btn-outline-primary action">
+                        <a href="{{ path('publier', {id:sortie.id}) }}" onclick="action(this.href);return false;" class="btn btn-sm btn-outline-primary action">
                             <i class="fas fa-upload"></i>
                         </a>
                         <a href="{{ path('creer', {id:sortie.id}) }}" class="btn btn-sm btn-outline-warning action">
@@ -51,7 +51,7 @@
                         </a>
                     {% endif %}
                     {% if (sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée') and app.user == sortie.organisateur %}
-                        <a href="{{ path('annuler', {id:sortie.id}) }}" class="btn btn-sm btn-outline-danger action">
+                        <a href="{{ path('annuler', {id:sortie.id}) }}" onclick="action(this.href);return false;" class="btn btn-sm btn-outline-danger action">
                             <i class="fas fa-trash-alt"></i>
                         </a>
                     {% endif %}

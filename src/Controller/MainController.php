@@ -57,14 +57,12 @@ class MainController extends Controller
         }
 
         if($this->isGranted('ROLE_ADMIN')){
-            var_dump('ADMIN');
             if($paramRequette != []){
                 $sorties = $em->getRepository(Sortie::class)->findBy($paramRequette);
             }else{
                 $sorties = $em->getRepository(Sortie::class)->findAll();
             }
         } else {
-            var_dump('USER');
             // Affiche sorties en retirant celle archivée et
             // En retirant celle dont l'état est 'Créée' par un organisateur différent de l'user connecté ($this->getUser()
             if($paramRequette != []){
@@ -103,31 +101,18 @@ class MainController extends Controller
         $sortiesTriees=[];
         if($inscrit=="true" && $nonInscrit=="false"){
             foreach ($sorties as $srt){
-                foreach ($srt->getInscrit() as $inscrit){
-                    if ($inscrit->getId() == $this->getUser()->getId()) {
-                        array_push($sortiesTriees, $srt);
-                        break;
+                if($srt->getOrganisateur() !=$this->getUser()) {
+                    foreach ($srt->getInscrit() as $inscrit) {
+                        if ($inscrit->getId() == $this->getUser()->getId()) {
+                            array_push($sortiesTriees, $srt);
+                            break;
+                        }
                     }
                 }
             }
             $sorties=$sortiesTriees;
         }
-        $sortiesTriees=[];
-        if($inscrit=="false" && $nonInscrit=="true"){
-            foreach ($sorties as $srt){
-                $isInscrit=false;
-                foreach ($srt->getInscrit() as $inscrit){
-                    if ($inscrit->getId() == $this->getUser()->getId()) {
-                        $isInscrit = true;
-                        break;
-                    }
-                }
-                if($isInscrit == false){
-                    array_push($sortiesTriees, $srt);
-                }
-            }
-            $sorties=$sortiesTriees;
-        }
+
         $ouverte = $em->getRepository(Etat::class)->findByLibelle('Ouverte');
         $cloturee = $em->getRepository(Etat::class)->findByLibelle('Clôturée');
         $encours = $em->getRepository(Etat::class)->findByLibelle('Activité en cours');
@@ -163,6 +148,34 @@ class MainController extends Controller
             $em->persist($sortie);
             $em->flush();
         }
+
+        $sortiesTriees=[];
+        if($inscrit=="false" && $nonInscrit=="true"){
+            foreach ($sorties as $srt){
+                $isInscrit=false;
+                foreach ($srt->getInscrit() as $inscrit){
+                    if ($inscrit->getId() == $this->getUser()->getId()) {
+                        $isInscrit = true;
+                        break;
+                    }
+                }
+                if($isInscrit == false && $srt->getEtat() == $ouverte && $srt->getOrganisateur() !=$this->getUser()){
+                    array_push($sortiesTriees, $srt);
+                }
+            }
+            $sorties=$sortiesTriees;
+        }elseif($inscrit=="true" && $nonInscrit=="true"){
+            foreach ($sorties as $srt){
+                if($srt->getEtat() == $ouverte && $srt->getOrganisateur() !=$this->getUser()){
+                    array_push($sortiesTriees, $srt);
+                }
+            }
+            $sorties=$sortiesTriees;
+        }
+
+
+
+
         return $this->render("ajax/listeSorties.html.twig", ['sorties' => $sorties]);
     }
 }
