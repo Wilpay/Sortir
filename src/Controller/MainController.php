@@ -6,6 +6,7 @@ use App\Entity\Site;
 use App\Entity\Participant;
 use App\Entity\Profil;
 use App\Entity\Sortie;
+use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -129,11 +130,13 @@ class MainController extends Controller
         $cloturee = $em->getRepository(Etat::class)->findByLibelle('Clôturée');
         $encours = $em->getRepository(Etat::class)->findByLibelle('Activité en cours');
         $passee = $em->getRepository(Etat::class)->findByLibelle('Passée');
+        $archive = $em->getRepository(Etat::class)->findByLibelle('Archivée');
 
         foreach ($sorties as $sortie)
         {
             $date = date_timestamp_get(date_create())+3600*2;
             $datefin = $sortie->getDateHeureDebut()->getTimestamp() + $sortie->getDuree()*60;
+            $datearchive = $datefin + 2592000;
 
             if($sortie->getDateLimiteInscription()->getTimestamp() < $date && $sortie->getEtat() == $ouverte)
             {
@@ -150,6 +153,10 @@ class MainController extends Controller
                 $sortie->setEtat($passee);
             }
 
+            if($datearchive <= $date)
+            {
+                $sortie->setEtat($archive);
+            }
 
             $em->persist($sortie);
             $em->flush();

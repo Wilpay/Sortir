@@ -142,6 +142,7 @@ class SortieFixture extends Fixture
         $sortie7->setOrganisateur($organisateur);
 
 
+
         $manager->persist($sortie1);
         $manager->persist($sortie2);
         $manager->persist($sortie3);
