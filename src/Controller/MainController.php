@@ -57,12 +57,14 @@ class MainController extends Controller
         }
 
         if($this->isGranted('ROLE_ADMIN')){
+            //var_dump('ADMIN');
             if($paramRequette != []){
                 $sorties = $em->getRepository(Sortie::class)->findBy($paramRequette);
             }else{
                 $sorties = $em->getRepository(Sortie::class)->findAll();
             }
         } else {
+            // var_dump('USER');
             // Affiche sorties en retirant celle archivée et
             // En retirant celle dont l'état est 'Créée' par un organisateur différent de l'user connecté ($this->getUser()
             if($paramRequette != []){

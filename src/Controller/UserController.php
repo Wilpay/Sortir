@@ -8,7 +8,6 @@ use App\Entity\Profil;
 use App\Form\ParticipantType;
 use App\Form\ProfilType;
 use App\Form\UploadCsvType;
-use App\Repository\ParticipantRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -93,10 +92,21 @@ class UserController extends Controller
      */
     public function connexion(Request $request, AuthenticationUtils $authenticationUtils, EntityManagerInterface $em)
     {
+        $user = new Participant();
+
         $errors = $authenticationUtils->getLastAuthenticationError();
         $lastname = $authenticationUtils->getLastUsername();
         $form = $this->createForm(ParticipantType::class);
         $form->handleRequest($request);
+
+        //A VOIR
+        if($form->isSubmitted() && $form->isValid()){
+            if($user->getActif() == false) {
+                $this->addFlash('danger', 'Compte innactif');
+                return $this->redirectToRoute('connexion');
+            }
+        }
+
         dump($this->getUser());
 
         $test = $request->request->get('_username');
