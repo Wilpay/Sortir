@@ -109,18 +109,6 @@ class UserController extends Controller
 
         dump($this->getUser());
 
-        $test = $request->request->get('_username');
-        $utilisateur = $em->getRepository(Participant::class)->findByPseudo($test);
-        if($utilisateur->getActif() == 1)
-        {
-
-        }
-        else{
-
-        }
-
-
-
         return $this->render("user/connexion.html.twig", [
             'lastusername' => $lastname,
             'form' => $form->createView(),

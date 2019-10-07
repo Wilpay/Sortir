@@ -85,7 +85,7 @@
                 <td><a href="{{ path('profil_user', {id:sortie.organisateur.id}) }}">{{ sortie.organisateur.prenom }} {{ sortie.organisateur.nom|slice(0, 1) }}.</a></td>
                 <td class="text-right">
                     {% if sortie.etat.libelle != 'Créée' %}
-                        <a href="{{ path('sortie', {id:sortie.id}) }}" onclick="action(this.href);return false;" class="btn btn-sm btn-outline-secondary action">
+                        <a href="{{ path('sortie', {id:sortie.id}) }}" class="btn btn-sm btn-outline-secondary action">
                             <i class="far fa-eye"></i>
                         </a>
                     {% endif %}
@@ -108,7 +108,8 @@
                                 <i class="fas fa-tools"></i>
                             </a>
                         {% endif %}
-                        {% if (sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée') and app.user == sortie.organisateur %}
+                        {% if ((sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée') and app.user == sortie.organisateur) or
+                            (is_granted("ROLE_ADMIN") and (sortie.etat.libelle == 'Ouverte' or sortie.etat.libelle == 'Clôturée')) %}
                             <a href="{{ path('annuler', {id:sortie.id}) }}" onclick="action(this.href);return false;" class="btn btn-sm btn-outline-danger action">
                                 <i class="fas fa-trash-alt"></i>
                             </a>

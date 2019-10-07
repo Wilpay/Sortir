@@ -28,7 +28,12 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     {% if app.user %}
-                        <i class="fas fa-user pr-2"></i> {{ app.user.pseudo }}
+                        {% if is_granted("ROLE_ADMIN") %}
+                            <i class="fas fa-user-cog pr-2"></i>
+                        {% else %}
+                            <i class="fas fa-user pr-2"></i>
+                        {% endif %}
+                        {{ app.user.pseudo }}
                     {% endif %}
                     <ul class="navbar-nav ml-auto">
                         {% if app.user %}
