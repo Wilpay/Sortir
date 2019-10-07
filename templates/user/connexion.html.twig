@@ -3,7 +3,7 @@
 {% block body %}
     <h1 class="display-4">CONNEXION</h1>
     <hr class="my-3">
-    <form class="container" method="post" action="{{ path('connexion') }}">
+
         {% for label, messages in app.flashes %}
             <div class="alert alert-{{ label }}" role="alert">
                 {% for message in messages %}
@@ -18,7 +18,7 @@
                 {{ error.messageKey|trans(error.messageData, 'security') }}
             </div>
         {% endif %}
-
+    <form class="container" method="post" action="{{ path('connexion') }}">
         <div class="form-group">
             <label for="login">Identifiant:</label>
             <input type="text" class="form-control" id="login" name="_username" value="{{ lastusername }}">

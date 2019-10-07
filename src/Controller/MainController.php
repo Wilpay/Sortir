@@ -8,9 +8,13 @@ use App\Entity\Profil;
 use App\Entity\Sortie;
 use DateTimeZone;
 use Doctrine\ORM\EntityManagerInterface;
+use http\Client\Curl\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints\DateTime;
 
 class MainController extends Controller
@@ -18,9 +22,24 @@ class MainController extends Controller
     /**
      * @Route("/", name="home")
      */
-    public function home(EntityManagerInterface $em)
+    public function home(EntityManagerInterface $em, SessionInterface $session)
     {
         $site = $em->getRepository(Site::class)->findAll();
+        if($this->getUser() != null)
+        {
+            $participant = $em->getRepository(Participant::class)->find($this->getUser());
+            if($participant != null)
+            {
+
+                if($participant->getActif() == false)
+                {
+
+                    $session->set('ban','test');
+                    return $this->redirectToRoute('deconnexion');
+
+                }
+            }
+        }
 
         return $this->render("main/home.html.twig", [
             'sites' =>$site

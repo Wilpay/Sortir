@@ -27,7 +27,7 @@ security:
             logout_on_user_change: true
             logout:
                 path: deconnexion
-                target: home
+                target: connexion
             remember_me:
                 name: remember_me
                 secret: '%kernel.secret%'

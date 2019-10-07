@@ -9,15 +9,25 @@ use App\Form\ParticipantType;
 use App\Form\ProfilType;
 use App\Form\UploadCsvType;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 
+
 class UserController extends Controller
 {
+    private $test;
+
+
+
     /**
      * @Route("/inscription", name="inscription")
      */
@@ -90,48 +100,34 @@ class UserController extends Controller
     /**
      * @Route("/connexion", name="connexion")
      */
-    public function connexion(Request $request, AuthenticationUtils $authenticationUtils, EntityManagerInterface $em)
+    public function connexion(Request $request, AuthenticationUtils $authenticationUtils, EntityManagerInterface $em, SessionInterface $session)
     {
-        $user = new Participant();
 
         $errors = $authenticationUtils->getLastAuthenticationError();
         $lastname = $authenticationUtils->getLastUsername();
         $form = $this->createForm(ParticipantType::class);
         $form->handleRequest($request);
 
-        //A VOIR
-        if($form->isSubmitted() && $form->isValid()){
-            if($user->getActif() == false) {
-                $this->addFlash('danger', 'Compte innactif');
-                return $this->redirectToRoute('connexion');
-            }
-        }
-
-        dump($this->getUser());
-
-        $test = $request->request->get('_username');
-        $utilisateur = $em->getRepository(Participant::class)->findByPseudo($test);
-        if($utilisateur->getActif() == 1)
-        {
-
-        }
-        else{
-
-        }
-
-
-
+        dump($session->get("ban"));
+        if($session->get("ban") == 'test')
+            $this->addFlash('danger', 'Compte non actif');
         return $this->render("user/connexion.html.twig", [
             'lastusername' => $lastname,
             'form' => $form->createView(),
             'error' => $errors
         ]);
+
+
+
+
     }
 
     /**
      * @Route("/deconnexion", name="deconnexion")
      */
-    public function deconnexion(){}
+    public function deconnexion(){
+
+    }
 
     /**
      * @Route("/profil", name="profil")
