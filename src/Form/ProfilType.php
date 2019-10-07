@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Form;
-
 
 use App\Entity\Participant;
 use App\Entity\Profil;
@@ -23,13 +21,11 @@ class ProfilType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
             ->add('file', FileType::class, array(
                 'label' => 'Photo de profil',
                 'required' => false))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Valider'))
-
         ;
     }
 
