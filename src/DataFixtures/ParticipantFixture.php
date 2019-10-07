@@ -35,7 +35,7 @@ class ParticipantFixture extends Fixture
         $participant1->setTelephone('0123456789');
         $participant1->setMail('quentin@gmail.com');
         $participant1->setRoles(['ROLE_ADMIN']);
-        $participant1->setActif(true);
+        $participant1->setActif(false);
         $password = $this->encoder->encodePassword($participant1, '123');
         $participant1->setPassword($password);
         $site = $this->getReference(SiteFixture::SITE_REFERENCE1);
@@ -48,7 +48,7 @@ class ParticipantFixture extends Fixture
         $participant2->setTelephone('0123456789');
         $participant2->setMail('willy@gmail.com');
         $participant2->setRoles(['ROLE_USER']);
-        $participant2->setActif(false);
+        $participant2->setActif(true);
         $password = $this->encoder->encodePassword($participant2, '123');
         $participant2->setPassword($password);
         $site = $this->getReference(SiteFixture::SITE_REFERENCE4);
@@ -61,7 +61,7 @@ class ParticipantFixture extends Fixture
         $participant3->setTelephone('0123456789');
         $participant3->setMail('bastien@gmail.com');
         $participant3->setRoles(['ROLE_ADMIN']);
-        $participant3->setActif(false);
+        $participant3->setActif(true);
         $password = $this->encoder->encodePassword($participant3, '123');
         $participant3->setPassword($password);
         $site = $this->getReference(SiteFixture::SITE_REFERENCE3);

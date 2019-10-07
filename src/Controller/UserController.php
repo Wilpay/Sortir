@@ -39,6 +39,8 @@ class UserController extends Controller
             //Gérer le role
             $user->setRoles(['ROLE_USER']);
 
+            $user->setActif(true);
+
             $em->persist($user);
             $em->flush();
 
@@ -59,15 +61,22 @@ class UserController extends Controller
      */
     public function connexion(Request $request, AuthenticationUtils $authenticationUtils)
     {
+        $user = new Participant();
+
         $errors = $authenticationUtils->getLastAuthenticationError();
         $lastname = $authenticationUtils->getLastUsername();
-        $form = $this->createForm(ParticipantType::class);
+        $form = $this->createForm(ParticipantType::class, $user);
         $form->handleRequest($request);
+
+        //A VOIR
+        if($form->isSubmitted() && $form->isValid()){
+            if($user->getActif() == false) {
+                $this->addFlash('danger', 'Compte innactif');
+                return $this->redirectToRoute('connexion');
+            }
+        }
+
         dump($this->getUser());
-
-
-
-
 
         return $this->render("user/connexion.html.twig", [
             'lastusername' => $lastname,

@@ -12,64 +12,65 @@
                 {% endfor %}
             </div>
         {% endfor %}
-        <form id="form">
-            <h4 class="mb-3">Filtrer les sorties</h4>
-            <div class="row">
-                <div class="col-12 col-sm-12 col-md-6 mb-3">
-                    <div class="form-group row pr-3">
-                        <label for="site" class="col-12 col-sm-4 m-auto">Site :</label>
-                        <select class="custom-select col-12 col-sm-8" id="site">
-                            <option value="0" selected>Tous</option>
-                            {% for site in sites %}
-                            <option value="{{ site.id}}">{{site.nom}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="form-group row pr-3">
-                        <label for="search" class="col-12 col-sm-4 m-auto">Recherche nom :</label>
-                        <input type="text" class="form-control col-12 col-sm-8" id="search">
-                    </div>
-                    <div class="row px-3">
-                        <span class="pr-3 m-auto">Entre</span>
-                        <div class="form-group m-0 col p-0">
-                            <input type="date" class="form-control" id="debut">
-                        </div>
-                        <span class="px-3 m-auto">et</span>
-                        <div class="form-group m-0 col p-0">
-                            <input type="date" class="form-control" id="fin">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-12 col-md-6">
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="orga">
-                        <label class="custom-control-label" for="orga">Sorties dont je suis l'organisateur(trice)</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="inscrit">
-                        <label class="custom-control-label" for="inscrit">Sorties auxquelles je suis insrit(e)</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="noninscrit">
-                        <label class="custom-control-label" for="noninscrit">Sorties auxquelles je ne suis pas insrit(e)</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="passees">
-                        <label class="custom-control-label" for="passees">Sorties passées</label>
-                    </div>
-                    <button class="btn btn-block btn-secondary mt-3" id="resetForm">Vider la recherche</button>
-                </div>
-            </div>
-        </form>
-    </div>
 
-    <hr>
-    <div class="container-fluid">
-        <div id="table">
-
-        </div>
         {% if app.user %}
-            <a href="{{ path('creer',{"id":0}) }}" class="btn btn-block btn-success">Créer une sortie</a>
+            <form id="form">
+                <h4 class="mb-3">Filtrer les sorties</h4>
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 mb-2">
+                        <div class="form-group row mb-2 mx-0">
+                            <label for="site" class="font-weight-bold col-12 col-sm-4 m-auto">Site:</label>
+                            <select class="custom-select col-12 col-sm-8" id="site">
+                                <option value="0" selected>Tous</option>
+                                {% for site in sites %}
+                                    <option value="{{ site.id}}">{{site.nom}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="form-group row mb-2 mx-0">
+                            <label for="search" class="font-weight-bold col-12 col-sm-4 m-auto">Recherche nom:</label>
+                            <input type="text" class="form-control col-12 col-sm-8" id="search">
+                        </div>
+
+                        <div class="form-group row mb-2 mx-0">
+                            <label for="debut" class="font-weight-bold col-12 col-sm-4 m-auto">Entre:</label>
+                            <input type="date" class="form-control col-12 col-sm-8" id="debut">
+                        </div>
+                        <div class="form-group row mb-2 mx-0">
+                            <label for="fin" class="font-weight-bold col-12 col-sm-4 m-auto">Et:</label>
+                            <input type="date" class="form-control col-12 col-sm-8" id="fin">
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-6 pl-lg-4">
+                        <div class="custom-control custom-checkbox ml-3 ml-lg-0">
+                            <input type="checkbox" class="custom-control-input" id="orga">
+                            <label class="custom-control-label" for="orga">Sorties dont je suis l'organisateur(trice)</label>
+                        </div>
+                        <div class="custom-control custom-checkbox ml-3 ml-lg-0">
+                            <input type="checkbox" class="custom-control-input" id="inscrit">
+                            <label class="custom-control-label" for="inscrit">Sorties auxquelles je suis insrit(e)</label>
+                        </div>
+                        <div class="custom-control custom-checkbox ml-3 ml-lg-0">
+                            <input type="checkbox" class="custom-control-input" id="noninscrit">
+                            <label class="custom-control-label" for="noninscrit">Sorties auxquelles je peut m'insrire</label>
+                        </div>
+                        <div class="custom-control custom-checkbox ml-3 ml-lg-0">
+                            <input type="checkbox" class="custom-control-input" id="passees">
+                            <label class="custom-control-label" for="passees">Sorties passées</label>
+                        </div>
+                        <button class="btn btn-block btn-secondary font-weight-bold align-text-bottom mt-4" id="resetForm">Effacer la recherche</button>
+                    </div>
+                </div>
+            </form>
+            <hr>
+            <div id="table"></div>
+            <a href="{{ path('creer', {"id":0}) }}" class="btn btn-block btn-success font-weight-bold mt-3">Créer une sortie</a>
+        {% else %}
+            <h5>Bienvenue sur Sortir.com</h5>
+            <div class="text-lead mb-5">
+                Vous devez être connecté pour pouvoir accéder à l'application.
+            </div>
+            <a class="btn btn-link font-weight-bold p-0" href="{{ path('connexion') }}">Se connecter</a>
         {% endif %}
     </div>
 {% endblock %}
