@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Participant;
 use App\Entity\Profil;
+use App\Entity\Sortie;
 use App\Form\ParticipantType;
 use App\Form\ProfilType;
 use App\Form\UploadCsvType;
@@ -72,10 +73,6 @@ class UserController extends Controller
                 fclose($file);
                 $em->flush();
             }
-
-
-
-
         }
 
         return $this->render('user/inscription.html.twig', [
@@ -231,11 +228,57 @@ class UserController extends Controller
                 $this->addFlash('warning', 'Email invalide');
                 return $this->redirectToRoute('connexion');
         }
-
-
-
     }
 
+    /**
+     * @Route("/liste", name="liste_users")
+     */
+    public function liste(EntityManagerInterface $em)
+    {
+        $users = $em->getRepository(Participant::class)->findAll();
+
+        return $this->render("user/liste.html.twig", [
+            'users' => $users
+        ]);
+    }
+
+    /**
+     * @Route("/ban/{id}", name="ban")
+     */
+    public function ban(EntityManagerInterface $em, $id)
+    {
+        $user = $em->getRepository(Participant::class)->find($id);
+        $user->setActif(0);
+        $em->persist($user);
+        $em->flush();
+
+        return $this->redirectToRoute('liste_users');
+    }
+
+    /**
+     * @Route("/unban/{id}", name="unban")
+     */
+    public function unban(EntityManagerInterface $em, $id)
+    {
+        $user = $em->getRepository(Participant::class)->find($id);
+        $user->setActif(1);
+        $em->persist($user);
+        $em->flush();
+
+        return $this->redirectToRoute('liste_users');
+    }
+
+    /**
+     * @Route("/remove/{id}", name="remove")
+     */
+    public function remove(EntityManagerInterface $em, $id)
+    {
+        $user = $em->getRepository(Participant::class)->find($id);
+
+        $em->remove($user);
+        $em->flush();
+        return $this->redirectToRoute('liste_users');
+    }
 
     /**
      * @return string

@@ -1,0 +1,55 @@
+{% extends('base.html.twig') %}
+{% block title %}{{ parent() }} | Administration{% endblock %}
+{% block body %}
+    <h1 class="display-4">LISTE DES UTILISATEURS</h1>
+    <hr class="my-3">
+    <div class="container-fluid">
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <table class="table table-sm table-striped table-bordered table-light">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Pseudo</th>
+                <th scope="col">Téléphone</th>
+                <th scope="col">Mail</th>
+                <th scope="col">Site</th>
+                <th scope="col" class="text-right pr-2">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.nom }}</td>
+                    <td>{{ user.prenom }}</td>
+                    <td>{{ user.pseudo }}</td>
+                    <td>{{ user.telephone }}</td>
+                    <td>{{ user.mail }}</td>
+                    <td>{{ user.site.nom }}</td>
+                    <td class="text-right">
+                        {% if user.actif == 1 %}
+                            <a href="{{ path('ban', {id:user.id}) }}" class="btn btn-sm btn-outline-warning action">
+                                <i class="fas fa-lock"></i>
+                            </a>
+                        {% elseif user.actif == 0 %}
+                            <a href="{{ path('unban', {id:user.id}) }}" class="btn btn-sm btn-outline-success action">
+                                <i class="fas fa-unlock"></i>
+                            </a>
+                        {% endif %}
+                        <a href="{{ path('remove', {id:user.id}) }}" class="btn btn-sm btn-outline-danger action">
+                            <i class="fas fa-user-slash"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
