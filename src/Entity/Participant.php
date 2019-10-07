@@ -107,10 +107,6 @@ class Participant implements UserInterface
     }
 
 
-
-  
-
-
     public function getId(): ?int
     {
         return $this->id;

@@ -11,6 +11,11 @@
                 {% endfor %}
             </div>
         {% endfor %}
+        {{ form_start(formCsv) }}
+            {{ form_errors(formCsv) }}
+
+
+        {{ form_end(formCsv) }}
 
         {{ form_start(form) }}
             {{ form_errors(form) }}
@@ -74,5 +79,10 @@
 
             {{ form_widget(form.submit, {'attr': {'class': 'btn btn-block btn-success mt-5'}}, {'label': 'Inscrire'}) }}
         {{ form_end(form) }}
+
+
     </div>
+
+
+
 {% endblock %}
