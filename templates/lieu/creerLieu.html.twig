@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LieuController!{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+
+    {{ form_widget(form) }}
+    <button type="submit" class="btn-success btn-sm">Enregistrer</button>
+    {{ form_end(form) }}
+{% endblock %}
