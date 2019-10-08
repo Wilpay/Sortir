@@ -5,11 +5,18 @@ namespace App\Controller;
 
 use App\Entity\Participant;
 use App\Entity\Profil;
+use App\Entity\Sortie;
 use App\Form\ParticipantType;
 use App\Form\ProfilType;
+use App\Form\UploadCsvType;
 use Doctrine\ORM\EntityManagerInterface;
+use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -29,6 +36,8 @@ class UserController extends Controller
         $user = new Participant();
 
         $form = $this->createForm(ParticipantType::class, $user);
+        $formCsv = $this->createForm(UploadCsvType::class);
+        $formCsv->handleRequest($request);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
 
@@ -45,9 +54,35 @@ class UserController extends Controller
             $this->addFlash('success', 'Participant inscrit');
             return $this->redirectToRoute('connexion');
         }
+        elseif ($formCsv->isSubmitted() && $formCsv->isValid())
+        {
+            $filename = $formCsv['file']->getData();
+            $line = array();
+            $row  = 0;
+            if (($file = fopen($filename, "r")) !== FALSE) {
+                while (($data = fgetcsv($file, 1000, ";")) !== FALSE) {
+                    $participant = new Participant();
+                    $participant->setNom($data['0']);
+                    $participant->setPrenom($data['1']);
+                    $participant->setPseudo($data['2']);
+                    $participant->setTelephone($data['3']);
+                    $participant->setMail($data['4']);
+                    $password = $encoder->encodePassword($participant, $data['5']);
+                    $participant->setPassword($password);
+                    $role = $data['6'];
+                    $participant->setRoles([''.$role.'']);
+                    $participant->setActif($data['7']);
+                    $em->persist($participant);
+
+                }
+                fclose($file);
+                $em->flush();
+            }
+        }
 
         return $this->render('user/inscription.html.twig', [
             'form' => $form->createView(),
+            'formCsv' => $formCsv->createView(),
             'utilisateur' => $user,
 
 
@@ -57,17 +92,18 @@ class UserController extends Controller
     /**
      * @Route("/connexion", name="connexion")
      */
-    public function connexion(Request $request, AuthenticationUtils $authenticationUtils)
+    public function connexion(Request $request, AuthenticationUtils $authenticationUtils, SessionInterface $session)
     {
         $errors = $authenticationUtils->getLastAuthenticationError();
         $lastname = $authenticationUtils->getLastUsername();
         $form = $this->createForm(ParticipantType::class);
         $form->handleRequest($request);
-        dump($this->getUser());
 
-
-
-
+        if (isset($_COOKIE["actif"])) {
+            if ($_COOKIE["actif"]=='no') {
+                $this->addFlash('danger', 'Compte non actif');
+            }
+        }
 
         return $this->render("user/connexion.html.twig", [
             'lastusername' => $lastname,
@@ -161,26 +197,120 @@ class UserController extends Controller
     /**
      * @Route("/motdepasseoubli", name="motdepasseoubli")
      */
-    public function Motdepasseoubli(EntityManagerInterface $em,\Swift_Mailer $mailer,Request $request)
+    public function Motdepasseoubli(EntityManagerInterface $em,\Swift_Mailer $mailer,Request $request, UserPasswordEncoderInterface $encoder)
     {
         $test = $request->request->get('mail');
 
-        $message =  (new \Swift_Message('Hello Email'))
-            ->setFrom('sortietp@gmail.com')  //nom de l'expéditeur et normalement le mail saisie
-            ->setReplyTo($test)  // répondre à la personne qui envoie avec le mail saisie car sans le cela si on fait répondre y a rien
-            ->setTo($test) //mail qui reçoit le message
-            ->setBody("<h1>test,<br/> Envoyé par : $test</h1>", 'text/html');
+        $participant = $em->getRepository(Participant::class)->findByMail($test);
+        if($participant != null)
+        {
+            $message =  (new \Swift_Message('Hello Email'))
+                ->setFrom('sortietp@gmail.com')  //nom de l'expéditeur et normalement le mail saisie
+                ->setReplyTo($test)  // répondre à la personne qui envoie avec le mail saisie car sans le cela si on fait répondre y a rien
+                ->setTo($test) //mail qui reçoit le message
+                ->setBody("<h1>Bonjour ". $participant->getNom()."</h1>,<br/> Votre Nouveau mot de passe temporaire est 123. <br/> Envoyé par : Sortir.com", 'text/html');
 
 
-        $this->get('mailer')->send($message);
+            $this->get('mailer')->send($message);
 
+            $password = $encoder->encodePassword($participant, '123');
+            $participant->setPassword($password);
 
+            $em->persist($participant);
+            $em->flush();
 
-        $this->addFlash('success', 'Email Envoyé');
-        return $this->redirectToRoute('connexion');
-
-
+            $this->addFlash('success', 'Email Envoyé');
+            return $this->redirectToRoute('connexion');
+        }
+        else
+            {
+                $this->addFlash('warning', 'Email invalide');
+                return $this->redirectToRoute('connexion');
+        }
     }
+
+    /**
+     * @Route("/liste", name="liste_users")
+     */
+    public function liste(EntityManagerInterface $em)
+    {
+        $users = $em->getRepository(Participant::class)->findAll();
+
+        return $this->render("user/liste.html.twig", [
+            'users' => $users
+        ]);
+    }
+
+    /**
+     * @Route("/ban/{id}", name="ban")
+     */
+    public function ban(EntityManagerInterface $em, $id)
+    {
+        $user = $em->getRepository(Participant::class)->find($id);
+        $user->setActif(0);
+        $em->persist($user);
+        $em->flush();
+
+        return $this->redirectToRoute('liste_users');
+    }
+
+    /**
+     * @Route("/unban/{id}", name="unban")
+     */
+    public function unban(EntityManagerInterface $em, $id)
+    {
+        $user = $em->getRepository(Participant::class)->find($id);
+        $user->setActif(1);
+        $em->persist($user);
+        $em->flush();
+
+        return $this->redirectToRoute('liste_users');
+    }
+
+    /**
+     * @Route("/remove/{id}", name="remove")
+     */
+    public function remove(EntityManagerInterface $em, $id)
+    {
+        $user = $em->getRepository(Participant::class)->find($id);
+        $AllUsers = $em->getRepository(Participant::class)->findAll();
+        $sorties = $em->getRepository(Sortie::class)->findByIdOrganisateur($user->getId());
+
+
+        foreach ($sorties as $sort) {
+
+
+            foreach ($sort->getInscrit() as $inscrit)
+            {
+                $sort->removeInscrit($inscrit);
+            }
+
+            $em->remove($sort);
+        }
+
+        foreach ($user->getSorties() as $sortie)
+        {
+            $user->removeSorty($sortie);
+        }
+
+        $profil = $em->getRepository(Profil::class)->findByLibelle($user->getId());
+        $em->remove($profil);
+        $em->remove($user);
+
+
+
+
+
+
+
+
+
+
+        $em->flush();
+
+        return $this->redirectToRoute('liste_users');
+    }
+
     /**
      * @return string
      */
