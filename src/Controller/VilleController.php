@@ -34,7 +34,7 @@ class VilleController extends Controller
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('creerVille.html.twig', [
+        return $this->render('ville/creerVille.html.twig', [
             'form' => $form->createView()
 
 
