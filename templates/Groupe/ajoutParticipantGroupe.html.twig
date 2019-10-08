@@ -1,0 +1,44 @@
+{% extends('base.html.twig') %}
+{% block title %}{{ parent() }} | Groupes{% endblock %}
+{% block body %}
+    <h2 class="display-4">Ajout Participant</h2>
+    <div class="container">
+
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+        <div class="row mb-2">
+            <div class="font-weight-bold col-12 col-md-4 m-auto">Nom Groupe:</div>
+            <div class="col-12 col-md-8">
+                {{ form_widget(form.nom) }}
+                {{ form_errors(form.nom) }}
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="font-weight-bold col-12 col-md-4 m-auto">Participants (sélection multiples):</div>
+            <div class="col-12 col-md-8">
+                {{ form_widget(form.participants) }}
+                {{ form_errors(form.participants) }}
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col-12 col-sm-6 pb-3">
+                {{ form_widget(form.submit, {'attr': {'class': 'btn btn-block btn-success font-weight-bold'}}, {'label': 'Enregister'}) }}
+            </div>
+            <div class="col-12 col-sm-6">
+                <a href="{{ path('home') }}" class="btn btn-block btn-danger font-weight-bold">Annuler</a>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+
+
+
+{% endblock %}
