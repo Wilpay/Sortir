@@ -1,7 +1,7 @@
 {% extends('base.html.twig') %}
 {% block title %}{{ parent() }} | Administration{% endblock %}
 {% block body %}
-    <h1 class="display-4">LISTE DES UTILISATEURS</h1>
+    <h1 class="display-4">LISTE DES LIEUX</h1>
     <hr class="my-3">
     <div class="container-fluid">
         {% for label, messages in app.flashes %}
@@ -47,7 +47,7 @@
         </table>
         <div class="row mt-3">
             <div class="col-12 col-md-6">
-                <a href="" class="btn btn-block btn-success font-weight-bold">Créer une ville</a>
+                <a href="{{ path('villeCreation', {id:0}) }}" class="btn btn-block btn-success font-weight-bold">Créer une ville</a>
             </div>
             <div class="col-12 col-md-6">
                 <a href="{{ path('lieuCreation', {id:0}) }}" class="btn btn-block btn-success font-weight-bold">Créer un lieu</a>
