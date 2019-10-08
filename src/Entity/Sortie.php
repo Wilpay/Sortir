@@ -127,6 +127,11 @@ class Sortie
      */
     private $etat;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $motif;
+
     public function __construct()
     {
         $this->inscrit = new ArrayCollection();
@@ -283,5 +288,21 @@ class Sortie
         $this->etat = $etat;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMotif()
+    {
+        return $this->motif;
+    }
+
+    /**
+     * @param mixed $motif
+     */
+    public function setMotif($motif): void
+    {
+        $this->motif = $motif;
     }
 }
