@@ -189,9 +189,21 @@ class MainController extends Controller
             }
             $sorties=$sortiesTriees;
         }
+        /*$where = false;
+        $requete = 'SELECT s FROM App:Sortie s';
+        if($site!=0){
+            $requete .=" where s.siteorganisateur = ".$site;
+            $where = true;
+        }
+        if(!empty($recherche)){
 
+        }
 
+        $requete .=' ORDER BY s.nom ASC';
+        var_dump($requete);
+        $query = $em->createQuery($requete);
 
+        $sorties = $query->getResult(); */
 
         return $this->render("ajax/listeSorties.html.twig", ['sorties' => $sorties]);
     }
