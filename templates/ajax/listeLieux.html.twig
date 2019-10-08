@@ -12,6 +12,7 @@
                 <option value="{{ lieu.id }}">{{ lieu.nom }}</option>
             {% endfor %}
         </select>
+        <a href="{{ path('lieuCreation', {id:0}) }}">+</a>
     </div>
 </div>
 <div id="infoLieu"></div>
