@@ -80,15 +80,14 @@
                 {{ groupe.participants.count }} participant(s)
             </div>
         </div>
-
-
-
-
-
-
-{% endfor %}
+    {% endfor %}
     {% endif %}
 
-
-
+    <script>
+        $('option').mousedown(function(e) {
+            e.preventDefault();
+            $(this).prop('selected', !$(this).prop('selected'));
+            return false;
+        });
+    </script>
 {% endblock %}

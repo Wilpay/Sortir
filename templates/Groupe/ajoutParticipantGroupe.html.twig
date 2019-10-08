@@ -39,6 +39,12 @@
         {{ form_end(form) }}
     </div>
 
-
+    <script>
+        $('option').mousedown(function(e) {
+            e.preventDefault();
+            $(this).prop('selected', !$(this).prop('selected'));
+            return false;
+        });
+    </script>
 
 {% endblock %}
