@@ -22,7 +22,6 @@ class VilleController extends Controller
             $ville = $em->getRepository(Ville::class)->find($id);
         }
 
-
         $form = $this->createForm(VilleType::class, $ville);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
