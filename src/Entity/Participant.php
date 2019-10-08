@@ -95,6 +95,11 @@ class Participant implements UserInterface
      */
     private $site;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Groupes", mappedBy="participants")
+     */
+    private $groupes;
+
 
 
 
@@ -104,6 +109,7 @@ class Participant implements UserInterface
     {
         $this->sorties = new ArrayCollection();
         $this->organisateur = new ArrayCollection();
+        $this->groupes = new ArrayCollection();
     }
 
 
@@ -349,6 +355,34 @@ class Participant implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    /**
+     * @return Collection|Groupes[]
+     */
+    public function getGroupes(): Collection
+    {
+        return $this->groupes;
+    }
+
+    public function addGroupe(Groupes $groupe): self
+    {
+        if (!$this->groupes->contains($groupe)) {
+            $this->groupes[] = $groupe;
+            $groupe->addParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGroupe(Groupes $groupe): self
+    {
+        if ($this->groupes->contains($groupe)) {
+            $this->groupes->removeElement($groupe);
+            $groupe->removeParticipant($this);
+        }
+
+        return $this;
     }
 
 

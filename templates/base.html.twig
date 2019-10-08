@@ -28,6 +28,7 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     {% if app.user %}
+
                         {% if is_granted("ROLE_ADMIN") %}
                             <i class="fas fa-user-cog pr-2"></i>
                         {% else %}
@@ -48,6 +49,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('liste_users') }}">Utilisateurs</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ path('groupes') }}">Groupes</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('deconnexion') }}">Déconnexion</a>
