@@ -92,17 +92,19 @@ class UserController extends Controller
     /**
      * @Route("/connexion", name="connexion")
      */
-    public function connexion(Request $request, AuthenticationUtils $authenticationUtils, EntityManagerInterface $em, SessionInterface $session)
+    public function connexion(Request $request, AuthenticationUtils $authenticationUtils, SessionInterface $session)
     {
-
         $errors = $authenticationUtils->getLastAuthenticationError();
         $lastname = $authenticationUtils->getLastUsername();
         $form = $this->createForm(ParticipantType::class);
         $form->handleRequest($request);
 
-        dump($session->get("ban"));
-        if($session->get("ban") == 'test')
-            $this->addFlash('danger', 'Compte non actif');
+        if (isset($_COOKIE["actif"])) {
+            if ($_COOKIE["actif"]=='no') {
+                $this->addFlash('danger', 'Compte non actif');
+            }
+        }
+
         return $this->render("user/connexion.html.twig", [
             'lastusername' => $lastname,
             'form' => $form->createView(),
