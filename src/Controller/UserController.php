@@ -271,8 +271,39 @@ class UserController extends Controller
     public function remove(EntityManagerInterface $em, $id)
     {
         $user = $em->getRepository(Participant::class)->find($id);
+        $AllUsers = $em->getRepository(Participant::class)->findAll();
+        $sorties = $em->getRepository(Sortie::class)->findByIdOrganisateur($user->getId());
 
+
+        foreach ($sorties as $sort) {
+
+
+            foreach ($sort->getInscrit() as $inscrit)
+            {
+                $sort->removeInscrit($inscrit);
+            }
+
+            $em->remove($sort);
+        }
+
+        foreach ($user->getSorties() as $sortie)
+        {
+            $user->removeSorty($sortie);
+        }
+
+        $profil = $em->getRepository(Profil::class)->findByLibelle($user->getId());
+        $em->remove($profil);
         $em->remove($user);
+
+
+
+
+
+
+
+
+
+
         $em->flush();
 
         return $this->redirectToRoute('liste_users');
