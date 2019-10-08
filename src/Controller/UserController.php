@@ -283,6 +283,7 @@ class UserController extends Controller
         foreach ($sorties as $sort) {
             foreach ($sort->getInscrit() as $inscrit)
             {
+
                 $sort->removeInscrit($inscrit);
             }
             $em->remove($sort);
@@ -294,7 +295,8 @@ class UserController extends Controller
         }
 
         $profil = $em->getRepository(Profil::class)->findByLibelle($user->getId());
-        $em->remove($profil);
+        if($profil != null)
+            $em->remove($profil);
         $em->remove($user);
 
         $em->flush();
