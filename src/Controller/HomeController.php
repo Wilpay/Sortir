@@ -23,7 +23,6 @@ class HomeController extends Controller
         $sortie = $em->getRepository(Sortie::class)->find($id);
         $participant = $em->getRepository(Participant::class)->find($this->getUser());
 
-
         $sortie->addInscrit($participant);
         $em->persist($sortie);
         $em->flush();
@@ -38,7 +37,6 @@ class HomeController extends Controller
     {
         $sortie = $em->getRepository(Sortie::class)->find($id);
         $participant = $em->getRepository(Participant::class)->find($this->getUser());
-
 
         $sortie->removeInscrit($participant);
         $em->persist($sortie);
@@ -56,8 +54,6 @@ class HomeController extends Controller
         $etat = $em->getRepository(Etat::class)->findByLibelle('Ouverte');
 
         $sortie->setEtat($etat);
-
-
 
         $em->persist($sortie);
         $em->flush();

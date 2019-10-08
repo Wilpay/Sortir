@@ -22,21 +22,17 @@ class MainController extends Controller
     /**
      * @Route("/", name="home")
      */
-    public function home(EntityManagerInterface $em, SessionInterface $session)
-    {
+    public function home(EntityManagerInterface $em, SessionInterface $session) {
         $site = $em->getRepository(Site::class)->findAll();
-        if($this->getUser() != null)
-        {
-            $participant = $em->getRepository(Participant::class)->find($this->getUser());
-            if($participant != null)
-            {
 
-                if($participant->getActif() == false)
-                {
-
-                    $session->set('ban','test');
+        if($this->getUser() != null) {
+            $participant = $em->getRepository(Participant::class)->find($this->getUser()->getId());
+            if($participant != null) {
+                if($participant->getActif() == 0) {
+                    setcookie("actif", 'no', time()+3600);
                     return $this->redirectToRoute('deconnexion');
-
+                } else {
+                    setcookie("actif", 'yes', time()+3600);
                 }
             }
         }
@@ -49,7 +45,7 @@ class MainController extends Controller
     /**
      * @Route("/refreshSorties", name="refreshSorties")
      */
-    public function refreshSorties(Request $request, EntityManagerInterface $em){
+    public function refreshSorties(Request $request, EntityManagerInterface $em) {
 
         $param = false;
         $sortiesTriees=[];
