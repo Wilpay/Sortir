@@ -1,12 +1,68 @@
-{% extends 'base.html.twig' %}
-
-{% block title %}Hello LieuController!{% endblock %}
-
+{% extends('base.html.twig') %}
+{% block title %}{{ parent() }} | Sortie{% endblock %}
 {% block body %}
-    {{ form_start(form) }}
-    {{ form_errors(form) }}
+    <h1 class="display-4">CRÉER UN LIEU</h1>
+    <hr class="my-3">
+    <div class="container">
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endfor %}
 
-    {{ form_widget(form) }}
-    <button type="submit" class="btn-success btn-sm">Enregistrer</button>
-    {{ form_end(form) }}
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
+            <div class="row">
+                <div class="col-12">
+                    <div class="row mb-2">
+                        <div class="font-weight-bold col-12 col-md-2 m-auto">Nom:</div>
+                        <div class="col-12 col-md-10">
+                            {{ form_widget(form.nom) }}
+                            {{ form_errors(form.nom) }}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="font-weight-bold col-12 col-md-2 m-auto">Rue:</div>
+                        <div class="col-12 col-md-10">
+                            {{ form_widget(form.rue) }}
+                            {{ form_errors(form.rue) }}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="font-weight-bold col-12 col-md-2 m-auto">Latitude:</div>
+                        <div class="col-12 col-md-10">
+                            {{ form_widget(form.latitude) }}
+                            {{ form_errors(form.latitude) }}
+                        </div>
+                    </div>
+                    <div class="row mb-2">
+                        <div class="font-weight-bold col-12 col-md-2 m-auto">Longitude:</div>
+                        <div class="col-12 col-md-10">
+                            {{ form_widget(form.longitude) }}
+                            {{ form_errors(form.longitude) }}
+                        </div>
+                    </div>
+
+                    <div class="row mb-2">
+                        <div class="font-weight-bold col-12 col-md-2 m-auto">Ville:</div>
+                        <div class="col-12 col-md-10">
+                            {{ form_widget(form.ville) }}
+                            {{ form_errors(form.ville) }}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 mt-5">
+                    <button type="submit" class="btn btn-block btn-success font-weight-bold">Enregistrer</button>
+                </div>
+                <div class="col-6 mt-5">
+                    <input type="button" value="Retour" class="btn btn-block btn-danger font-weight-bold" onclick="history.back(-1)" />
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
 {% endblock %}
+
+
+

@@ -29,7 +29,7 @@ class LieuType extends AbstractType
                 "label_format" => "Longitude"
             ])
             ->add('ville', EntityType::class, array(
-                "label_format" => "ville",
+                "label_format" => "Ville",
                 'class' => Ville::class,
             //Attribut utilisé pour l'affichage
                 'choice_label' => 'nom',

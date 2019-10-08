@@ -36,8 +36,7 @@ class UserController extends Controller
         $user = new Participant();
 
         $form = $this->createForm(ParticipantType::class, $user);
-        $formCsv = $this->createForm(UploadCsvType::class);
-        $formCsv->handleRequest($request);
+
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
 
@@ -54,38 +53,10 @@ class UserController extends Controller
             $this->addFlash('success', 'Participant inscrit');
             return $this->redirectToRoute('connexion');
         }
-        elseif ($formCsv->isSubmitted() && $formCsv->isValid())
-        {
-            $filename = $formCsv['file']->getData();
-            $line = array();
-            $row  = 0;
-            if (($file = fopen($filename, "r")) !== FALSE) {
-                while (($data = fgetcsv($file, 1000, ";")) !== FALSE) {
-                    $participant = new Participant();
-                    $participant->setNom($data['0']);
-                    $participant->setPrenom($data['1']);
-                    $participant->setPseudo($data['2']);
-                    $participant->setTelephone($data['3']);
-                    $participant->setMail($data['4']);
-                    $password = $encoder->encodePassword($participant, $data['5']);
-                    $participant->setPassword($password);
-                    $role = $data['6'];
-                    $participant->setRoles([''.$role.'']);
-                    $participant->setActif($data['7']);
-                    $em->persist($participant);
-
-                }
-                fclose($file);
-                $em->flush();
-            }
-        }
 
         return $this->render('user/inscription.html.twig', [
             'form' => $form->createView(),
-            'formCsv' => $formCsv->createView(),
             'utilisateur' => $user,
-
-
         ]);
     }
 
@@ -222,8 +193,7 @@ class UserController extends Controller
             $this->addFlash('success', 'Email Envoyé');
             return $this->redirectToRoute('connexion');
         }
-        else
-            {
+        else {
                 $this->addFlash('warning', 'Email invalide');
                 return $this->redirectToRoute('connexion');
         }
@@ -232,12 +202,46 @@ class UserController extends Controller
     /**
      * @Route("/liste", name="liste_users")
      */
-    public function liste(EntityManagerInterface $em)
+    public function liste(
+        Request $request,
+        EntityManagerInterface $em,
+        UserPasswordEncoderInterface $encoder
+    )
     {
         $users = $em->getRepository(Participant::class)->findAll();
 
+        $formCsv = $this->createForm(UploadCsvType::class);
+        $formCsv->handleRequest($request);
+
+    if ($formCsv->isSubmitted() && $formCsv->isValid()) {
+        $filename = $formCsv['file']->getData();
+        $line = array();
+        $row  = 0;
+        if (($file = fopen($filename, "r")) !== FALSE) {
+            while (($data = fgetcsv($file, 1000, ";")) !== FALSE) {
+                $participant = new Participant();
+                $participant->setNom($data['0']);
+                $participant->setPrenom($data['1']);
+                $participant->setPseudo($data['2']);
+                $participant->setTelephone($data['3']);
+                $participant->setMail($data['4']);
+                $password = $encoder->encodePassword($participant, $data['5']);
+                $participant->setPassword($password);
+                $role = $data['6'];
+                $participant->setRoles([''.$role.'']);
+                $participant->setActif($data['7']);
+                $em->persist($participant);
+            }
+            fclose($file);
+            $em->flush();
+            $this->addFlash('success', 'Import terminé');
+            return $this->redirectToRoute('liste_users');
+        }
+    }
+
         return $this->render("user/liste.html.twig", [
-            'users' => $users
+            'users' => $users,
+            'formCsv' => $formCsv->createView()
         ]);
     }
 
