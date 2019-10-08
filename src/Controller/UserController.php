@@ -276,15 +276,11 @@ class UserController extends Controller
         $AllUsers = $em->getRepository(Participant::class)->findAll();
         $sorties = $em->getRepository(Sortie::class)->findByIdOrganisateur($user->getId());
 
-
         foreach ($sorties as $sort) {
-
-
             foreach ($sort->getInscrit() as $inscrit)
             {
                 $sort->removeInscrit($inscrit);
             }
-
             $em->remove($sort);
         }
 
@@ -296,15 +292,6 @@ class UserController extends Controller
         $profil = $em->getRepository(Profil::class)->findByLibelle($user->getId());
         $em->remove($profil);
         $em->remove($user);
-
-
-
-
-
-
-
-
-
 
         $em->flush();
 

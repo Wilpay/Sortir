@@ -34,6 +34,7 @@ security:
                 lifetime: 604800 # 1 week in seconds
                 secure: true
                 path: /
+            access_denied_handler: App\Security\AccessDeniedHandler
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -43,6 +44,23 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_USER
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/inscription, roles: ROLE_ADMIN }
+        - { path: ^/profil, roles: ROLE_USER }
+        - { path: ^/refreshSorties, roles: ROLE_USER }
+        - { path: ^/motdepasseoubli, roles: ROLE_USER }
+        - { path: ^/liste, roles: ROLE_ADMIN }
+        - { path: ^/ban, roles: ROLE_ADMIN }
+        - { path: ^/unban, roles: ROLE_ADMIN }
+        - { path: ^/remove, roles: ROLE_ADMIN }
+        - { path: ^/inscrire, roles: ROLE_USER }
+        - { path: ^/desinscrire, roles: ROLE_USER }
+        - { path: ^/publier, roles: ROLE_USER }
+        - { path: ^/annuler, roles: ROLE_USER }
+        - { path: ^/creer, roles: ROLE_USER }
+        - { path: ^/majLieux, roles: ROLE_USER }
+        - { path: ^/majInfoLieu, roles: ROLE_USER }
+        - { path: ^/sortie, roles: ROLE_USER }
+        - { path: ^/groupes, roles: ROLE_USER }
