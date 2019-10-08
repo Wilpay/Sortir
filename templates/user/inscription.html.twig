@@ -12,24 +12,6 @@
             </div>
         {% endfor %}
 
-        {{ form_start(formCsv) }}
-        {{ form_errors(formCsv) }}
-        <div class="row">
-            <div class="font-weight-bold col-12 col-md-4 m-auto">Importer des participants:</div>
-            <div class="col-12 col-md-8">
-                <div class="input-group">
-                    <div class="custom-file">
-                        {{ form_widget(formCsv.file, {'attr': {'class': 'custom-file-input', 'accept': '.csv'}}) }}
-                        <label class="custom-file-label2" for="customFile">Choisir un fichier CSV</label>
-                    </div>
-                    <div class="input-group-append">
-                        {{ form_widget(formCsv.submit, {'attr': {'class': 'btn btn-secondary font-weight-bold'}}) }}
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{ form_end(formCsv) }}
-        <hr>
         {{ form_start(form) }}
             {{ form_errors(form) }}
             <div class="row mb-2">
@@ -92,10 +74,5 @@
 
             {{ form_widget(form.submit, {'attr': {'class': 'btn btn-block btn-success font-weight-bold mt-5'}}, {'label': 'Inscrire'}) }}
         {{ form_end(form) }}
-
-
     </div>
-
-
-
 {% endblock %}

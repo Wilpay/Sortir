@@ -5,6 +5,9 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\LieuRepository")
@@ -20,26 +23,45 @@ class Lieu
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
+     * @Assert\NotBlank(message="Veuillez entrer un nom")
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Le nom du lieu ne peut pas dépasser {{ limit }} caractères"
+     * )
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @var string
+     * @Assert\NotBlank(message="Veuillez entrer un nom")
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Le nom de la rue ne peut pas dépasser {{ limit }} caractères"
+     * )
      */
     private $rue;
 
     /**
      * @ORM\Column(type="float")
+     * @var float
+     * @Assert\NotBlank(message="Veuillez entrer une latitude")
      */
     private $latitude;
 
     /**
      * @ORM\Column(type="float")
+     * @var float
+     * @Assert\NotBlank(message="Veuillez entrer une longitude")
      */
     private $longitude;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="lieu")
+     * @var Ville
+     * @var float
+     * @Assert\NotBlank(message="Veuillez sélectionner une ville")
      */
     private $ville;
 

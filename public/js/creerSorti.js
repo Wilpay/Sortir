@@ -24,7 +24,7 @@ function getLieux($idVille){
         url: $("#urlLieu").val(),
         data: "&idVille="+$idVille,
         complete: function(data) {
-            console.log(data.responseText);
+            //console.log(data.responseText);
             $("#lieu").html(data.responseText);
             getInfosLieux($("#sortie_lieu").val());
         }
@@ -37,8 +37,9 @@ function getInfosLieux($idLieu){
         url: $("#urlInfoLieu").val(),
         data: "&idLieu="+$idLieu,
         complete: function(data) {
-            console.log(data.responseText);
+            //console.log(data.responseText);
             $("#infoLieu").html(data.responseText);
         }
     });
 }
+

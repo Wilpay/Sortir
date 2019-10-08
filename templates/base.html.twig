@@ -38,28 +38,29 @@
                     {% endif %}
                     <ul class="navbar-nav ml-auto">
                         {% if app.user %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('home') }}">Accueil</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('profil') }}">Mon Profil</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('inscription') }}">Inscription</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('liste_users') }}">Utilisateurs</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('groupes') }}">Groupes</a>
-                            </li>
+                            {% if is_granted('ROLE_USER') %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('home') }}">Accueil</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('profil') }}">Mon Profil</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('groupes') }}">Groupes</a>
+                                </li>
+                            {% endif %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('liste_users') }}">Utilisateurs</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('liste_lieux') }}">Lieux</a>
+                                </li>
+                            {% endif %}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('deconnexion') }}">Déconnexion</a>
                             </li>
                         {% else %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ path('home') }}">Accueil</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('connexion') }}">Connexion</a>
                             </li>
@@ -68,7 +69,7 @@
                 </div>
             </nav>
         {% endblock %}
-        <div class="jumbotron mt-5">
+        <div class="jumbotron mt-5 mb-0">
             {% block body %}{% endblock %}
         </div>
 
