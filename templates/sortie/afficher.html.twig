@@ -56,12 +56,14 @@
                             <input type="button" value="Retour" class="btn btn-block btn-danger font-weight-bold" onclick="history.back(-1)" />
                         </div>
                     {% else %}
-                        <input type="button" value="Retour" class="btn btn-block btn-danger font-weight-bold" onclick="history.back(-1)" />
+                        <div class="col-12">
+                            <input type="button" value="Retour" class="btn btn-block btn-danger font-weight-bold" onclick="history.back(-1)" />
+                        </div>
                     {% endif %}
                 </div>
             </div>
-            <div class="card-footer text-right h6">
-                {{ sortie.etat.libelle|upper }}
+            <div class="card-footer text-right">
+                <h6 class="m-0">{{ sortie.etat.libelle|upper }}</h6>
             </div>
         </div>
     </div>

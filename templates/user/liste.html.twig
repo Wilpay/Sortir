@@ -32,7 +32,7 @@
                     <td>{{ user.pseudo }}</td>
                     <td>{{ user.telephone }}</td>
                     <td>{{ user.mail }}</td>
-                    <td>{{ user.site.nom }}</td>
+                    <td>{% if(user.site != null) %}{{ user.site.nom }}{% else %}???{% endif %}</td>
                     <td class="text-right">
                         {% if user.actif == 1 %}
                             <a href="{{ path('ban', {id:user.id}) }}" class="btn btn-sm btn-outline-warning action">
@@ -43,16 +43,32 @@
                                 <i class="fas fa-unlock"></i>
                             </a>
                         {% endif %}
-                        {% if user.pseudo != app.user.pseudo %}
-                            <a href="{{ path('remove', {id:user.id}) }}" class="btn btn-sm btn-outline-danger action">
-                                <i class="fas fa-user-slash"></i>
-                            </a>
-                        {% endif %}
-
+                        <a href="{{ path('remove', {id:user.id}) }}" class="btn btn-sm btn-outline-danger action{% if user.pseudo == app.user.pseudo %} disabled{% endif %}">
+                            <i class="fas fa-user-slash"></i>
+                        </a>
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <a class="btn btn-block btn-success font-weight-bold" href="{{ path('inscription') }}">Inscription</a>
+            </div>
+            <div class="col-12 col-md-6 pt-3 pt-md-0">
+                {{ form_start(formCsv) }}
+                {{ form_errors(formCsv) }}
+                <div class="input-group">
+                    <div class="custom-file">
+                        {{ form_widget(formCsv.file, {'attr': {'class': 'custom-file-input', 'accept': '.csv'}}) }}
+                        <label class="custom-file-label2 text-nowrap text-truncate" for="customFile">Importer des participants depuis un fichier CSV</label>
+                    </div>
+                    <div class="input-group-append">
+                        {{ form_widget(formCsv.submit, {'attr': {'class': 'btn btn-secondary font-weight-bold'}}) }}
+                    </div>
+                </div>
+                {{ form_end(formCsv) }}
+            </div>
+        </div>
     </div>
 {% endblock %}

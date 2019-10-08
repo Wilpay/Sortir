@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Lieu;
 use App\Entity\Participant;
+use App\Entity\Ville;
 use App\Form\LieuType;
 use App\Form\ParticipantType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,6 +15,18 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class LieuController extends Controller
 {
+    /**
+     * @Route("/lieux", name="liste_lieux")
+     */
+    public function lieux(EntityManagerInterface $em)
+    {
+        $lieux = $em->getRepository(Lieu::class)->findAll();
+
+        return $this->render("lieu/liste.html.twig", [
+            'lieux' => $lieux,
+        ]);
+    }
+
     /**
      * @Route("/lieuCreation/{id}", name="lieuCreation",requirements={"id": "\d+"})
      */

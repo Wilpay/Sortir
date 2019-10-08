@@ -23,6 +23,17 @@ class Groupes
      */
     private $participants;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $nom;
+
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $chef;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -55,6 +66,31 @@ class Groupes
         if ($this->participants->contains($participant)) {
             $this->participants->removeElement($participant);
         }
+
+        return $this;
+    }
+
+    public function getNom(): ?string
+    {
+        return $this->nom;
+    }
+
+    public function setNom(string $nom): self
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+
+    public function getChef(): ?int
+    {
+        return $this->chef;
+    }
+
+    public function setChef(int $chef): self
+    {
+        $this->chef = $chef;
 
         return $this;
     }
