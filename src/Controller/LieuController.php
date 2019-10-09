@@ -20,8 +20,11 @@ class LieuController extends Controller
      */
     public function lieux(EntityManagerInterface $em)
     {
-        $lieux = $em->getRepository(Lieu::class)->findAll();
-
+        if($this->isGranted('ROLE_ADMIN')) {
+            $lieux = $em->getRepository(Lieu::class)->findBy(array(), array('ville' => 'ASC'));
+        }else{
+            $lieux = $em->getRepository(Lieu::class)->findBy(array('modificateur'=>$this->getUser()->getId()), array('ville' => 'ASC'));
+        }
         return $this->render("lieu/liste.html.twig", [
             'lieux' => $lieux,
         ]);
@@ -42,7 +45,7 @@ class LieuController extends Controller
         $form = $this->createForm(LieuType::class, $lieu);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
-
+            $lieu->setModificateur($this->getUser());
             $em->persist($lieu);
             $em->flush();
 
@@ -52,11 +55,24 @@ class LieuController extends Controller
             }else{
                 $this->addFlash('success', 'Lieu modifié avec succes');
             }
-            return $this->redirectToRoute('home');
+            return $this->redirectToRoute('liste_lieux');
         }
 
         return $this->render('lieu/creerLieu.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+    /**
+     * @Route("/lieuSuppression/{id}", name="lieuSuppression",requirements={"id": "\d+"})
+     */
+    public function suppressionVille( Request $request, EntityManagerInterface $em, $id){
+       /* $lieu = $em->getRepository(Lieu::class)->find($id);
+
+        $em->remove($lieu);
+        $em->flush();*/
+        $em->getRepository(Lieu::class)->delete($id,$em);
+        $this->addFlash('success', 'Lieu supprimé avec succes');
+
+        return $this->redirectToRoute('liste_lieux');
     }
 }

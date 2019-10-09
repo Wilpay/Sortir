@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Lieu;
 use App\Entity\Ville;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\EntityManagerInterface;
 
 /**
  * @method Ville|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +19,15 @@ class VilleRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Ville::class);
+    }
+
+    public function delete($value,EntityManagerInterface $em){
+        $ville = $this->find($value);
+        foreach ($ville->getLieu() as $lieu){
+            $em->getRepository(Lieu::class)->delete($lieu->getId(),$em);
+        }
+        $em->remove($ville);
+        $em->flush();
     }
 
     // /**

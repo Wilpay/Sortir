@@ -66,6 +66,11 @@ class Lieu
     private $ville;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Participant")
+     */
+    private $modificateur;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Sortie", mappedBy="lieu")
      */
     private $sortie;
@@ -138,6 +143,22 @@ class Lieu
         $this->ville = $ville;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getModificateur()
+    {
+        return $this->modificateur;
+    }
+
+    /**
+     * @param mixed $modificateur
+     */
+    public function setModificateur($modificateur)
+    {
+        $this->modificateur = $modificateur;
     }
 
     /**

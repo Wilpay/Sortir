@@ -17,11 +17,22 @@ class VilleController extends Controller
      */
     public function ville(EntityManagerInterface $em)
     {
-        $ville = $em->getRepository(Ville::class)->findAll();
+        $ville = $em->getRepository(Ville::class)->findBy(array(),array('nom'=>'ASC'));
 
         return $this->render("ville/listeVille.html.twig", [
             'ville' => $ville,
         ]);
+    }
+    /**
+     * @Route("/villeSuppression/{id}", name="villeSuppression",requirements={"id": "\d+"})
+     */
+    public function suppressionVille( Request $request, EntityManagerInterface $em, $id){
+        $ville = $em->getRepository(Ville::class)->find($id);
+
+        $em->getRepository(Ville::class)->delete($id,$em);
+        $this->addFlash('success', 'Ville supprimée avec succes');
+
+        return $this->redirectToRoute('liste_ville');
     }
 
     /**

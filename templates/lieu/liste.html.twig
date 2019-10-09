@@ -1,6 +1,7 @@
 {% extends('base.html.twig') %}
 {% block title %}{{ parent() }} | Administration{% endblock %}
 {% block body %}
+    <script src="{{ asset("js/listeLieux.js") }}"></script>
     <h1 class="display-4">LISTE DES LIEUX</h1>
     <hr class="my-3">
     <div class="container-fluid">
@@ -36,22 +37,41 @@
                     <td class="text-right">
                         <a href="{{ path('lieuCreation', {id:lieu.id}) }}" class="btn btn-sm btn-outline-warning action">
                             <i class="fas fa-pen"></i>
-                        </a>
-                        <a href="" class="btn btn-sm btn-outline-danger action">
+                        </a>{% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('lieuSuppression', {id:lieu.id}) }}" onclick="openModal(this.href,'{{ lieu.nom }}' );return false;" class="btn btn-sm btn-outline-danger action">
                             <i class="fas fa-trash-alt"></i>
                         </a>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}
             </tbody>
         </table>
         <div class="row mt-3">
-            <div class="col-12 col-md-6">
-                <a href="{{ path('villeCreation', {id:0}) }}" class="btn btn-block btn-success font-weight-bold">Créer une ville</a>
-            </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12 col-md-3">
                 <a href="{{ path('lieuCreation', {id:0}) }}" class="btn btn-block btn-success font-weight-bold">Créer un lieu</a>
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modalSuppression">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title " id="LieuNom"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Cela impliquera la suppression de toutes les sorties affectées à ce lieu.</p>
+                    <p id="confirm"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="val" class="btn btn-primary" onclick="">Supprimer</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

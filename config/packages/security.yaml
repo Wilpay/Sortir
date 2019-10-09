@@ -64,5 +64,6 @@ security:
         - { path: ^/majInfoLieu, roles: ROLE_USER }
         - { path: ^/sortie, roles: ROLE_USER }
         - { path: ^/groupes, roles: ROLE_USER }
-        - { path: ^/lieux, roles: ROLE_ADMIN }
+        - { path: ^/lieux, roles: ROLE_USER }
+        - { path: ^/ville, roles: ROLE_ADMIN }
         - { path: ^/lieuCreation, roles: ROLE_USER }
