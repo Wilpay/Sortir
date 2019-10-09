@@ -11,6 +11,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class VilleController extends Controller
 {
+
+    /**
+     * @Route("/ville", name="liste_ville")
+     */
+    public function ville(EntityManagerInterface $em)
+    {
+        $ville = $em->getRepository(Ville::class)->findAll();
+
+        return $this->render("ville/listeVille.html.twig", [
+            'ville' => $ville,
+        ]);
+    }
+
     /**
      * @Route("/villeCreation/{id}", name="villeCreation",requirements={"id": "\d+"})
      */
@@ -29,8 +42,13 @@ class VilleController extends Controller
             $em->persist($ville);
             $em->flush();
 
-            $this->addFlash('success', 'Lieu créé');
-            return $this->redirectToRoute('home');
+            if($id == 0){
+
+                $this->addFlash('success', 'Ville créée avec succes');
+            }else{
+                $this->addFlash('success', 'Ville modifiée avec succes');
+            }
+            return $this->redirectToRoute('liste_ville');
         }
 
         return $this->render('ville/creerVille.html.twig', [

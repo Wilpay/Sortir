@@ -17,7 +17,7 @@ class VilleType extends AbstractType
             ->add('nom', TextType::class, [
                 "label_format" => "Nom"
             ])
-            ->add('codePostal', NumberType::class, [
+            ->add('codePostal', null, [
                 "label_format" => "Code Postal"
             ])
         ;

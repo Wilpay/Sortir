@@ -46,7 +46,12 @@ class LieuController extends Controller
             $em->persist($lieu);
             $em->flush();
 
-            $this->addFlash('success', 'Lieu créé');
+            if($id == 0){
+
+                $this->addFlash('success', 'Lieu créé avec succes');
+            }else{
+                $this->addFlash('success', 'Lieu modifié avec succes');
+            }
             return $this->redirectToRoute('home');
         }
 

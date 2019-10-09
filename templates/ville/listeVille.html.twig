@@ -1,0 +1,46 @@
+{% extends('base.html.twig') %}
+{% block title %}{{ parent() }} | Administration{% endblock %}
+{% block body %}
+    <h1 class="display-4">LISTE DES VILLES</h1>
+    <hr class="my-3">
+    <div class="container-fluid">
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+        <table class="table table-sm table-striped table-bordered table-light">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">Ville</th>
+                <th scope="col">Code postal</th>
+                <th scope="col" class="text-right pr-2">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for ville in ville %}
+                <tr>
+                    <td>{{ ville.nom }}</td>
+                    <td>{{ ville.codePostal }}</td>
+                    <td class="text-right">
+                        <a href="{{ path('villeCreation', {id:ville.id}) }}" class="btn btn-sm btn-outline-warning action">
+                            <i class="fas fa-pen"></i>
+                        </a>
+                        <a href="" class="btn btn-sm btn-outline-danger action">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="row mt-3">
+            <div class="col-12 col-md-3">
+                <a href="{{ path('villeCreation', {id:0}) }}" class="btn btn-block btn-success font-weight-bold">Créer une ville</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

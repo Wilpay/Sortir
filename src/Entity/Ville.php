@@ -35,7 +35,7 @@ class Ville
      * @var string
      * @Assert\NotBlank(message="Veuillez entrer un code postal")
      * @Assert\Length(
-     *      max = 5,
+     *      max = 10,
      *      maxMessage = "Le code postal ne peut pas dépasser {{ limit }} caractères"
      * )
      */
