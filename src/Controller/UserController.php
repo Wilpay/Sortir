@@ -46,6 +46,7 @@ class UserController extends Controller
             
             //Gérer le role
             $user->setRoles(['ROLE_USER']);
+            $user->setActif(1);
 
             $em->persist($user);
             $em->flush();

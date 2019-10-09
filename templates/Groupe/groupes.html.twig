@@ -1,9 +1,9 @@
 {% extends('base.html.twig') %}
 {% block title %}{{ parent() }} | Groupes{% endblock %}
 {% block body %}
-    <h2 class="display-4">Création Groupes</h2>
+    <h2 class="display-4">CREER GROUPE</h2>
+    <hr class="my-3">
     <div class="container">
-
         {% for label, messages in app.flashes %}
             <div class="alert alert-{{ label }}" role="alert">
                 {% for message in messages %}
@@ -14,74 +14,74 @@
 
         {{ form_start(form) }}
         {{ form_errors(form) }}
-        <div class="row mb-2">
-            <div class="font-weight-bold col-12 col-md-4 m-auto">Nom Groupe:</div>
-            <div class="col-12 col-md-8">
-                {{ form_widget(form.nom) }}
-                {{ form_errors(form.nom) }}
+            <div class="row mb-2">
+                <div class="font-weight-bold col-12 col-md-4 m-auto">Nom du groupe:</div>
+                <div class="col-12 col-md-8">
+                    {{ form_widget(form.nom) }}
+                    {{ form_errors(form.nom) }}
+                </div>
             </div>
-        </div>
-        <div class="row mb-2">
-            <div class="font-weight-bold col-12 col-md-4 m-auto">Participants (sélection multiples):</div>
-            <div class="col-12 col-md-8">
-                {{ form_widget(form.participants) }}
-                {{ form_errors(form.participants) }}
+            <div class="row mb-2">
+                <div class="font-weight-bold col-12 col-md-4 m-auto">Participants (sélection multiples):</div>
+                <div class="col-12 col-md-8">
+                    {{ form_widget(form.participants) }}
+                    {{ form_errors(form.participants) }}
+                </div>
             </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col-12 col-sm-6 pb-3">
-                {{ form_widget(form.submit, {'attr': {'class': 'btn btn-block btn-success font-weight-bold'}}, {'label': 'Enregister'}) }}
+            <div class="row mt-5">
+                <div class="col-12 offset-md-4 col-md-8">
+                    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-block btn-success font-weight-bold'}}, {'label': 'Enregister'}) }}
+                </div>
             </div>
-            <div class="col-12 col-sm-6">
-                <a href="{{ path('home') }}" class="btn btn-block btn-danger font-weight-bold">Annuler</a>
-            </div>
-        </div>
         {{ form_end(form) }}
     </div>
-    <hr>
-     <h2 class="display-4">Mes Groupes</h2>
+    <h2 class="display-4 mt-5">MES GROUPES</h2>
+    <hr class="my-3">
+    <div class="container">
     {% if groupes != null %}
-    {% for groupe in groupes %}
-        <div class="card text-center">
-            <div class="card-header">
-                {{ groupe.nom }}
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">Participant(s)</h5>
-                <a class="btn btn-light" data-toggle="collapse" href="#collapseExample1{{ groupe.id}}" role="button" aria-expanded="false" aria-controls="collapseExample">
-                    <i class="far fa-eye"></i>
-                </a>
-                <a class="btn btn-light"  href="{{ path('modifierGroupe', {id:groupe.id}) }}">
-                    <i class="fas fa-plus"></i>
-                </a>
-                <a class="btn btn-light" href="{{ path('remove_group', {id:groupe.id}) }}">
-                    <i class="far fa-trash-alt"></i>
-                </a>
+        {% for groupe in groupes %}
+            <div class="card mb-3">
+                <div class="card-header">
 
-                <div class="collapse" id="collapseExample1{{ groupe.id}}">
-                    <div class="card card-body">
-                        <ul class="list-unstyled">
-                            {% for util in groupe.participants %}
-                            <li class="media">
-                                <div class="media-body">
-                                    <h5 class="mt-0 mb-1">{{ util.nom}}</h5>
-                                </div>
-                                <a href="{{ path('profil_user', {id:util.id}) }}" class="btn btn-sm btn-outline-success action"><i class="fas fa-user"></i></a><a href="{{ path('remove_util',{'id':util.id, 'idgroupe':groupe.id}) }}" class="btn btn-sm btn-outline-danger action"><i class="fas fa-user-minus"></i></a>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <span class="font-weight-bold">Groupe:</span> {{ groupe.nom }}
+                            </a>
+                        </li>
+                        <li class="nav-item ml-auto">
+                            <a class="nav-link text-warning" href="{{ path('modifierGroupe', {id:groupe.id}) }}">
+                                <i class="fas fa-pen mr-2"></i>Modifier
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-danger" href="{{ path('remove_group', {id:groupe.id}) }}">
+                                <i class="far fa-trash-alt"></i>
+                            </a>
+                        </li>
+                    </ul>
                 </div>
-
-
-
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        {% for util in groupe.participants %}
+                            <li class="list-group-item p-0">
+                                <a href="{{ path('profil_user', {id:util.id}) }}" class="btn btn-link">
+                                    {{ util.prenom}} {{ util.nom}}
+                                </a>
+                                <a href="{{ path('remove_util',{'id':util.id, 'idgroupe':groupe.id}) }}" class="close text-danger">
+                                    <span aria-hidden="true">&times;</span>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="card-footer text-muted text-right">
+                    {{ groupe.participants.count }} participant(s)
+                </div>
             </div>
-            <div class="card-footer text-muted">
-                {{ groupe.participants.count }} participant(s)
-            </div>
-        </div>
-    {% endfor %}
+        {% endfor %}
     {% endif %}
+    </div>
 
     <script>
         $('option').mousedown(function(e) {
