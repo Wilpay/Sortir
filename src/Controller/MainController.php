@@ -60,7 +60,7 @@ class MainController extends Controller
         $debut = $request->request->get("debut");
         $fin = $request->request->get("fin");
         $idPasse = $em->getRepository(etat::class)->findBy(["libelle"=>'Passée']);
-
+/*
         if($site!=0){
             $paramRequette["siteorganisateur"] = $site;
         }
@@ -129,13 +129,14 @@ class MainController extends Controller
             }
             $sorties=$sortiesTriees;
         }
-
+*/
         $ouverte = $em->getRepository(Etat::class)->findByLibelle('Ouverte');
         $cloturee = $em->getRepository(Etat::class)->findByLibelle('Clôturée');
         $encours = $em->getRepository(Etat::class)->findByLibelle('Activité en cours');
         $passee = $em->getRepository(Etat::class)->findByLibelle('Passée');
         $archive = $em->getRepository(Etat::class)->findByLibelle('Archivée');
-
+        $cree = $em->getRepository(Etat::class)->findByLibelle('Créée');
+/*
         foreach ($sorties as $sortie)
         {
             $date = date_timestamp_get(date_create())+3600*2;
@@ -188,22 +189,110 @@ class MainController extends Controller
                 }
             }
             $sorties=$sortiesTriees;
-        }
-        /*$where = false;
+        }*/
+        $where = false;
         $requete = 'SELECT s FROM App:Sortie s';
+        if(($inscrit=="true" || $nonInscrit=="true") && !($orga == "true" && $inscrit == "true" && $nonInscrit == "true" && $passe == "true") ){
+            $requete .=" LEFT JOIN s.inscrit i";
+        }
         if($site!=0){
             $requete .=" where s.siteorganisateur = ".$site;
             $where = true;
         }
         if(!empty($recherche)){
+            if($where == true){
+                $requete .= " and";
+            }else{
+                $requete .= " where";
+            }
+            $requete .= " s.nom like '%".$recherche."%'";
+            $where = true;
+        }
+        if(!empty($debut) && empty($fin)){
+            if($where == true){
+                $requete .= " and";
+            }else{
+                $requete .= " where";
+            }
+            $requete .= " DATE_DIFF('" .$debut."' , s.dateHeureDebut) <0 ";
+            $where = true;
+        }
+        if(!empty($fin) && empty($debut)){
+            if($where == true){
+                $requete .= " and";
+            }else{
+                $requete .= " where";
+            }
+            $requete .= " DATE_DIFF( s.dateHeureDebut,'".$fin."' ) <0 ";
+            $where = true;
+        }
+        if(!empty($fin) && !empty($debut)){
+            if($where == true){
+                $requete .= " and";
+            }else{
+                $requete .= " where";
+            }
+            $requete .= " s.dateHeureDebut BETWEEN '".$debut."' AND '".$fin."'";
+            $where = true;
+        }
+        if(($orga == "true" && $inscrit == "true" && $nonInscrit == "true" && $passe == "true") || ($orga == "false" && $inscrit == "false" && $nonInscrit == "false" && $passe == "false") ){
+            if(!$this->isGranted('ROLE_ADMIN')){
+                if($where == true){
+                    $requete .= " and";
+                }else{
+                    $requete .= " where";
+                }
+                $requete .= " (s.etat in (".$ouverte->getId().",".$passee->getId().",".$encours->getId().",".$cloturee->getId().") OR (s.etat = ".$cree->getId()." AND s.organisateur = ".$this->getUser()->getId()."))";
+                $where = true;
+            }
+        }else{
+            $or = false;
+            if($where == true){
+                $requete .= " and";
+            }else{
+                $requete .= " where";
+            }
+            if($orga == "true"){
+                $requete.=" ((s.organisateur = ".$this->getUser()->getId().")";
+                $or = true;
+            }
+            if($passe == "true"){
+                if($or == true){
+                    $requete.=" OR";
+                }else{
+                    $requete.=" (";
+                }
+                $requete.=" (s.etat = ".$passee->getId().")";
+                $or=true;
+            }
+            if($inscrit == "true"){
 
+                if($or == true){
+                    $requete.=" OR";
+                }else{
+                    $requete.=" (";
+                }
+                $requete.= " (s.etat in (".$ouverte->getId().",".$passee->getId().",".$encours->getId().",".$cloturee->getId().") AND i.id = ".$this->getUser()->getId().")";
+                $or=true;
+            }
+            if($nonInscrit == "true"){
+                if($or == true){
+                    $requete.=" OR";
+                }else{
+                    $requete.=" (";
+                }
+                $requete.=" (s.etat = ".$ouverte->getId()." AND s.id NOT IN (SELECT s2.id FROM App:Sortie s2 LEFT JOIN s2.inscrit i2 where ( (s2.etat in (".$ouverte->getId().",".$passee->getId().",".$encours->getId().",".$cloturee->getId().") AND i2.id = ".$this->getUser()->getId().") )) AND s.organisateur !=".$this->getUser()->getId().")";
+                $or=true;
+            }
+            $requete.=" )";
         }
 
-        $requete .=' ORDER BY s.nom ASC';
-        var_dump($requete);
+
+        $requete .=' ORDER BY s.dateHeureDebut ASC';
+        //var_dump($requete);
         $query = $em->createQuery($requete);
 
-        $sorties = $query->getResult(); */
+        $sorties = $query->getResult();
 
         return $this->render("ajax/listeSorties.html.twig", ['sorties' => $sorties]);
     }
