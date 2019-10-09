@@ -52,8 +52,6 @@ class LieuController extends Controller
 
         return $this->render('lieu/creerLieu.html.twig', [
             'form' => $form->createView()
-
-
         ]);
     }
 }

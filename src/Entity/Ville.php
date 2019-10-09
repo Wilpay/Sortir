@@ -22,10 +22,10 @@ class Ville
     /**
      * @ORM\Column(type="string", length=255)
      * @var string
-     * @Assert\NotBlank(message="Veuillez entrer un nom")
+     * @Assert\NotBlank(message="Veuillez entrer une ville")
      * @Assert\Length(
      *      max = 255,
-     *      maxMessage = "Le nom de la sortie ne peut pas dépasser {{ limit }} caractères"
+     *      maxMessage = "Le nom de la ville ne peut pas dépasser {{ limit }} caractères"
      * )
      */
     private $nom;
@@ -33,10 +33,10 @@ class Ville
     /**
      * @ORM\Column(type="string", length=255)
      * @var string
-     * @Assert\NotBlank(message="Veuillez entrer un nom")
+     * @Assert\NotBlank(message="Veuillez entrer un code postal")
      * @Assert\Length(
-     *      max = 10,
-     *      maxMessage = "Le nom de la sortie ne peut pas dépasser {{ limit }} caractères"
+     *      max = 5,
+     *      maxMessage = "Le code postal ne peut pas dépasser {{ limit }} caractères"
      * )
      */
     private $codePostal;

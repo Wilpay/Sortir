@@ -20,7 +20,7 @@ class SortieController extends Controller
     /**
      * @Route("/creer/{id}", name="creer",requirements={"id": "\d+"})
      */
-    public function creer(Request $request,EntityManagerInterface $em, $id)
+    public function creer(Request $request, EntityManagerInterface $em, $id)
     {
         $idLieu = 0;
         $idVille=0;

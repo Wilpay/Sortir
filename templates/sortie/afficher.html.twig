@@ -62,9 +62,13 @@
                     {% endif %}
                 </div>
             </div>
-            <div class="card-footer text-right">
-                <h6 class="m-0">{{ sortie.etat.libelle|upper }}</h6>
-            </div>
+                <div class="card-footer text-right">
+                    {% if(sortie.etat.libelle == 'Annulée') %}
+                        <p class="text-left">{{ sortie.motif }}</p>
+                    {% endif %}
+                     <h6 class="m-0">{{ sortie.etat.libelle|upper }}</h6>
+                </div>
+
         </div>
     </div>
 {% endblock %}
