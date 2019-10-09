@@ -281,7 +281,7 @@ class MainController extends Controller
                 }else{
                     $requete.=" (";
                 }
-                $requete.=" (s.etat = ".$ouverte->getId()." AND s.id NOT IN (SELECT s2.id FROM App:Sortie s2 LEFT JOIN s2.inscrit i2 where ( (s2.etat in (".$ouverte->getId().",".$passee->getId().",".$encours->getId().",".$cloturee->getId().") AND i2.id = ".$this->getUser()->getId().") )))";
+                $requete.=" (s.etat = ".$ouverte->getId()." AND s.id NOT IN (SELECT s2.id FROM App:Sortie s2 LEFT JOIN s2.inscrit i2 where ( (s2.etat in (".$ouverte->getId().",".$passee->getId().",".$encours->getId().",".$cloturee->getId().") AND i2.id = ".$this->getUser()->getId().") )) AND s.organisateur !=".$this->getUser()->getId().")";
                 $or=true;
             }
             $requete.=" )";
