@@ -62,8 +62,6 @@ class Participant implements UserInterface
     private $mail;
 
     /**
-     * @Assert\NotBlank(message="Votre mot de passe ne doit pas être vide!")
-     *
      * @ORM\Column(type="string", length=255)
      */
     private $password;

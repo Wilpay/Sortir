@@ -33,7 +33,7 @@
                 {{ form_widget(form.submit, {'attr': {'class': 'btn btn-block btn-success font-weight-bold'}}, {'label': 'Enregister'}) }}
             </div>
             <div class="col-12 col-sm-6">
-                <a href="{{ path('home') }}" class="btn btn-block btn-danger font-weight-bold">Annuler</a>
+                <input type="button" value="Annuler" class="btn btn-block btn-danger font-weight-bold" onclick="history.back(-1)" />
             </div>
         </div>
         {{ form_end(form) }}

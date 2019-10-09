@@ -11,7 +11,7 @@
             <div class="card-body">
                 <div class="row mb-5">
                     <div class="col-12 col-lg-3 mb-3">
-                        {% if not utilisateur.image is empty %}
+                        {% if not utilisateur is empty %}
                             <img src="{{ asset('Files/' ~ utilisateur.image)  }}" class="img-thumbnail mx-auto d-block" height="250" width="250">
                         {% else %}
                             <img src="{{ asset('img/avatar.png')  }}" class="img-thumbnail mx-auto d-block" height="250" width="250">
@@ -22,7 +22,7 @@
                         <p class="card-text"><span class="h6">Nom: </span>{{ participant.nom }}</p>
                         <p class="card-text"><span class="h6">Téléphone: </span>{{ participant.telephone }}</p>
                         <p class="card-text"><span class="h6">Email: </span>{{ participant.mail }}</p>
-                        <p class="card-text"><span class="h6">Ville de rattachement: </span>{{ participant.site.nom }}</p>
+                        <p class="card-text"><span class="h6">Ville de rattachement: </span>{% if(participant.site != null) %}{{ participant.site.nom }}{% else %}???{% endif %}</p>
                     </div>
                 </div>
                 <input type="button" value="Retour" class="btn btn-block btn-danger" onclick="history.back(-1)" />
