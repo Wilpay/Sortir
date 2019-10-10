@@ -37,12 +37,7 @@ Les fonctionnalitées présentes sont :
 <li>Importer des utilisateurs par fichier .csv</li>
 <li>Mot de passe oublié avec email (Seulement en dev avec l'outil pour voir le mail)</li>
  <li>Annuler une sortie en tant qu'administrateur</li>
-</ul>
-
-Prochainement : 
-
-<ul>
-<li>Gérer les lieux</li>
+ <li>Gérer les lieux</li>
 <li>Désactiver des utilisateurs</li>
 <li>Supprimer des utilisateurs</li>
 <li>Gérer les villes</li>
