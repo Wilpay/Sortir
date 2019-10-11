@@ -293,6 +293,35 @@ class MainController extends Controller
         $query = $em->createQuery($requete);
 
         $sorties = $query->getResult();
+        foreach ($sorties as $sortie)
+        {
+            $date = date_timestamp_get(date_create())+3600*2;
+            $datefin = $sortie->getDateHeureDebut()->getTimestamp() + $sortie->getDuree()*60;
+            $datearchive = $datefin + 2592000;
+
+            if($sortie->getDateLimiteInscription()->getTimestamp() < $date && $sortie->getEtat() == $ouverte)
+            {
+                $sortie->setEtat($cloturee);
+            }
+
+            if($sortie->getDateHeureDebut()->getTimestamp() <= $date && $date <= $datefin && $sortie->getEtat() == $cloturee)
+            {
+                $sortie->setEtat($encours);
+            }
+
+            if($datefin <= $date && ($sortie->getEtat() == $encours || $sortie->getEtat() == $cloturee || $sortie->getEtat() == $ouverte))
+            {
+                $sortie->setEtat($passee);
+            }
+
+            if($datearchive <= $date)
+            {
+                $sortie->setEtat($archive);
+            }
+
+            $em->persist($sortie);
+            $em->flush();
+        }
 
         return $this->render("ajax/listeSorties.html.twig", ['sorties' => $sorties]);
     }
