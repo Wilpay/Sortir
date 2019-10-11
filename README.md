@@ -14,9 +14,10 @@ ATTENTION : Le wamp doit être vert.<br>
 11 - Connectez-vous : 3 identifiant disponible 
 
 <ul>
-<li>Identifiant => wtenaud Mot de passe => 123  => Compte non actif</li>
-<li>Identifiant => qbaudry Mot de passe => 123</li>
-<li>Identifiant => blelodet Mot de passe => 123</li>
+<li>Identifiant => wtenaud Mot de passe => 123 => User</li>
+<li>Identifiant => qbaudry Mot de passe => 123 => Compte non actif</li>
+<li>Identifiant => blelodet Mot de passe => 123 => User</li>
+ <li>Identifiant => admin Mot de passe => 123 => Admin</li>
 </ul>
 
 Les fonctionnalitées présentes sont : 
