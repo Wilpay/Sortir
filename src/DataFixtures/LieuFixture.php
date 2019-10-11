@@ -31,6 +31,15 @@ class LieuFixture extends Fixture
         $lieu1->setLongitude(788);
         $manager->persist($lieu1);
 
+        $lieu4 = new Lieu();
+        $lieu4->setNom('Gare de Nantes');
+        $lieu4->setRue('27 Boulevard de Stalingrad');
+        $ville = $this->getReference(VilleFixture::VILLE_REFERENCE1);
+        $lieu4->setVille($ville);
+        $lieu4->setLatitude(45);
+        $lieu4->setLongitude(65);
+        $manager->persist($lieu4);
+
         $lieu2 = new Lieu();
         $lieu2->setNom('Champi');
         $lieu2->setRue('rue du centre');
@@ -39,6 +48,15 @@ class LieuFixture extends Fixture
         $lieu2->setLatitude(277);
         $lieu2->setLongitude(2);
         $manager->persist($lieu2);
+
+        $lieu5 = new Lieu();
+        $lieu5->setNom('La cave');
+        $lieu5->setRue('rue du vignoble');
+        $ville = $this->getReference(VilleFixture::VILLE_REFERENCE2);
+        $lieu5->setVille($ville);
+        $lieu5->setLatitude(421);
+        $lieu5->setLongitude(29);
+        $manager->persist($lieu5);
 
         $lieu3 = new Lieu();
         $lieu3->setNom('Notre Dame');
@@ -49,8 +67,14 @@ class LieuFixture extends Fixture
         $lieu3->setLongitude(24);
         $manager->persist($lieu3);
 
-
-
+        $lieu6 = new Lieu();
+        $lieu6->setNom('Musée');
+        $lieu6->setRue('rue de la paix');
+        $ville = $this->getReference(VilleFixture::VILLE_REFERENCE3);
+        $lieu6->setVille($ville);
+        $lieu6->setLatitude(80);
+        $lieu6->setLongitude(739);
+        $manager->persist($lieu6);
 
         $manager->flush();
 

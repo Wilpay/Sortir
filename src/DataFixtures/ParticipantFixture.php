@@ -20,6 +20,7 @@ class ParticipantFixture extends Fixture
     public const PARTICIPANT_REFERENCE1 = 'participant-ref1';
     public const PARTICIPANT_REFERENCE2 = 'participant-ref2';
     public const PARTICIPANT_REFERENCE3 = 'participant-ref3';
+    public const PARTICIPANT_REFERENCE4 = 'participant-ref4';
     /**
      * Load data fixtures with the passed EntityManager
      *
@@ -34,7 +35,7 @@ class ParticipantFixture extends Fixture
         $participant1->setPseudo('qbaudry');
         $participant1->setTelephone('0123456789');
         $participant1->setMail('quentin@gmail.com');
-        $participant1->setRoles(['ROLE_ADMIN']);
+        $participant1->setRoles(['ROLE_USER']);
         $participant1->setActif(false);
         $password = $this->encoder->encodePassword($participant1, '123');
         $participant1->setPassword($password);
@@ -60,17 +61,30 @@ class ParticipantFixture extends Fixture
         $participant3->setPseudo('blelodet');
         $participant3->setTelephone('0123456789');
         $participant3->setMail('bastien@gmail.com');
-        $participant3->setRoles(['ROLE_ADMIN']);
+        $participant3->setRoles(['ROLE_USER']);
         $participant3->setActif(true);
         $password = $this->encoder->encodePassword($participant3, '123');
         $participant3->setPassword($password);
         $site = $this->getReference(SiteFixture::SITE_REFERENCE3);
         $participant3->setSite($site);
 
+        $participant4 = new Participant();
+        $participant4->setNom('SUPER');
+        $participant4->setPrenom('Admin');
+        $participant4->setPseudo('admin');
+        $participant4->setTelephone('0123456789');
+        $participant4->setMail('admin@gmail.com');
+        $participant4->setRoles(['ROLE_ADMIN']);
+        $participant4->setActif(true);
+        $password = $this->encoder->encodePassword($participant4, '123');
+        $participant4->setPassword($password);
+        $site = $this->getReference(SiteFixture::SITE_REFERENCE1);
+        $participant4->setSite($site);
+
         $manager->persist($participant1);
         $manager->persist($participant2);
         $manager->persist($participant3);
-
+        $manager->persist($participant4);
 
         $photo1 = new Profil();
         $photo1->setParticipant($participant1);
@@ -78,15 +92,19 @@ class ParticipantFixture extends Fixture
         $photo2->setParticipant($participant2);
         $photo3 = new Profil();
         $photo3->setParticipant($participant3);
+        $photo4 = new Profil();
+        $photo3->setParticipant($participant4);
 
         $manager->persist($photo1);
         $manager->persist($photo2);
         $manager->persist($photo3);
+        $manager->persist($photo4);
 
         $manager->flush();
 
         $this->addReference(self::PARTICIPANT_REFERENCE1, $participant1);
         $this->addReference(self::PARTICIPANT_REFERENCE2, $participant2);
         $this->addReference(self::PARTICIPANT_REFERENCE3, $participant3);
+        $this->addReference(self::PARTICIPANT_REFERENCE4, $participant4);
     }
 }
