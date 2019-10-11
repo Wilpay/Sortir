@@ -8,7 +8,7 @@
     <div class="font-weight-bold col-12 col-md-4 m-auto">Lieu:</div>
     <div class="col-12 col-md-8">
         <div class="input-group">
-            <select id="sortie_lieu" name="lieu" class="custom-select">
+            <select id="sortie_lieu" name="lieu" class="custom-select" onchange="getInfosLieux(this.value);">
                 {% for lieu in lieux %}
                     <option value="{{ lieu.id }}">{{ lieu.nom }}</option>
                 {% endfor %}
