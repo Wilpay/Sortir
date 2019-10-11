@@ -93,7 +93,7 @@ class ParticipantFixture extends Fixture
         $photo3 = new Profil();
         $photo3->setParticipant($participant3);
         $photo4 = new Profil();
-        $photo3->setParticipant($participant4);
+        $photo4->setParticipant($participant4);
 
         $manager->persist($photo1);
         $manager->persist($photo2);
