@@ -198,6 +198,7 @@ class UserController extends Controller
                 $this->addFlash('warning', 'Email invalide');
                 return $this->redirectToRoute('connexion');
         }
+
     }
 
     /**
