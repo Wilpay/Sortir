@@ -14,7 +14,7 @@ ATTENTION : Le wamp doit être vert.<br>
 11 - Connectez-vous : 3 identifiant disponible 
 
 <ul>
-<li>Identifiant => wtenaud Mot de passe => 123</li>
+<li>Identifiant => wtenaud Mot de passe => 123  => Compte non actif</li>
 <li>Identifiant => qbaudry Mot de passe => 123</li>
 <li>Identifiant => blelodet Mot de passe => 123</li>
 </ul>
@@ -37,12 +37,7 @@ Les fonctionnalitées présentes sont :
 <li>Importer des utilisateurs par fichier .csv</li>
 <li>Mot de passe oublié avec email (Seulement en dev avec l'outil pour voir le mail)</li>
  <li>Annuler une sortie en tant qu'administrateur</li>
-</ul>
-
-Prochainement : 
-
-<ul>
-<li>Gérer les lieux</li>
+ <li>Gérer les lieux</li>
 <li>Désactiver des utilisateurs</li>
 <li>Supprimer des utilisateurs</li>
 <li>Gérer les villes</li>
