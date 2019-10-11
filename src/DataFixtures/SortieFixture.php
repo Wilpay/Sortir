@@ -94,7 +94,7 @@ class SortieFixture extends Fixture
         $sortie3->setLieu($lieu);
         $site = $this->getReference(SiteFixture::SITE_REFERENCE4);
         $sortie3->setSiteorganisateur($site);
-        $organisateur = $this->getReference(ParticipantFixture::PARTICIPANT_REFERENCE2);
+        $organisateur = $this->getReference(ParticipantFixture::PARTICIPANT_REFERENCE3);
         $sortie3->setOrganisateur($organisateur);
 
         $sortie4 = new Sortie();
@@ -143,7 +143,7 @@ class SortieFixture extends Fixture
         $sortie6->setLieu($lieu);
         $site = $this->getReference(SiteFixture::SITE_REFERENCE2);
         $sortie6->setSiteorganisateur($site);
-        $organisateur = $this->getReference(ParticipantFixture::PARTICIPANT_REFERENCE2);
+        $organisateur = $this->getReference(ParticipantFixture::PARTICIPANT_REFERENCE3);
         $sortie6->setOrganisateur($organisateur);
 
         $sortie7 = new Sortie();
